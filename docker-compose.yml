@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=notee
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    networks:
+      - noteenet
+    volumes:
+      - postgres_notee:/var/lib/postgresql
+      - postgres_notee_data:/var/lib/postgresql/data
+
+networks:
+  noteenet:
+    driver: bridge
+
+volumes:
+  postgres_notee:
+  postgres_notee_data:
