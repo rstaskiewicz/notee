@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(':commons')
+    implementation project(':user-account-model')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}

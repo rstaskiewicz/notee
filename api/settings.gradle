@@ -1,4 +1,7 @@
 rootProject.name = 'api'
 include 'app',
-        'user-model',
-        'user-adapters'
+        'commons',
+        'user-account-model',
+        'user-account-application',
+        'user-account-infrastructure',
+        'user-account-web'

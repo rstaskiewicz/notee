@@ -9,3 +9,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: lama.pizama.git@gmail.com
+    password: kmaltsspcezbfzei
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          timeout: 8000

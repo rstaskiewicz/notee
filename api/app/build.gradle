@@ -2,10 +2,13 @@ apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'com.bmuschko.docker-remote-api'
 
-mainClassName = "com.gitlab.notee.NoteeApplication"
+mainClassName = "com.gitlab.lamapizama.notee.user.account.NoteeApplication"
 
 dependencies {
-    implementation project(':user-adapters')
+    implementation project(':user-account-web')
+    implementation project(':user-account-infrastructure')
 
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
+    implementation 'org.springframework.security:spring-security-jwt:1.0.11.RELEASE'
 }

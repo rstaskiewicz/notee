@@ -4,10 +4,9 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    implementation project(':user-model')
+    implementation project(':commons')
+    implementation project(':user-account-model')
+    implementation project(':user-account-application')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    runtimeOnly 'org.postgresql:postgresql'
 }
