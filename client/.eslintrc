@@ -1,0 +1,26 @@
+{
+    "extends": "react-app",
+    "plugins": [
+        "react-hooks"
+    ],
+    "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "array-bracket-spacing": [
+            "error",
+            "always"
+        ]
+    }
+}
