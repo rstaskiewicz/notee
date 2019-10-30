@@ -1,9 +1,11 @@
 import React from 'react'
 
+import SignIn from './SignIn'
+
 export default () => {
 
     return (
-        <h1>Hello, World!</h1>
+        <SignIn />
     )
 
 }

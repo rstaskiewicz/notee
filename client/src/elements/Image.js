@@ -1,20 +1,19 @@
 import styled, { css } from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
 
-const IMAGE_MODFIERS = {
+const IMAGE_MODIFIERS = {
 
-    'LoginLogo': () => css`
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 10%;
+    'cover': () => css`
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
     `
 
 }
 
-
 export default styled.img`
-    max-width: 50%;
-    height: auto;
-    ${applyStyleModifiers(IMAGE_MODFIERS)}
+    display: flex;
+    flex-shrink: 1
+    ${applyStyleModifiers(IMAGE_MODIFIERS)}
 `
