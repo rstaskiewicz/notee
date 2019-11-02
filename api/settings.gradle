@@ -1,4 +1,4 @@
-rootProject.name = 'api'
+rootProject.name = 'notee-api'
 include 'app',
         'commons',
         'user-account-model',

@@ -16,6 +16,20 @@ services:
       - postgres_notee:/var/lib/postgresql
       - postgres_notee_data:/var/lib/postgresql/data
 
+  api:
+    image: notee-api
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/notee
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin  
+    networks:
+      - noteenet
+
 networks:
   noteenet:
     driver: bridge
