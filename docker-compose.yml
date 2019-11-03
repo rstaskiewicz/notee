@@ -26,7 +26,22 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/notee
       - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin  
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - NOTEE_AUTH_TOKEN_CHECKTOKENENDPOINTURL=http://auth:8081/oauth/check_token
+    networks:
+      - noteenet
+
+  auth:
+    image: notee-auth
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/notee
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
     networks:
       - noteenet
 

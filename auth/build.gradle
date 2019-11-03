@@ -1,20 +1,35 @@
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
-apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'com.bmuschko.docker-remote-api'
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'com.bmuschko.docker-remote-api' version '5.2.0'
+}
 
-mainClassName = "com.gitlab.lamapizama.notee.user.account.NoteeApplication"
+group 'com.gitlab.lamapizama'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
 
 dependencies {
-    implementation project(':user-account-web')
-    implementation project(':user-account-infrastructure')
-
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-configuration-processor'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
+    implementation 'org.springframework.security:spring-security-jwt:1.0.11.RELEASE'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    testCompileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 task createDockerfile(type: Dockerfile, dependsOn: build) {
@@ -26,7 +41,7 @@ task createDockerfile(type: Dockerfile, dependsOn: build) {
     defaultCommand '-jar', "app/${jar.archiveFileName.get()}"
     exposePort 8080
     runCommand 'apk --update --no-cache add curl'
-    instruction 'HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1'
+    instruction 'HEALTHCHECK CMD curl -f http://localhost:8081/health || exit 1'
 }
 
 task syncAppArchive(type: Sync, dependsOn: build) {
@@ -38,6 +53,6 @@ createDockerfile.dependsOn syncAppArchive
 
 task buildDockerImage(type: DockerBuildImage, dependsOn: createDockerfile) {
     inputDir = createDockerfile.getDestDir()
-    tags.add "${parent.name}:${version}"
-    tags.add "${parent.name}:latest"
+    tags.add "${project.name}:${version}"
+    tags.add "${project.name}:latest"
 }
