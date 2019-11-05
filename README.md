@@ -77,6 +77,7 @@ grant_type: password
 ```
 
 2. Resource not found example JSON
+```
 {
     "title": "Resource not found",
     "status": 404,
@@ -85,3 +86,4 @@ grant_type: password
     "exceptionName": "ResourceNotFoundException",
     "errors": {}
 }
+```
