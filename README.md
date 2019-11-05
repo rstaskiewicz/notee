@@ -52,3 +52,36 @@ grant_type: password
 ```
 
 2. Test: localhost:8080/api/test with Authorization header
+
+
+# Error handling
+
+1. Validation error JSON:
+
+```
+{
+    "title": "Validation error",
+    "status": 400,
+    "detail": "Input validation failed",
+    "timestamp": "2019-11-05T13:23:51.560Z",
+    "exceptionName": "MethodArgumentNotValidException",
+    "errors": {
+        "registerUserAccountRequest": [
+            "Passwords do not match"
+        ],
+        "email": [
+            "Email address is already in use"
+        ]
+    }
+}
+```
+
+2. Resource not found example JSON
+{
+    "title": "Resource not found",
+    "status": 404,
+    "detail": "Item does not exists",
+    "timestamp": "2019-11-05T12:59:46.096Z",
+    "exceptionName": "ResourceNotFoundException",
+    "errors": {}
+}

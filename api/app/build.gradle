@@ -8,6 +8,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 mainClassName = "com.gitlab.lamapizama.notee.user.account.NoteeApplication"
 
 dependencies {
+    implementation project(':commons')
     implementation project(':user-account-web')
     implementation project(':user-account-infrastructure')
 

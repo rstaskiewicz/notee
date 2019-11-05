@@ -1,4 +1,4 @@
-package com.gitlab.lamapizama.notee.user.account.dto;
+package com.gitlab.lamapizama.notee.user.account.request;
 
 import com.gitlab.lamapizama.notee.user.account.validation.EmailNotUsed;
 import com.gitlab.lamapizama.notee.user.account.validation.PasswordMatches;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @PasswordMatches
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserAccountCreateDto {
+public class RegisterUserAccountRequest {
 
     @NotNull
     @Email

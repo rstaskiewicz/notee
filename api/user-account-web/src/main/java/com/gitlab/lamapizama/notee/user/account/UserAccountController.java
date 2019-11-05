@@ -1,6 +1,6 @@
 package com.gitlab.lamapizama.notee.user.account;
 
-import com.gitlab.lamapizama.notee.user.account.dto.UserAccountCreateDto;
+import com.gitlab.lamapizama.notee.user.account.request.RegisterUserAccountRequest;
 import com.gitlab.lamapizama.notee.user.verification.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,8 @@ public class UserAccountController {
     private final ConfirmingUserRegistration confirmingUserRegistration;
 
     @PostMapping("/register")
-    void registerUserAccount(@RequestBody @Valid UserAccountCreateDto dto) {
-        registeringUserAccount.register(mapper.fromCreate(dto));
+    void registerUserAccount(@RequestBody @Valid RegisterUserAccountRequest request) {
+        registeringUserAccount.register(mapper.fromCreate(request));
     }
 
     @GetMapping("/confirm/{email}")
