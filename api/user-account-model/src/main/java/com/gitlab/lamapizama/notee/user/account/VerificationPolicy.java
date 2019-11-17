@@ -26,9 +26,17 @@ interface VerificationPolicy extends Function2<VerificationToken, UserAccount, E
         return right(new Allowance());
     };
 
+    VerificationPolicy userAccountIsNotConfirmedYetPolicy = (VerificationToken token, UserAccount account) -> {
+        if (account.isVerified()) {
+            return left(Rejection.withReason("The user account has already been verified"));
+        }
+        return right(new Allowance());
+    };
+
     static List<VerificationPolicy> allCurrentPolicies() {
         return List.of(
                 userMustHaveVerificationTokenAssignedPolicy,
-                expiredTokenRejectionPolicy);
+                expiredTokenRejectionPolicy,
+                userAccountIsNotConfirmedYetPolicy);
     }
 }

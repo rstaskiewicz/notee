@@ -1,0 +1,16 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+dependencies {
+    implementation project(':commons')
+    implementation project(':note-model')
+
+    implementation 'org.springframework:spring-context'
+
+    testImplementation project(':note-model').sourceSets.test.output
+}
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}

@@ -1,0 +1,46 @@
+server:
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: lama.pizama.git@gmail.com
+    password: kmaltsspcezbfzei
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          timeout: 8000
+cloud:
+  stream:
+    kafka:
+      binder:
+        brokers: localhost:9092
+    bindings:
+      eventout:
+        destination: events
+      eventin:
+        destination: events
+        group: events-consumer
+notee:
+  auth:
+    token:
+      check-token-endpoint-url: http://localhost:8081/oauth/check_token
+    client:
+      client-id: js_client
+      client-secret: secret
+

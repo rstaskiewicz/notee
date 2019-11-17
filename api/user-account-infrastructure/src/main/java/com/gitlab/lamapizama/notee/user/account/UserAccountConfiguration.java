@@ -1,12 +1,13 @@
 package com.gitlab.lamapizama.notee.user.account;
 
-import com.gitlab.lamapizama.notee.commons.events.DomainEventPublisher;
 import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
+import com.gitlab.lamapizama.notee.commons.events.EventSource;
+import com.gitlab.lamapizama.notee.commons.events.KafkaDomainEventPublisher;
+import com.gitlab.lamapizama.notee.user.account.persistance.UserAccountDao;
+import com.gitlab.lamapizama.notee.user.account.persistance.VerificationTokenDao;
 import com.gitlab.lamapizama.notee.user.verification.CreateVerificationToken;
 import com.gitlab.lamapizama.notee.user.verification.VerificationTokens;
-import com.gitlab.lamapizama.notee.user.account.persistance.VerificationTokenDao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +35,17 @@ class UserAccountConfiguration {
     }
 
     @Bean
+    UserAccounts userAccounts(UserAccountDao userAccountDao,
+                              DomainEvents domainEvents,
+                              DomainModelMapper domainModelMapper,
+                              EventSource source) {
+        return new UserAccountDatabaseRepository(userAccountDao,
+                domainEvents,
+                domainModelMapper,
+                new KafkaDomainEventPublisher(source));
+    }
+
+    @Bean
     CreateVerificationToken createVerificationToken(VerificationTokenDao verificationTokenDao) {
         return new VerificationTokenDatabaseRepository(verificationTokenDao);
     }
@@ -41,11 +53,6 @@ class UserAccountConfiguration {
     @Bean
     VerificationTokens verificationTokens(VerificationTokenDao verificationTokenDao) {
         return new VerificationTokenDatabaseRepository(verificationTokenDao);
-    }
-
-    @Bean
-    DomainEvents domainEvents(ApplicationEventPublisher applicationEventPublisher) {
-        return new DomainEventPublisher(applicationEventPublisher);
     }
 
     @Bean

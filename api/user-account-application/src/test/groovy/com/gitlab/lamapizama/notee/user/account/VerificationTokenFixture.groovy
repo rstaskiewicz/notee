@@ -1,7 +1,7 @@
 package com.gitlab.lamapizama.notee.user.account
 
-import com.gitlab.lamapizama.notee.user.verification.TokenExpiration
 import com.gitlab.lamapizama.notee.user.verification.Token
+import com.gitlab.lamapizama.notee.user.verification.TokenExpiration
 import com.gitlab.lamapizama.notee.user.verification.VerificationToken
 
 import java.time.Duration

@@ -4,12 +4,11 @@ import com.gitlab.lamapizama.notee.user.verification.VerificationToken
 import io.vavr.control.Either
 import spock.lang.Specification
 
-import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmationFailed
-import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmed
-import static com.gitlab.lamapizama.notee.user.account.UserAccountFixture.userAccount
-import static com.gitlab.lamapizama.notee.user.account.VerificationTokenFixture.anyToken
-import static com.gitlab.lamapizama.notee.user.account.VerificationTokenFixture.expiredVerificationToken
-import static com.gitlab.lamapizama.notee.user.account.VerificationTokenFixture.verificationToken
+import static UserAccountEvent.UserAccountConfirmationFailed
+import static UserAccountEvent.UserAccountConfirmed
+import static UserAccountFixture.userAccount
+import static VerificationTokenFixture.*
+import static com.gitlab.lamapizama.notee.user.account.UserAccountFixture.verifiedUserAccount
 
 class ConfirmingUserRegistrationSpec extends Specification {
 
@@ -40,6 +39,17 @@ class ConfirmingUserRegistrationSpec extends Specification {
             VerificationToken verificationToken = verificationToken()
         and:
             UserAccount userAccount = userAccount(anyToken())
+        when:
+            Either<UserAccountConfirmationFailed, UserAccountConfirmed> confirmation = userAccount.confirm(verificationToken)
+        then:
+            confirmation.isLeft()
+    }
+
+    def 'a user account cannot be confirmed more than once'() {
+        given:
+            VerificationToken verificationToken = verificationToken()
+        and:
+            UserAccount userAccount = verifiedUserAccount(verificationToken.token)
         when:
             Either<UserAccountConfirmationFailed, UserAccountConfirmed> confirmation = userAccount.confirm(verificationToken)
         then:

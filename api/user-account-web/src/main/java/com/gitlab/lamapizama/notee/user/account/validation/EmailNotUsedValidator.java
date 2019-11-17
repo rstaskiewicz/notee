@@ -14,6 +14,6 @@ public class EmailNotUsedValidator implements ConstraintValidator<EmailNotUsed, 
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
-        return !userAccounts.containsWith(new UserEmail(email));
+        return !userAccounts.containsAccountWith(new UserEmail(email));
     }
 }

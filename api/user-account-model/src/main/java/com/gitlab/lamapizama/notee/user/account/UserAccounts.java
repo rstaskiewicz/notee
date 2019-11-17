@@ -9,5 +9,5 @@ public interface UserAccounts {
 
     UserAccount publish(UserAccountEvent event);
 
-    boolean containsWith(UserEmail userEmail);
+    boolean containsAccountWith(UserEmail userEmail);
 }

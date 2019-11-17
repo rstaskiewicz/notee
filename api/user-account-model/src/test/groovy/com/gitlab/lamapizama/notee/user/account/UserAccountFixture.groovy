@@ -17,8 +17,7 @@ class UserAccountFixture {
                 userInformation(anyUserEmail()),
                 userVerificationTokens(token),
                 VerificationPolicy.allCurrentPolicies(),
-                TokenAssigningPolicy.allCurrentPolicies()
-        )
+                TokenAssigningPolicy.allCurrentPolicies())
     }
 
     static UserAccount userAccount(UserEmail userEmail, Token token) {
@@ -26,12 +25,23 @@ class UserAccountFixture {
                 userInformation(userEmail),
                 userVerificationTokens(token),
                 VerificationPolicy.allCurrentPolicies(),
-                TokenAssigningPolicy.allCurrentPolicies()
-        )
+                TokenAssigningPolicy.allCurrentPolicies())
+    }
+
+    static UserAccount verifiedUserAccount(Token token) {
+        return new UserAccount(
+                verifiedUserInformation(anyUserEmail()),
+                userVerificationTokens(token),
+                VerificationPolicy.allCurrentPolicies(),
+                TokenAssigningPolicy.allCurrentPolicies())
     }
 
     static UserInformation userInformation(UserEmail userEmail) {
         return new UserInformation(userEmail, new Username(USERNAME), new EncodedPassword(PASSWORD), false)
+    }
+
+    static UserInformation verifiedUserInformation(UserEmail userEmail) {
+        return new UserInformation(userEmail, new Username(USERNAME), new EncodedPassword(PASSWORD), true)
     }
 
     static UserVerificationTokens userVerificationTokens(Token token) {

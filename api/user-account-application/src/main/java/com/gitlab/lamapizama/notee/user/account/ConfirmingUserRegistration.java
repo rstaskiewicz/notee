@@ -1,9 +1,7 @@
 package com.gitlab.lamapizama.notee.user.account;
 
-import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
-import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmationFailed;
-import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmed;
+import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.user.verification.Token;
 import com.gitlab.lamapizama.notee.user.verification.VerificationToken;
 import com.gitlab.lamapizama.notee.user.verification.VerificationTokens;
@@ -31,19 +29,19 @@ public class ConfirmingUserRegistration {
         return Try.of(() -> {
             UserAccount userAccount = find(command.getUserEmail());
             VerificationToken verificationToken = find(command.getToken());
-            Either<UserAccountConfirmationFailed, UserAccountConfirmed> result = userAccount.confirm(verificationToken);
+            Either<UserAccountEvent.UserAccountConfirmationFailed, UserAccountEvent.UserAccountConfirmed> result = userAccount.confirm(verificationToken);
             return Match(result).of(
                     Case($Left($()), this::publishEvent),
                     Case($Right($()), this::publishEvent));
         });
     }
 
-    private Result publishEvent(UserAccountConfirmed userVerified) {
+    private Result publishEvent(UserAccountEvent.UserAccountConfirmed userVerified) {
         userAccounts.publish(userVerified);
         return Success;
     }
 
-    private Result publishEvent(UserAccountConfirmationFailed userVerificationFailed) {
+    private Result publishEvent(UserAccountEvent.UserAccountConfirmationFailed userVerificationFailed) {
         userAccounts.publish(userVerificationFailed);
         return Rejection;
     }

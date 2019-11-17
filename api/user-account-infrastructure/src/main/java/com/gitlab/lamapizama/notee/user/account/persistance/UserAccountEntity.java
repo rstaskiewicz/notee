@@ -1,11 +1,6 @@
 package com.gitlab.lamapizama.notee.user.account.persistance;
 
-import com.gitlab.lamapizama.notee.user.account.EncodedPassword;
 import com.gitlab.lamapizama.notee.user.account.UserAccountEvent;
-import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmed;
-import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.VerificationTokenAssigned;
-import com.gitlab.lamapizama.notee.user.account.UserEmail;
-import com.gitlab.lamapizama.notee.user.account.Username;
 import io.vavr.API;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,9 +16,9 @@ import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
-import static io.vavr.API.$;
-import static io.vavr.API.Case;
+import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.*;
 import static io.vavr.Predicates.instanceOf;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -46,24 +41,24 @@ public class UserAccountEntity {
 
     boolean confirmed;
 
-    @OneToMany(mappedBy = "userAccount")
+    @OneToMany(mappedBy = "userAccount", cascade = ALL)
     Set<UserVerificationTokenEntity> verificationTokens = new HashSet<>();
 
-    public UserAccountEntity(UserEmail userEmail, Username username, EncodedPassword password) {
-        this.email = userEmail.getEmail();
-        this.username = username.getUsername();
-        this.password = password.getPassword();
+    public UserAccountEntity(String userEmail, String username, String password) {
+        this.email = userEmail;
+        this.username = username;
+        this.password = password;
     }
 
     public UserAccountEntity handle(UserAccountEvent event) {
         return API.Match(event).of(
-                Case($(instanceOf(VerificationTokenAssigned.class)), this::handle),
-                Case($(instanceOf(UserAccountConfirmed.class)), this::handle)
+                API.Case(API.$(instanceOf(VerificationTokenAssigned.class)), this::handle),
+                API.Case(API.$(instanceOf(UserAccountConfirmed.class)), this::handle)
         );
     }
 
     private UserAccountEntity handle(VerificationTokenAssigned event) {
-        verificationTokens.add(new UserVerificationTokenEntity(event.getToken().getValue(), this));
+        verificationTokens.add(new UserVerificationTokenEntity(event.getToken(), this));
         return this;
     }
 

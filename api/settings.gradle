@@ -4,4 +4,9 @@ include 'app',
         'user-account-model',
         'user-account-application',
         'user-account-infrastructure',
-        'user-account-web'
+        'user-account-web',
+        'note-model',
+        'note-application',
+        'note-infrastructure',
+        'note-web'
+

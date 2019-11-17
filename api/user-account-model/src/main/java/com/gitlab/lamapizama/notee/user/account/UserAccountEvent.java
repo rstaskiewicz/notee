@@ -1,60 +1,88 @@
 package com.gitlab.lamapizama.notee.user.account;
 
 import com.gitlab.lamapizama.notee.commons.events.DomainEvent;
+import com.gitlab.lamapizama.notee.commons.policies.Rejection;
 import com.gitlab.lamapizama.notee.user.verification.Token;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.time.Instant;
-import java.util.UUID;
 
-public interface UserAccountEvent extends DomainEvent {
+public interface UserAccountEvent extends DomainEvent<String> {
 
     default UserEmail userEmail() {
+        return new UserEmail(getUserEmail());
+    }
+
+    String getUserEmail();
+
+    default String getAggregateId() {
         return getUserEmail();
     }
 
-    UserEmail getUserEmail();
-
     @Value
     class UserAccountRegistered implements UserAccountEvent {
-        @NonNull UUID eventId = UUID.randomUUID();
-        @NonNull Instant timestamp = Instant.now();
-        @NonNull UserEmail userEmail;
-        @NonNull Username username;
-        @NonNull EncodedPassword password;
-        @NonNull RegistrationContextPath contextPath;
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String username;
+        @NonNull String password;
+        @NonNull String contextPath;
+
+        static UserAccountRegistered now(UserEmail userEmail, Username username, EncodedPassword password, RegistrationContextPath path) {
+            return new UserAccountRegistered(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    username.getUsername(),
+                    password.getPassword(),
+                    path.getContextPath());
+        }
     }
 
     @Value
     class UserAccountConfirmed implements UserAccountEvent {
-        @NonNull UUID eventId = UUID.randomUUID();
-        @NonNull Instant timestamp = Instant.now();
-        @NonNull UserEmail userEmail;
+        @NonNull Instant when;
+        @NonNull String userEmail;
+
+        static UserAccountConfirmed now(UserEmail userEmail) {
+            return new UserAccountConfirmed(Instant.now(), userEmail.getEmail());
+        }
     }
 
     @Value
     class UserAccountConfirmationFailed implements UserAccountEvent {
-        @NonNull UUID eventId = UUID.randomUUID();
-        @NonNull Instant timestamp = Instant.now();
+        @NonNull Instant when;
         @NonNull String reason;
-        @NonNull UserEmail userEmail;
+        @NonNull String userEmail;
+
+        static UserAccountConfirmationFailed now(Rejection rejection, UserEmail userEmail) {
+            return new UserAccountConfirmationFailed(Instant.now(), rejection.getReason(), userEmail.getEmail());
+        }
     }
 
     @Value
     class VerificationTokenAssigned implements UserAccountEvent {
-        @NonNull UUID eventId = UUID.randomUUID();
-        @NonNull Instant timestamp = Instant.now();
-        @NonNull UserEmail userEmail;
-        @NonNull Token token;
-        @NonNull RegistrationContextPath contextPath;
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String token;
+        @NonNull String contextPath;
+
+        static VerificationTokenAssigned now(UserEmail userEmail, Token token, RegistrationContextPath contextPath) {
+            return new VerificationTokenAssigned(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    token.getValue(),
+                    contextPath.getContextPath());
+        }
     }
 
     @Value
     class VerificationTokenAssignationFailed implements UserAccountEvent {
-        @NonNull UUID eventId = UUID.randomUUID();
-        @NonNull Instant timestamp = Instant.now();
+        @NonNull Instant when;
         @NonNull String reason;
-        @NonNull UserEmail userEmail;
+        @NonNull String userEmail;
+
+        static VerificationTokenAssignationFailed now(Rejection rejection, UserEmail userEmail) {
+            return new VerificationTokenAssignationFailed(Instant.now(), rejection.getReason(), userEmail.getEmail());
+        }
     }
 }

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -24,16 +26,12 @@ public class UserVerificationTokenEntity {
 
     String token;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     UserAccountEntity userAccount;
 
     UserVerificationTokenEntity(String token, UserAccountEntity userAccount) {
         this.token = token;
-        this.userAccount = userAccount;
-    }
-
-    public void setUserAccount(UserAccountEntity userAccount) {
         this.userAccount = userAccount;
     }
 }

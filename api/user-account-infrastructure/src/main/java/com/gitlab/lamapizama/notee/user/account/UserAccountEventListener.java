@@ -13,6 +13,8 @@ class UserAccountEventListener {
 
     @EventListener
     void handle(UserAccountRegistered event) {
-        assigningVerificationToken.assign(new AssignVerificationTokenCommand(event.getUserEmail(), event.getContextPath()));
+        assigningVerificationToken.assign(new AssignVerificationTokenCommand(
+                new UserEmail(event.getUserEmail()),
+                new RegistrationContextPath(event.getContextPath())));
     }
 }

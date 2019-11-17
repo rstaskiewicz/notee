@@ -8,10 +8,10 @@ import io.vavr.control.Option
 import io.vavr.control.Try
 import spock.lang.Specification
 
-import static com.gitlab.lamapizama.notee.user.account.UserAccountFixture.anyUserEmail
-import static com.gitlab.lamapizama.notee.user.account.UserAccountFixture.userAccount
-import static com.gitlab.lamapizama.notee.user.account.VerificationTokenFixture.anyToken
-import static com.gitlab.lamapizama.notee.user.account.VerificationTokenFixture.verificationToken
+import static UserAccountFixture.anyUserEmail
+import static UserAccountFixture.userAccount
+import static VerificationTokenFixture.anyToken
+import static VerificationTokenFixture.verificationToken
 
 class ConfirmingUserRegistrationSpec extends Specification {
 

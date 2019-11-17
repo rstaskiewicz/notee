@@ -4,17 +4,17 @@ import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
 import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountRegistered;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserAccountDao;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserAccountEntity;
-import com.gitlab.lamapizama.notee.user.account.persistance.UserVerificationTokenDao;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserVerificationTokenEntity;
 import com.gitlab.lamapizama.notee.user.verification.Token;
+import io.vavr.API;
 import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.*;
 import static io.vavr.API.$;
-import static io.vavr.API.Case;
 import static io.vavr.API.Match;
 import static io.vavr.Predicates.instanceOf;
 import static java.util.stream.Collectors.toSet;
@@ -24,9 +24,9 @@ import static java.util.stream.Collectors.toSet;
 public class UserAccountDatabaseRepository implements UserAccounts {
 
     private final UserAccountDao userAccountDao;
-    private final UserVerificationTokenDao userVerificationTokenDao;
     private final DomainEvents events;
     private final DomainModelMapper domainModelMapper;
+    private final DomainEvents outboundEvents;
 
     @Override
     public Option<UserAccount> findBy(UserEmail userEmail) {
@@ -37,14 +37,19 @@ public class UserAccountDatabaseRepository implements UserAccounts {
     @Override
     public UserAccount publish(UserAccountEvent event) {
         UserAccount result = Match(event).of(
-                Case($(instanceOf(UserAccountRegistered.class)), this::createNewUserAccount),
-                Case($(), this::handleNextEvent));
+                API.Case(API.$(instanceOf(UserAccountRegistered.class)), this::createNewUserAccount),
+                API.Case($(), this::handleNextEvent));
         events.publish(event);
+
+        if (event instanceof UserAccountConfirmed) {
+            // TODO Refactor
+            outboundEvents.publish(event);
+        }
         return result;
     }
 
     @Override
-    public boolean containsWith(UserEmail userEmail) {
+    public boolean containsAccountWith(UserEmail userEmail) {
         return Option.of(userAccountDao.findByEmail(userEmail.getEmail())).isDefined();
     }
 
@@ -55,9 +60,8 @@ public class UserAccountDatabaseRepository implements UserAccounts {
     }
 
     private UserAccount handleNextEvent(UserAccountEvent event) {
-        UserAccountEntity entity = userAccountDao.findByEmail(event.userEmail().getEmail());
+        UserAccountEntity entity = userAccountDao.findByEmail(event.getUserEmail());
         entity = entity.handle(event);
-        userVerificationTokenDao.saveAll(entity.getVerificationTokens());
         entity = userAccountDao.save(entity);
         return domainModelMapper.map(entity);
     }

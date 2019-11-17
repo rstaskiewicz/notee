@@ -11,11 +11,15 @@ dependencies {
     implementation project(':commons')
     implementation project(':user-account-web')
     implementation project(':user-account-infrastructure')
+    implementation project(':note-web')
+    implementation project(':note-infrastructure')
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-stream'
+    implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
 }
 
 task createDockerfile(type: Dockerfile, dependsOn: build) {

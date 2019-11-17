@@ -24,6 +24,17 @@ spring:
           starttls:
             enable: true
           timeout: 8000
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        event-out:
+          destination: events
+        event-in:
+          destination: events
+          group: events-consumer
 notee:
   auth:
     token:
