@@ -1,6 +1,6 @@
 package com.gitlab.lamapizama.notee;
 
-import com.gitlab.lamapizama.notee.NoteeProperties.Auth.Client;
+import com.gitlab.lamapizama.notee.NoteeProperties.Auth.SwaggerClient;
 import com.gitlab.lamapizama.notee.NoteeProperties.Auth.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -46,7 +46,7 @@ class SwaggerConfig {
 
     @Bean
     SecurityConfiguration security() {
-        Client client = properties.getAuth().getClient();
+        SwaggerClient client = properties.getAuth().getSwaggerClient();
 
         return SecurityConfigurationBuilder.builder()
                 .clientId(client.getClientId())
@@ -58,7 +58,7 @@ class SwaggerConfig {
 
     private SecurityScheme securityScheme() {
         Token token = properties.getAuth().getToken();
-        Client client = properties.getAuth().getClient();
+        SwaggerClient client = properties.getAuth().getSwaggerClient();
 
         GrantType grantType = new AuthorizationCodeGrantBuilder()
                 .tokenEndpoint(new TokenEndpoint(token.getCheckTokenEndpointUrl(), "oauthtoken"))

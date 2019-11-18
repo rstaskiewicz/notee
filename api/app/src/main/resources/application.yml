@@ -40,7 +40,10 @@ notee:
     token:
       check-token-endpoint-url: http://localhost:8081/oauth/check_token
       authorization-endpoint-url: http://localhost:8081/oauth/authorize
-    client:
+    js-client:
       client-id: js_client
+      client-secret: secret
+    swagger-client:
+      client-id: swagger
       client-secret: secret
 

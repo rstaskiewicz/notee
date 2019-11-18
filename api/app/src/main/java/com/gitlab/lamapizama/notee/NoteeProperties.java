@@ -26,7 +26,8 @@ class NoteeProperties {
     static class Auth {
 
         Token token;
-        Client client;
+        JsClient jsClient;
+        SwaggerClient swaggerClient;
 
         @Getter
         @RequiredArgsConstructor
@@ -39,7 +40,15 @@ class NoteeProperties {
         @Getter
         @RequiredArgsConstructor
         @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-        static class Client {
+        static class JsClient {
+            @NotBlank String clientId;
+            @NotBlank String clientSecret;
+        }
+
+        @Getter
+        @RequiredArgsConstructor
+        @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+        static class SwaggerClient {
             @NotBlank String clientId;
             @NotBlank String clientSecret;
         }

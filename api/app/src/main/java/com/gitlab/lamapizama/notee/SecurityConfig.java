@@ -35,8 +35,8 @@ class SecurityConfig extends ResourceServerConfigurerAdapter {
     public RemoteTokenServices tokenServices() {
         final RemoteTokenServices tokenService = new RemoteTokenServices();
         tokenService.setCheckTokenEndpointUrl(properties.getAuth().getToken().getCheckTokenEndpointUrl());
-        tokenService.setClientId(properties.getAuth().getClient().getClientId());
-        tokenService.setClientSecret(properties.getAuth().getClient().getClientSecret());
+        tokenService.setClientId(properties.getAuth().getJsClient().getClientId());
+        tokenService.setClientSecret(properties.getAuth().getJsClient().getClientSecret());
         return tokenService;
     }
 }

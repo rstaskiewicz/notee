@@ -23,7 +23,7 @@ $ docker-compose up -d
 
 # Registration
 
-1. http://localhost:8081/oauth/token
+1. http://localhost:8080/api/register
 
 Example json:
 ```
@@ -87,3 +87,6 @@ grant_type: password
     "errors": {}
 }
 ```
+
+# Swagger - API documentation
+1. http://localhost:8080/api/swagger-ui.html
