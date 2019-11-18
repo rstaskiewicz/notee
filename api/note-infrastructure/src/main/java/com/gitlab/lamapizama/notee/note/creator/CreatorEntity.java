@@ -1,6 +1,7 @@
 package com.gitlab.lamapizama.notee.note.creator;
 
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreated;
+import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookDeleted;
 import io.vavr.API;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -29,7 +30,7 @@ class CreatorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     String creatorId;
@@ -48,11 +49,17 @@ class CreatorEntity {
 
     CreatorEntity handle(CreatorEvent event) {
         return API.Match(event).of(
-                Case($(instanceOf(NotebookCreated.class)), this::handle));
+                Case($(instanceOf(NotebookCreated.class)), this::handle),
+                Case($(instanceOf(NotebookDeleted.class)), this::handle));
     }
 
     private CreatorEntity handle(NotebookCreated event) {
         possessions.add(new PossessionEntity(event.getNotebookId(), event.getNotebookName(), this));
+        return this;
+    }
+
+    private CreatorEntity handle(NotebookDeleted event) {
+        possessions.remove(new PossessionEntity(event.getNotebookId(), this));
         return this;
     }
 }

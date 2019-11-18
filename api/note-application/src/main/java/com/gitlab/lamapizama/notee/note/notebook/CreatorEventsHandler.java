@@ -1,11 +1,12 @@
 package com.gitlab.lamapizama.notee.note.notebook;
 
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreated;
-import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookDeleted;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 class CreatorEventsHandler {
 
@@ -17,11 +18,5 @@ class CreatorEventsHandler {
                 new NotebookId(event.getNotebookId()),
                 new NotebookName(event.getNotebookName()),
                 new CreatorId(event.getCreatorId())));
-    }
-
-    @EventListener
-    void handle(NotebookDeleted event) {
-        notebooks.findBy(new NotebookId(event.getNotebookId()))
-                .peek(notebooks::remove);
     }
 }

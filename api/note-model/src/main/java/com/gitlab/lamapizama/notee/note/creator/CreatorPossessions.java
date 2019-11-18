@@ -19,6 +19,8 @@ class CreatorPossessions {
     }
 
     int count() {
+        int size = possessions.size();
+        System.out.println(size);
         return possessions.size();
     }
 }

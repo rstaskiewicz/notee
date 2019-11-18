@@ -7,6 +7,4 @@ interface Notebooks {
     Option<Notebook> findBy(NotebookId notebookId);
 
     void save(Notebook notebook);
-
-    void remove(Notebook notebook);
 }

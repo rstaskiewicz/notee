@@ -1,6 +1,6 @@
 package com.gitlab.lamapizama.notee.note.notebook
 
-
+import com.gitlab.lamapizama.notee.note.creator.CreatorId
 import io.vavr.collection.HashSet
 
 import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.someCreatorId
@@ -13,6 +13,20 @@ class NotebookFixture {
         return new Notebook(
                 new NotebookInformation(anyNotebookId(), someNotebookName()),
                 someCreatorId(),
+                noEntries())
+    }
+
+    static Notebook notebook(CreatorId creatorId, NotebookName notebookName) {
+        return new Notebook(
+                new NotebookInformation(anyNotebookId(), notebookName),
+                creatorId,
+                noEntries())
+    }
+
+    static Notebook notebook(CreatorId creatorId, NotebookId notebookId, NotebookName notebookName) {
+        return new Notebook(
+                new NotebookInformation(notebookId, notebookName),
+                creatorId,
                 noEntries())
     }
 

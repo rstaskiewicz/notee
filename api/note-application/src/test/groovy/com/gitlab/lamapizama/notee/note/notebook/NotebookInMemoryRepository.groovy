@@ -15,9 +15,4 @@ class NotebookInMemoryRepository implements Notebooks {
     void save(Notebook notebook) {
         notebooks.put(notebook.notebookId(), notebook)
     }
-
-    @Override
-    void remove(Notebook notebook) {
-        notebooks.remove(notebook)
-    }
 }

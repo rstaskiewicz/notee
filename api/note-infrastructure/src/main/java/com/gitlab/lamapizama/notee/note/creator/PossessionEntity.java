@@ -16,15 +16,15 @@ import java.util.UUID;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(of = {"notebookId", "creator"})
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 class PossessionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     UUID notebookId;
 
     @Column(nullable = false)
@@ -37,6 +37,11 @@ class PossessionEntity {
     PossessionEntity(UUID notebookId, String notebookName, CreatorEntity creator) {
         this.notebookId = notebookId;
         this.notebookName = notebookName;
+        this.creator = creator;
+    }
+
+    PossessionEntity(UUID notebookId, CreatorEntity creator) {
+        this.notebookId = notebookId;
         this.creator = creator;
     }
 }
