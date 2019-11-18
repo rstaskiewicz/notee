@@ -19,7 +19,14 @@ class SecurityConfig extends ResourceServerConfigurerAdapter {
     public void configure(final HttpSecurity http) throws Exception {
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/register/**", "/confirm/**").permitAll()
+                .antMatchers(
+                        "/register/**",
+                        "/confirm/**",
+                        "/v2/api-docs",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html",
+                        "/webjars/**")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and().cors().disable();
     }

@@ -39,6 +39,7 @@ notee:
   auth:
     token:
       check-token-endpoint-url: http://localhost:8081/oauth/check_token
+      authorization-endpoint-url: http://localhost:8081/oauth/authorize
     client:
       client-id: js_client
       client-secret: secret

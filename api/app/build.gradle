@@ -20,6 +20,8 @@ dependencies {
     implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
     implementation 'org.springframework.cloud:spring-cloud-stream'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 }
 
 task createDockerfile(type: Dockerfile, dependsOn: build) {

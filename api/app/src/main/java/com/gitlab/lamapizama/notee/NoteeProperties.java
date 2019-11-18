@@ -14,14 +14,11 @@ import javax.validation.constraints.NotBlank;
 @Validated
 @ConstructorBinding
 @ConfigurationProperties("notee")
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 class NoteeProperties {
 
     Auth auth;
-
-    public NoteeProperties(Auth auth) {
-        this.auth = auth;
-    }
 
     @Getter
     @RequiredArgsConstructor
@@ -36,6 +33,7 @@ class NoteeProperties {
         @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
         static class Token {
             @NotBlank String checkTokenEndpointUrl;
+            @NotBlank String authorizationEndpointUrl;
         }
 
         @Getter
