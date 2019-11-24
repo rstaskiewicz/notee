@@ -15,4 +15,9 @@ class NotebookInMemoryRepository implements Notebooks {
     void save(Notebook notebook) {
         notebooks.put(notebook.notebookId(), notebook)
     }
+
+    @Override
+    Notebook publish(NotebookEvent event) {
+        return null
+    }
 }

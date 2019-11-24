@@ -1,4 +1,4 @@
-package com.gitlab.lamapizama.notee.note.creator;
+package com.gitlab.lamapizama.notee.note.notebook;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,33 +17,33 @@ import java.util.UUID;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"notebookName", "creator_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"entryName", "notebook_id"}))
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"possessionId", "creator"})
-class PossessionEntity {
+@EqualsAndHashCode(of = {"entryId", "notebook"})
+class NotebookEntryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    UUID possessionId;
+    UUID entryId;
 
     @Column(nullable = false)
-    String notebookName;
+    String entryName;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "creator_id", nullable = false)
-    CreatorEntity creator;
+    @JoinColumn(name = "notebook_id", nullable = false)
+    NotebookEntity notebook;
 
-    PossessionEntity(UUID possessionId, String notebookName, CreatorEntity creator) {
-        this.possessionId = possessionId;
-        this.notebookName = notebookName;
-        this.creator = creator;
+    NotebookEntryEntity(UUID entryId, String entryName, NotebookEntity notebook) {
+        this.entryId = entryId;
+        this.entryName = entryName;
+        this.notebook = notebook;
     }
 
-    PossessionEntity(UUID possessionId, CreatorEntity creator) {
-        this.possessionId = possessionId;
-        this.creator = creator;
+    NotebookEntryEntity(UUID entryId, NotebookEntity notebook) {
+        this.entryId = entryId;
+        this.notebook = notebook;
     }
 }

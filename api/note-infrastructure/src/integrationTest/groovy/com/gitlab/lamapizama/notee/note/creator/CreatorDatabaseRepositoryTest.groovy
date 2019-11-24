@@ -11,7 +11,7 @@ import spock.lang.Specification
 import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.CreatorCreated
 import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreated
 import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.regularCreator
-import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.someCreatorId
+import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.anyCreatorId
 import static com.gitlab.lamapizama.notee.note.creator.CreatorType.Regular
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.anyNotebookId
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.someNotebookName
@@ -20,7 +20,7 @@ import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.someNote
 @DataJpaTest
 class CreatorDatabaseRepositoryTest extends Specification {
 
-    CreatorId creatorId = someCreatorId()
+    CreatorId creatorId = anyCreatorId()
     NotebookId notebookId = anyNotebookId()
     NotebookName notebookName = someNotebookName()
 

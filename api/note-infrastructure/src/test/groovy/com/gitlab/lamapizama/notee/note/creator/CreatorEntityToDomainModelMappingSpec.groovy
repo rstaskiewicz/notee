@@ -7,7 +7,7 @@ import io.vavr.Tuple
 import io.vavr.Tuple2
 import spock.lang.Specification
 
-import static CreatorFixture.someCreatorId
+import static CreatorFixture.anyCreatorId
 import static CreatorType.Regular
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.anyNotebookId
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.someNotebookName
@@ -16,7 +16,7 @@ class CreatorEntityToDomainModelMappingSpec extends Specification {
 
     CreatorDomainModelMapper domainModelMapper = new CreatorDomainModelMapper(new CreatorFactory())
 
-    CreatorId creatorId = someCreatorId()
+    CreatorId creatorId = anyCreatorId()
     NotebookId notebookId = anyNotebookId()
     NotebookId anotherNotebookId = anyNotebookId()
     NotebookName notebookName = someNotebookName()
@@ -36,8 +36,8 @@ class CreatorEntityToDomainModelMappingSpec extends Specification {
     CreatorEntity regularCreatorEntityWithPossessions() {
         CreatorEntity entity = new CreatorEntity(creatorId, Regular)
         entity.possessions = [
-                new PossessionEntity(notebookId.notebookId, notebookName.name, entity),
-                new PossessionEntity(anotherNotebookId.notebookId, anotherNotebookName.name, entity)]
+                new PossessionEntity(notebookId.id, notebookName.name, entity),
+                new PossessionEntity(anotherNotebookId.id, anotherNotebookName.name, entity)]
         return entity
     }
 }

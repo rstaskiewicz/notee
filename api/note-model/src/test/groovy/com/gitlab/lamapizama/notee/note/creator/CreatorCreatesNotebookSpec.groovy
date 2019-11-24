@@ -35,7 +35,7 @@ class CreatorCreatesNotebookSpec extends Specification {
             creation.isRight()
             creation.get().with {
                 assert it.notebookName == notebookName.name
-                assert it.creatorId == creator.creatorId().email
+                assert it.creatorId == creator.creatorId().id
             }
     }
 }

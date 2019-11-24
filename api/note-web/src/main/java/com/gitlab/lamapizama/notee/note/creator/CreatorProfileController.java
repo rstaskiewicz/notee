@@ -14,25 +14,24 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/profiles/{creatorId}/notebooks")
+@RequestMapping("/profiles/{creatorId}")
 @RequiredArgsConstructor
-public class NotebookController {
+public class CreatorProfileController {
 
     private final CreatingNotebook creatingNotebook;
     private final DeletingNotebook deletingNotebook;
 
-    @PostMapping
+    @PostMapping("/notebooks")
     void createNotebook(@PathVariable String creatorId, @RequestBody @Valid CreateNotebookRequest request) {
         creatingNotebook.create(new CreateNotebook(
                 new CreatorId(creatorId),
                 new NotebookName(request.getName())));
     }
 
-    @DeleteMapping("/notebookId")
+    @DeleteMapping("/notebooks/{notebookId}")
     void deleteNotebook(@PathVariable String creatorId, @PathVariable UUID notebookId) {
         deletingNotebook.delete(new DeleteNotebook(
                 new CreatorId(creatorId),
                 new NotebookId(notebookId)));
     }
-
 }

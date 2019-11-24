@@ -13,7 +13,7 @@ import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.someNote
 
 class CreatingNotebookSpec extends Specification {
 
-    CreatorId creatorId = someCreatorId()
+    CreatorId creatorId = anyCreatorId()
 
     Creators creators = Stub()
 
@@ -64,7 +64,7 @@ class CreatingNotebookSpec extends Specification {
     }
 
     CreatorId unknownCreator() {
-        return someCreatorId()
+        return anyCreatorId()
     }
 
     CreatorId persistedRegularCreatorThatFailsOnSaving() {

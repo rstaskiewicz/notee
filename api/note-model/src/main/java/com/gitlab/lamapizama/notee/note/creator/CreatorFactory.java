@@ -13,7 +13,7 @@ public class CreatorFactory {
         return new Creator(
                 new CreatorInformation(creatorId, creatorType),
                 new CreatorPossessions(possessions.stream()
-                .map(tuple -> new Possession(tuple._1, tuple._2))
-                .collect(HashSet.collector())));
+                        .map(tuple -> new Possession(tuple._1, tuple._2))
+                        .collect(HashSet.collector())));
     }
 }

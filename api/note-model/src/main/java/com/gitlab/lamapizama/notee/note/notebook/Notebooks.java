@@ -7,4 +7,6 @@ interface Notebooks {
     Option<Notebook> findBy(NotebookId notebookId);
 
     void save(Notebook notebook);
+
+    Notebook publish(NotebookEvent event);
 }

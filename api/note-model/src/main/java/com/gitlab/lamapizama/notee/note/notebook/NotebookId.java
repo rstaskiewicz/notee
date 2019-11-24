@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @Value
 public class NotebookId {
-    @NonNull UUID notebookId;
+    @NonNull UUID id;
 }

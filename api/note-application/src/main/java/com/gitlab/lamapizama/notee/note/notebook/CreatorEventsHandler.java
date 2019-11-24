@@ -11,10 +11,11 @@ import org.springframework.stereotype.Component;
 class CreatorEventsHandler {
 
     private final Notebooks notebooks;
+    private final NotebookFactory notebookFactory = new NotebookFactory();
 
     @EventListener
     void handle(NotebookCreated event) {
-        notebooks.save(new Notebook(
+        notebooks.save(notebookFactory.create(
                 new NotebookId(event.getNotebookId()),
                 new NotebookName(event.getNotebookName()),
                 new CreatorId(event.getCreatorId())));

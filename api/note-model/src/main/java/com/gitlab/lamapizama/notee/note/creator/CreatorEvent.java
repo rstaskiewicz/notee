@@ -29,7 +29,7 @@ public interface CreatorEvent extends DomainEvent<String> {
         @NonNull CreatorType creatorType;
 
         static CreatorCreated now(CreatorId creatorId, CreatorType type) {
-            return new CreatorCreated(creatorId.getEmail(), Instant.now(), type);
+            return new CreatorCreated(creatorId.getId(), Instant.now(), type);
         }
     }
 
@@ -41,7 +41,7 @@ public interface CreatorEvent extends DomainEvent<String> {
         @NonNull String notebookName;
 
         static NotebookCreated now(NotebookId notebookId, NotebookName notebookName, CreatorId creatorId) {
-            return new NotebookCreated(creatorId.getEmail(), Instant.now(), notebookId.getNotebookId(), notebookName.getName());
+            return new NotebookCreated(creatorId.getId(), Instant.now(), notebookId.getId(), notebookName.getName());
         }
     }
 
@@ -52,7 +52,7 @@ public interface CreatorEvent extends DomainEvent<String> {
         @NonNull String reason;
 
         static NotebookCreationFailed now(Rejection rejection, CreatorId creatorId) {
-            return new NotebookCreationFailed(creatorId.getEmail(), Instant.now(), rejection.getReason());
+            return new NotebookCreationFailed(creatorId.getId(), Instant.now(), rejection.getReason());
         }
     }
 
@@ -62,7 +62,7 @@ public interface CreatorEvent extends DomainEvent<String> {
         @NonNull Instant when;
         @NonNull UUID notebookId;
         static NotebookDeleted now(NotebookId notebookId, CreatorId creatorId) {
-            return new NotebookDeleted(creatorId.getEmail(), Instant.now(), notebookId.getNotebookId());
+            return new NotebookDeleted(creatorId.getId(), Instant.now(), notebookId.getId());
         }
     }
 
@@ -73,7 +73,7 @@ public interface CreatorEvent extends DomainEvent<String> {
         @NonNull String reason;
 
         static NotebookDeletingFailed now(Rejection rejection, CreatorId creatorId) {
-            return new NotebookDeletingFailed(creatorId.getEmail(), Instant.now(), rejection.getReason());
+            return new NotebookDeletingFailed(creatorId.getId(), Instant.now(), rejection.getReason());
         }
     }
 }

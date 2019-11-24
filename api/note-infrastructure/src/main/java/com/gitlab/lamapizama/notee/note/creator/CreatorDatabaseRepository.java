@@ -3,7 +3,6 @@ package com.gitlab.lamapizama.notee.note.creator;
 import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookName;
-import io.vavr.API;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Option;
@@ -13,8 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.*;
+import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.CreatorCreated;
 import static io.vavr.API.$;
+import static io.vavr.API.Case;
 import static io.vavr.API.Match;
 import static io.vavr.Predicates.instanceOf;
 
@@ -28,15 +28,15 @@ class CreatorDatabaseRepository implements Creators {
 
     @Override
     public Option<Creator> findBy(CreatorId creatorId) {
-        return Option.of(creatorDao.findByCreatorId(creatorId.getEmail()))
+        return Option.of(creatorDao.findByCreatorId(creatorId.getId()))
                 .map(domainModelMapper::map);
     }
 
     @Override
     public Creator publish(CreatorEvent event) {
         Creator result = Match(event).of(
-                API.Case(API.$(instanceOf(CreatorCreated.class)), this::createNewCreator),
-                API.Case($(), this::handleNextEvent));
+                Case($(instanceOf(CreatorCreated.class)), this::createNewCreator),
+                Case($(), this::handleNextEvent));
         events.publish(event);
         return result;
     }
@@ -69,7 +69,7 @@ class CreatorDomainModelMapper {
     Set<Tuple2<NotebookId, NotebookName>> mapCreatorPossessions(CreatorEntity entity) {
         return entity.possessions.stream()
                 .map(possessionEntity -> Tuple.of(
-                        new NotebookId(possessionEntity.notebookId), new NotebookName(possessionEntity.notebookName)))
+                        new NotebookId(possessionEntity.possessionId), new NotebookName(possessionEntity.notebookName)))
                 .collect(Collectors.toSet());
     }
 }

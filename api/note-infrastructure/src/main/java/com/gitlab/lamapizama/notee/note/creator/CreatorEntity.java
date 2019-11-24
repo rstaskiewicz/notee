@@ -3,7 +3,6 @@ package com.gitlab.lamapizama.notee.note.creator;
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreated;
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookDeleted;
 import io.vavr.API;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +23,8 @@ import static io.vavr.Predicates.instanceOf;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
+@NoArgsConstructor
 @EqualsAndHashCode(of = {"creatorId", "creatorType"})
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
 class CreatorEntity {
 
     @Id
@@ -39,11 +38,11 @@ class CreatorEntity {
     @Enumerated(EnumType.STRING)
     CreatorType creatorType;
 
-    @OneToMany(mappedBy = "creator", cascade = ALL)
+    @OneToMany(mappedBy = "creator", cascade = ALL, orphanRemoval = true)
     Set<PossessionEntity> possessions = new HashSet<>();
 
     CreatorEntity(CreatorId creatorId, CreatorType creatorType) {
-        this.creatorId = creatorId.getEmail();
+        this.creatorId = creatorId.getId();
         this.creatorType = creatorType;
     }
 

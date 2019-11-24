@@ -5,7 +5,7 @@ import com.gitlab.lamapizama.notee.note.creator.CreatorId
 import io.vavr.control.Option
 import spock.lang.Specification
 
-import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.someCreatorId
+import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.anyCreatorId
 import static NotebookFixture.anyNotebookId
 import static NotebookFixture.someNotebookName
 
@@ -13,7 +13,7 @@ class CreatorEventsHandlerSpec extends Specification {
 
     NotebookId notebookId = anyNotebookId()
     NotebookName notebookName = someNotebookName()
-    CreatorId creatorId = someCreatorId()
+    CreatorId creatorId = anyCreatorId()
 
     Notebooks notebooks = new NotebookInMemoryRepository()
     CreatorEventsHandler handler = new CreatorEventsHandler(notebooks)

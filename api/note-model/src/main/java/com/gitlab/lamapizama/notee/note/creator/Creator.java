@@ -50,6 +50,10 @@ public class Creator {
                 Rejection.withReason("Notebook is not in the possession of creator"), creator.getCreatorId()));
     }
 
+    public CreatorId id() {
+        return creator.getCreatorId();
+    }
+
     int numberOfPossessions() {
         return possessions.count();
     }

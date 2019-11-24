@@ -7,10 +7,14 @@ import static CreatorType.Regular
 
 class CreatorFixture {
 
-    static final String CREATOR_EMAIL = 'creator@email.com'
+    static final String CREATOR_EMAIL_SUFFIX = '@email.com'
+
+    static CreatorId anyCreatorId() {
+        return new CreatorId(UUID.randomUUID().toString() + CREATOR_EMAIL_SUFFIX);
+    }
 
     static Creator regularCreator() {
-        return regularCreator(someCreatorId());
+        return regularCreator(anyCreatorId());
     }
 
     static Creator regularCreator(CreatorId creatorId) {
@@ -21,12 +25,8 @@ class CreatorFixture {
 
     static Creator regularCreatorWith(Notebook notebook) {
         return new Creator(
-                creatorInformation(someCreatorId(), Regular),
+                creatorInformation(anyCreatorId(), Regular),
                 possessions(notebook))
-    }
-
-    static CreatorId someCreatorId() {
-        return new CreatorId(CREATOR_EMAIL);
     }
 
     private static CreatorInformation creatorInformation(CreatorId creatorId, CreatorType type) {

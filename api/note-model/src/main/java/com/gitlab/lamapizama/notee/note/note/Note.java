@@ -1,22 +1,28 @@
 package com.gitlab.lamapizama.notee.note.note;
 
+import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@EqualsAndHashCode(of = "note")
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Note {
 
     @NonNull
     NoteInformation note;
 
-    public NoteId getNoteId() {
+    @NonNull
+    NotebookId container;
+
+    public NoteId id() {
         return note.getNoteId();
     }
 
-    boolean isPrivate() {
-        return note.isPrivate();
+    public NoteName name() {
+        return note.getNoteName();
     }
 }

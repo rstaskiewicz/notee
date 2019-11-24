@@ -49,7 +49,7 @@ public class CreatingNotebook {
 
     private Creator find(CreatorId creatorId) {
         return creators.findBy(creatorId)
-                .getOrElseThrow(() -> new ResourceNotFoundException(("Creator with given id does not exists: " + creatorId.getEmail())));
+                .getOrElseThrow(() -> new ResourceNotFoundException(("Creator with given id does not exists: " + creatorId.getId())));
     }
 }
 

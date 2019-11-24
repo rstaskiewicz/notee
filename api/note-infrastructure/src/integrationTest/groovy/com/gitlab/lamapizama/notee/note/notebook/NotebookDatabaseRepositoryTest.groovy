@@ -7,14 +7,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 
-import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.someCreatorId
+import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.anyCreatorId
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.*
 
 @Transactional
 @DataJpaTest
 class NotebookDatabaseRepositoryTest extends Specification {
 
-    CreatorId creatorId = someCreatorId()
+    CreatorId creatorId = anyCreatorId()
     NotebookId notebookId = anyNotebookId()
     NotebookName notebookName = someNotebookName()
 

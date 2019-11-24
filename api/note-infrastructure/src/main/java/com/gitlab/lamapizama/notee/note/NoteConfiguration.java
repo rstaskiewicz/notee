@@ -1,4 +1,4 @@
-package com.gitlab.lamapizama.notee.note.creator;
+package com.gitlab.lamapizama.notee.note;
 
 import com.gitlab.lamapizama.notee.commons.events.DomainEventPublisher;
 import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
@@ -16,10 +16,5 @@ public class NoteConfiguration {
     @Primary
     DomainEvents domainEvents(ApplicationEventPublisher applicationEventPublisher) {
         return new DomainEventPublisher(applicationEventPublisher);
-    }
-
-    @Bean
-    CreatorDomainModelMapper creatorDomainModelMapper() {
-        return new CreatorDomainModelMapper(new CreatorFactory());
     }
 }

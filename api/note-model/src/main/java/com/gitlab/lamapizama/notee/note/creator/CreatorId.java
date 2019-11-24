@@ -5,5 +5,5 @@ import lombok.Value;
 
 @Value
 public class CreatorId {
-    @NonNull String email;
+    @NonNull String id;
 }

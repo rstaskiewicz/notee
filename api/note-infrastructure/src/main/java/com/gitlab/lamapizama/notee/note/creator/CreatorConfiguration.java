@@ -1,4 +1,4 @@
-package com.gitlab.lamapizama.notee.note.notebook;
+package com.gitlab.lamapizama.notee.note.creator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
-public class NotebookConfiguration {
+public class CreatorConfiguration {
 
     @Bean
-    NotebookDomainModelMapper notebookDomainModelMapper() {
-        return new NotebookDomainModelMapper(new NotebookFactory());
+    CreatorDomainModelMapper creatorDomainModelMapper() {
+        return new CreatorDomainModelMapper(new CreatorFactory());
     }
 }
