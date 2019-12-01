@@ -16,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/notebooks/{notebookId}")
 @RequiredArgsConstructor
-public class NotebookController {
+class NotebookController {
 
     private final EnteringNote enteringNote;
     private final DeletingNote deletingNote;

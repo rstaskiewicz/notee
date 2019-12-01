@@ -1,10 +1,10 @@
 package com.gitlab.lamapizama.notee.note.note;
 
-import io.vavr.control.Option;
-
 interface Notes {
 
-    Option<Note> findBy(NoteId noteId);
+    Note getBy(NoteId noteId);
 
     void save(Note note);
+
+    void publish(NoteEvent event);
 }

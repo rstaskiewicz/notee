@@ -46,7 +46,7 @@ public class Notebook {
     public Either<NoteEnteringFailed, NoteEntered> enterNote(NoteName noteName, NoteType noteType, CreatorId creatorId) {
         Option<Rejection> rejection = noteCanBeEntered(creatorId, noteName);
         if (rejection.isEmpty()) {
-            return announceSuccess(NoteEntered.now(generateNoteId(), noteName, noteType, notebookId(), creatorId));
+            return announceSuccess(NoteEntered.now(generateNoteId(), noteName, noteType, notebookId()));
         }
         return announceFailure(NoteEnteringFailed.now(rejection.get(), notebookId(), creatorId));
     }

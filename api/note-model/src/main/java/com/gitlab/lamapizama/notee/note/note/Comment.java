@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.note.note;
 
+import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,4 +15,7 @@ class Comment {
 
     @NonNull
     CommentContent content;
+
+    @NonNull
+    CreatorId commenterId;
 }

@@ -9,8 +9,8 @@ import io.vavr.control.Try
 import spock.lang.Specification
 
 import static com.gitlab.lamapizama.notee.note.creator.CreatorFixture.anyCreatorId
-import static com.gitlab.lamapizama.notee.note.note.NoteFixture.publicNote
 import static com.gitlab.lamapizama.notee.note.note.NoteFixture.anyNoteName
+import static com.gitlab.lamapizama.notee.note.note.NoteFixture.publicNote
 import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.*
 
 class EnteringNoteSpec extends Specification {
@@ -93,6 +93,6 @@ class EnteringNoteSpec extends Specification {
     }
 
     EnterNote command() {
-        return new EnterNote(notebookId, anyCreatorId(), anyNoteName(), NoteType.Public)
+        return new EnterNote(notebookId, anyNoteName(), NoteType.Public)
     }
 }

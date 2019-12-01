@@ -1,16 +1,14 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
+apply plugin: 'org.springframework.boot'
+
+bootJar.enabled = false
+jar.enabled = true
 
 dependencies {
     implementation project(':commons')
     implementation project(':note-model')
 
-    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework.boot:spring-boot-starter'
 
     testImplementation project(':note-model').sourceSets.test.output
 }
 
-dependencyManagement {
-    imports {
-        mavenBom SpringBootPlugin.BOM_COORDINATES
-    }
-}

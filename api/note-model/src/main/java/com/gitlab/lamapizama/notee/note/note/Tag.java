@@ -4,6 +4,6 @@ import lombok.NonNull;
 import lombok.Value;
 
 @Value
-class CommentId {
-    @NonNull Integer id;
+public class Tag {
+    @NonNull String value;
 }

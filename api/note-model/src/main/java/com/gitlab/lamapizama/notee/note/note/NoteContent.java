@@ -1,4 +1,13 @@
 package com.gitlab.lamapizama.notee.note.note;
 
-public class NoteContent {
+import lombok.NonNull;
+import lombok.Value;
+
+@Value
+class NoteContent {
+    @NonNull String content;
+
+    static NoteContent empty() {
+        return new NoteContent("");
+    }
 }

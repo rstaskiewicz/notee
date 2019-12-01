@@ -9,7 +9,6 @@ import com.gitlab.lamapizama.notee.note.note.NoteType;
 import lombok.NonNull;
 import lombok.Value;
 
-import javax.annotation.Nonnull;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -29,16 +28,14 @@ public interface NotebookEvent extends DomainEvent<UUID> {
     class NoteEntered implements NotebookEvent {
         @NonNull UUID notebookId;
         @NonNull Instant when;
-        @NonNull String creatorId;
-        @Nonnull UUID NoteId;
+        @NonNull UUID NoteId;
         @NonNull String noteName;
         @NonNull NoteType noteType;
 
-        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, NotebookId notebookId, CreatorId creatorId) {
+        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, NotebookId notebookId) {
             return new NoteEntered(
                     notebookId.getId(),
                     Instant.now(),
-                    creatorId.getId(),
                     noteId.getId(),
                     noteName.getName(),
                     noteType);

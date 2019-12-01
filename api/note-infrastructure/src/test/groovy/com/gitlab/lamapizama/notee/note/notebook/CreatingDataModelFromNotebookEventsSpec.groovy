@@ -1,6 +1,6 @@
 package com.gitlab.lamapizama.notee.note.notebook
 
-import com.gitlab.lamapizama.notee.note.creator.CreatorId
+
 import com.gitlab.lamapizama.notee.note.note.NoteId
 import com.gitlab.lamapizama.notee.note.note.NoteName
 import com.gitlab.lamapizama.notee.note.note.NoteType
@@ -15,7 +15,6 @@ import static com.gitlab.lamapizama.notee.note.notebook.NotebookFixture.someNote
 class CreatingDataModelFromNotebookEventsSpec extends Specification {
 
     NotebookId notebookId = anyNotebookId()
-    CreatorId creatorId = anyCreatorId()
     NoteId noteId = anyNoteId()
     NoteName noteName = anyNoteName()
 
@@ -30,10 +29,10 @@ class CreatingDataModelFromNotebookEventsSpec extends Specification {
     }
 
     NotebookEntity noteBookEntity() {
-        return new NotebookEntity(notebookId, someNotebookName(), creatorId)
+        return new NotebookEntity(notebookId, someNotebookName(), anyCreatorId())
     }
 
     NotebookEvent.NoteEntered noteEntered() {
-        return NotebookEvent.NoteEntered.now(noteId, noteName, NoteType.Public, notebookId, creatorId)
+        return NotebookEvent.NoteEntered.now(noteId, noteName, NoteType.Public, notebookId)
     }
 }

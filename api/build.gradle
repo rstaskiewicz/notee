@@ -28,6 +28,9 @@ subprojects {
     dependencies {
         implementation 'io.vavr:vavr:0.10.2'
         implementation 'com.google.guava:guava:28.1-jre'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
+        implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.6'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.6'
 
         compileOnly 'org.projectlombok:lombok'
 
