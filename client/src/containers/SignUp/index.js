@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import SignUp from '../../layout/SignUp'
 import { Image, P, A, Button } from '../../elements'
@@ -10,6 +11,8 @@ import Checkbox from '../../components/Checkbox'
 import Headshot from '../../components/Headshot'
 
 export default () => {
+
+    const history = useHistory()
 
     return (
         <SignUp>
@@ -85,7 +88,12 @@ export default () => {
 
                     <SignUp.ButtonGroup>
 
-                        <Button modifiers={[ 'full-width', 'primary' ]}>Register</Button>
+                        <Button
+                            onClick={() => history.push('/dashboard')}
+                            modifiers={[ 'full-width', 'primary' ]}
+                        >
+                            Register
+                        </Button>
 
                     </SignUp.ButtonGroup>
 

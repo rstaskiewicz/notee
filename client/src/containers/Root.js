@@ -1,12 +1,23 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
-import SingIn from './SignIn'
+import SignIn from './SignIn'
 import SignUp from './SignUp'
+import Dashboard from './Dashboard'
 
-export default () => {
+const Root = () => {
 
     return (
-        <SignUp />
+        <Router>
+            <Switch>
+                <Route path='/sign-in' component={SignIn} />
+                <Route path='/sign-up' component={SignUp} />
+                <Route path='/dashboard' component={Dashboard} />
+                <Redirect path="*" to="/sign-in" />
+            </Switch>
+        </Router>
     )
 
 }
+
+export default Root
