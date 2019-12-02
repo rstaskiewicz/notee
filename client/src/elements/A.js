@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { applyStyleModifiers } from 'styled-components-modifiers'
+
+const A_MODIFIERS = {
+
+    'active': () => css`
+        color: #3454f5;
+    `
+
+}
 
 export default styled.a`
     font-family: 'Open Sans', 'sans-serif';
@@ -10,5 +19,7 @@ export default styled.a`
     &:hover {
         color: #3454f5;
     }
+
+    ${applyStyleModifiers(A_MODIFIERS)}
 
 `

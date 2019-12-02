@@ -19,7 +19,7 @@ const BUTTON_MODFIERS = {
 
 }
 
-export default styled.button`
+const Button = styled.button`
     font-size: .75em;
     font-family: 'Open Sans', 'sans-serif';
     font-weight: 700;
@@ -49,3 +49,5 @@ export default styled.button`
 
     ${applyStyleModifiers(BUTTON_MODFIERS)}
 `
+
+export default Button
