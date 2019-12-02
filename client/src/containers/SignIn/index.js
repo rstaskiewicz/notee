@@ -52,8 +52,8 @@ export default () => {
                         <SignIn.Supplementary>
 
                             <Checkbox name="remember-me">
-                                {({ isActive, isMouseOver}) => (
-                                    <P modifiers={[ (isActive || isMouseOver ) && 'primary' ]}>
+                                {({ isActive, isMouseOver }) => (
+                                    <P modifiers={[ (isActive || isMouseOver) && 'primary' ]}>
                                         Remember me
                                     </P>
                                 )}
@@ -73,7 +73,6 @@ export default () => {
                     </SignIn.ButtonGroup>
 
                 </SignIn.Credentials>
-
 
                 <SignIn.Terms>
                     <A href="#">Terms of use. Privacy policy</A>
