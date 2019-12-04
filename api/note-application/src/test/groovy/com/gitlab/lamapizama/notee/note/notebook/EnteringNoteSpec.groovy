@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.note.notebook
 
+import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade
 import com.gitlab.lamapizama.notee.commons.commands.Result
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException
 import com.gitlab.lamapizama.notee.note.creator.CreatorId
@@ -18,10 +19,11 @@ class EnteringNoteSpec extends Specification {
     NotebookId notebookId = anyNotebookId()
 
     Notebooks notebooks = Stub()
+    AuthenticationFacade authentication = Stub()
 
     def 'should fail if notebook does not exists'() {
         given:
-           EnteringNote enteringNote = new EnteringNote(notebooks)
+           EnteringNote enteringNote = new EnteringNote(authentication, notebooks)
         and:
             unknownNotebook()
         when:

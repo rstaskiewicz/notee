@@ -5,14 +5,12 @@ import com.gitlab.lamapizama.notee.commons.authentication.UserDetails;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
-import com.gitlab.lamapizama.notee.note.note.NoteId;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteDeleted;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteDeletingFailed;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Rejection;
@@ -62,10 +60,4 @@ public class DeletingNote {
         return notebooks.findBy(notebookId)
                 .getOrElseThrow(() -> new ResourceNotFoundException(("Notebook with given id does not exists: " + notebookId.getId())));
     }
-}
-
-@Value
-class DeleteNote {
-    @NonNull NotebookId notebookId;
-    @NonNull NoteId noteId;
 }

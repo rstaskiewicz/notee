@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.note.note;
 
+import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCreated;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteEntered;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
@@ -22,6 +23,7 @@ class NotebookEventsHandler {
                 new NoteId(event.getNoteId()),
                 new NoteName(event.getNoteName()),
                 event.getNoteType(),
+                new CreatorId(event.getCreatorId()),
                 new NotebookId(event.getNotebookId())));
     }
 }

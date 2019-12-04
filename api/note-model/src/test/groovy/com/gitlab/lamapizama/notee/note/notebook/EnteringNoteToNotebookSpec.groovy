@@ -56,7 +56,7 @@ class EnteringNoteToNotebookSpec extends Specification {
             entering.isRight()
             entering.get().with {
                 assert it.creatorId == creator.id().getId()
-                assert it.noteName == note.name().name
+                assert it.noteName == note.name().setNoteName
                 assert it.noteType == note.note.type
             }
     }

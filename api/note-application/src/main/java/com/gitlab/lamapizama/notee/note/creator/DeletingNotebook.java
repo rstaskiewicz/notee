@@ -2,17 +2,17 @@ package com.gitlab.lamapizama.notee.note.creator;
 
 import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
-import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Rejection;
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Success;
-import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.*;
+import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookDeleted;
+import static com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookDeletingFailed;
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
 import static io.vavr.API.Match;
@@ -24,6 +24,7 @@ import static io.vavr.Patterns.$Right;
 public class DeletingNotebook {
 
     private final Creators creators;
+    private final Authentication authentication;
 
     public Try<Result> delete(@NonNull DeleteNotebook command) {
         return Try.of(() -> {
@@ -48,13 +49,11 @@ public class DeletingNotebook {
 
     private Creator find(CreatorId creatorId) {
         return creators.findBy(creatorId)
-                .getOrElseThrow(() -> new ResourceNotFoundException(("Creator with given id does not exists: " + creatorId.getId())));
+                .getOrElseThrow(() -> new ResourceNotFoundException("Creator with given id does not exists: " + creatorId.getId()));
+    }
+
+    private Creator getCurrentCreator() {
+        return creators.findBy(authentication.getCurrentCreatorId())
+                .getOrElseThrow(() -> new IllegalStateException("Creator is not present in the authentication context"));
     }
 }
-
-@Value
-class DeleteNotebook {
-    @NonNull CreatorId creatorId;
-    @NonNull NotebookId notebookId;
-}
-
