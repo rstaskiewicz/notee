@@ -1,13 +1,25 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { applyStyleModifiers } from 'styled-components-modifiers'
 
 import Image from './Image'
 import Status from './Status'
 
+const AVATAR_MODFIERS = {
+
+    'card-avatar': () => css`
+        max-width: 48px;
+        max-height: 48px;
+    `,
+
+}
+
 const Avatar = styled.div`
     position: relative;
-    max-width: 124px;
-    max-height: 124px;
+    max-width: 48px;
+    max-height: 48px;
     display: flex;
+
+    ${applyStyleModifiers(AVATAR_MODFIERS)}
 `
 
 Avatar.Image = Image

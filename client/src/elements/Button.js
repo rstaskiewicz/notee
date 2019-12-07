@@ -15,6 +15,16 @@ const BUTTON_MODFIERS = {
 
     'full-width': () => css`
         width: 100%;
+    `,
+
+    'card-borderless': () => css`
+        min-width: 128px;
+        border: none;
+        color: #BBB9C7;
+        text-transform: none;
+        font-weight: 350;
+        justify-content: space-between;
+        padding: .5rem 2.5rem;
     `
 
 }

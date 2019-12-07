@@ -5,8 +5,13 @@ const A_MODIFIERS = {
 
     'active': () => css`
         color: #3454f5;
-    `
+    `,
 
+    'card-header': () => css`
+        color: black;
+        font-size: .875rem;
+
+    `
 }
 
 export default styled.a`
@@ -18,6 +23,7 @@ export default styled.a`
 
     &:hover {
         color: #3454f5;
+        cursor: pointer;
     }
 
     ${applyStyleModifiers(A_MODIFIERS)}
