@@ -10,7 +10,6 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Rejection;
@@ -57,8 +56,3 @@ public class EditingNote {
     }
 }
 
-@Value
-class EditNote {
-    @NonNull NoteId noteId;
-    @NonNull NoteContent noteContent;
-}

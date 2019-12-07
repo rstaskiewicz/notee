@@ -1,4 +1,4 @@
-package com.gitlab.lamapizama.notee.note.note;
+package com.gitlab.lamapizama.notee.note.creatorprofile;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,6 +8,6 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-class CommentNoteRequest {
-    @NotBlank String commentContent;
+class EditNoteRequest {
+    @NotBlank String noteContent;
 }

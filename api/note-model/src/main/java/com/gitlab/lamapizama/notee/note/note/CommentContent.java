@@ -6,7 +6,7 @@ import lombok.Value;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Value
-class CommentContent {
+public class CommentContent {
 
     @NonNull String content;
 

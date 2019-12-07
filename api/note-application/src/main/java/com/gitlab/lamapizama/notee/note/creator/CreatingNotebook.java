@@ -53,8 +53,3 @@ public class CreatingNotebook {
     }
 }
 
-@Value
-class CreateNotebook {
-    @NonNull CreatorId creatorId;
-    @NonNull NotebookName notebookName;
-}

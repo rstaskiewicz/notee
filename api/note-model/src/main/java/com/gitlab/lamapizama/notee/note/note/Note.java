@@ -6,6 +6,8 @@ import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCommentingFailed;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCreated;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteEdited;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteEditingFailed;
+import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestored;
+import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestoringFailed;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTagged;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTaggingFailed;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
@@ -54,8 +56,12 @@ public class Note {
         return announceSuccess(NoteCommented.now(note.getNoteId(), commenterId, generateCommentId(), content));
     }
 
-    public Either<NoteTaggingFailed, NoteTagged> tag(Tags tags, CreatorId taggerId) {
-        return announceSuccess(NoteTagged.now(note.getNoteId(), taggerId, tags));
+    public Either<NoteTaggingFailed, NoteTagged> tag(Tag tag, CreatorId taggerId) {
+        return announceSuccess(NoteTagged.now(note.getNoteId(), taggerId, tag));
+    }
+
+    public Either<NoteRestoringFailed, NoteRestored> restore(NoteEdited noteEditedEvent, CreatorId reverserId) {
+        return announceSuccess(NoteRestored.now(note.getNoteId(), new NoteContent(noteEditedEvent.getNoteContent()), reverserId));
     }
 
     static Note rebuild(NoteId noteId, List<NoteEvent> events) {
@@ -76,7 +82,8 @@ public class Note {
                 Case($(instanceOf(NoteCreated.class)), this::handle),
                 Case($(instanceOf(NoteEdited.class)), this::handle),
                 Case($(instanceOf(NoteCommented.class)), this::handle),
-                Case($(instanceOf(NoteTagged.class)), this::handle));
+                Case($(instanceOf(NoteTagged.class)), this::handle),
+                Case($(instanceOf(NoteRestored.class)), this::handle));
     }
 
     private Note handle(NoteCreated event) {
@@ -96,11 +103,15 @@ public class Note {
                 new Comment(
                         new CommentId(event.getCommentId()),
                         new CommentContent(event.getCommentContent()),
-                        new CreatorId(event.getCommenterId()))));
+                        new CreatorId(event.getCreatorId()))));
     }
 
     private Note handle(NoteTagged event) {
-        return this.withTags(tags.add(new Tags(event.getTags())));
+        return this.withTags(tags.add(new Tag(event.getTag())));
+    }
+
+    private Note handle(NoteRestored event) {
+        return this.withNoteContent(new NoteContent(event.getRestoredContent()));
     }
 
     private CommentId generateCommentId() {

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.Value;
 
 @Value
-class NoteContent {
+public class NoteContent {
     @NonNull String content;
 
     static NoteContent empty() {

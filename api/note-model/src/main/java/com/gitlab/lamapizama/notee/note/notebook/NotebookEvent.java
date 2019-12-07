@@ -30,14 +30,16 @@ public interface NotebookEvent extends DomainEvent<UUID> {
         @NonNull Instant when;
         @NonNull UUID NoteId;
         @NonNull String noteName;
+        @NonNull String creatorId;
         @NonNull NoteType noteType;
 
-        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, NotebookId notebookId) {
+        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, CreatorId creatorId, NotebookId notebookId) {
             return new NoteEntered(
                     notebookId.getId(),
                     Instant.now(),
                     noteId.getId(),
                     noteName.getName(),
+                    creatorId.getId(),
                     noteType);
         }
     }
