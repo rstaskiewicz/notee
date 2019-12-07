@@ -8,7 +8,13 @@ const IMAGE_MODIFIERS = {
         height: 100%;
         width: 100%;
         overflow: hidden;
-        object-position: top center;
+    `,
+
+    'contain': () => css`
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
     `
 
 }

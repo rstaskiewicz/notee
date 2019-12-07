@@ -50,4 +50,8 @@ const Button = styled.button`
     ${applyStyleModifiers(BUTTON_MODFIERS)}
 `
 
+Button.Icon = styled.button``
+
+Button.Rouded = styled.button``
+
 export default Button
