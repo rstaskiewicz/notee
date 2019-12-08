@@ -17,7 +17,9 @@ export default () => {
                     >
                         {(isLoaded && file)
                             ? <Headshot.Image src={file} />
-                            : <Headshot.Icon>
+                            : <Headshot.Icon
+                                modifiers={[ (isActive || isLoaded) && 'primary' ]}
+                            >
                                 <FontAwesomeIcon icon={plus} />
                             </Headshot.Icon>}
                     </Headshot.Input>

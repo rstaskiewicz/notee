@@ -7,7 +7,7 @@ const INPUT_MODIFIERS = {
         border-bottom: 2px solid rgba(255, 23, 68, 0.3);
         color: #ff1744;
 
-        :active {
+        :active, :focus {
             color: #ff1744;
             border-bottom: 2px solid rgba(255, 23, 68, 0.3);
         }

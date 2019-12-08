@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 import Checkmark from './Checkmark'
 import Input from './Input'
-import Text from './Text'
+import Label from './Label'
+import Tooltip from './Tooltip'
 
 import checkmark from '../../assets/checkmark.svg'
 
@@ -40,6 +41,7 @@ const Checkbox = styled.label`
 
 Checkbox.Checkmark = Checkmark
 Checkbox.Input = Input
-Checkbox.Text = Text
+Checkbox.Label = Label
+Checkbox.Tooltip = Tooltip
 
 export default Checkbox

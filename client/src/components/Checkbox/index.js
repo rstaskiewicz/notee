@@ -4,9 +4,13 @@ import Checkbox from '../../layout/Checkbox'
 export default ({
     name,
     label = '',
+    tooltip,
+    error,
     children = () => null,
     ...props
 }) => {
+
+    console.log(error)
 
     const [ isMouseOver, setIsMouseOver ] = useState(false)
     const [ isActive, setIsActive ] = useState(false)
@@ -25,7 +29,14 @@ export default ({
                 {...props}
             />
             <Checkbox.Checkmark />
-            <Checkbox.Text>{children({ isMouseOver, isActive }) || label}</Checkbox.Text>
+            <Checkbox.Label>{children({ isMouseOver, isActive, error }) || label}</Checkbox.Label>
+            {(tooltip || error) && (
+                <Checkbox.Tooltip
+                    modifiers={[ error && 'invalid' ]}
+                >
+                    {tooltip || error}
+                </Checkbox.Tooltip>
+            )}
         </Checkbox>
     )
 }
