@@ -26,14 +26,20 @@ public interface UserAccountEvent extends DomainEvent<String> {
         @NonNull String userEmail;
         @NonNull String username;
         @NonNull String password;
+        @NonNull String avatarUrl;
         @NonNull String contextPath;
 
-        static UserAccountRegistered now(UserEmail userEmail, Username username, EncodedPassword password, RegistrationContextPath path) {
+        static UserAccountRegistered now(UserEmail userEmail,
+                                         Username username,
+                                         EncodedPassword password,
+                                         Avatar avatar,
+                                         RegistrationContextPath path) {
             return new UserAccountRegistered(
                     Instant.now(),
                     userEmail.getEmail(),
                     username.getUsername(),
                     password.getPassword(),
+                    avatar.getImageUrl(),
                     path.getContextPath());
         }
     }

@@ -23,6 +23,7 @@ public class RegisteringUserAccount {
                     command.getEmail(),
                     command.getUsername(),
                     encodedPassword,
+                    command.getAvatar(),
                     command.getContextPath()));
         });
     }
@@ -43,5 +44,6 @@ class RegisterUserAccountCommand {
     @NonNull UserEmail email;
     @NonNull Username username;
     @NonNull RawPassword password;
+    @NonNull Avatar avatar;
     @NonNull RegistrationContextPath contextPath;
 }

@@ -1,7 +1,6 @@
 package com.gitlab.lamapizama.notee.user.account.persistance;
 
 import com.gitlab.lamapizama.notee.user.account.UserAccountEvent;
-import io.vavr.API;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,11 @@ import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.*;
+import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountConfirmed;
+import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.VerificationTokenAssigned;
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
 import static io.vavr.Predicates.instanceOf;
 import static javax.persistence.CascadeType.ALL;
 
@@ -41,6 +44,8 @@ public class UserAccountEntity {
 
     boolean confirmed;
 
+    String avatarUrl;
+
     @OneToMany(mappedBy = "userAccount", cascade = ALL)
     Set<UserVerificationTokenEntity> verificationTokens = new HashSet<>();
 
@@ -51,10 +56,9 @@ public class UserAccountEntity {
     }
 
     public UserAccountEntity handle(UserAccountEvent event) {
-        return API.Match(event).of(
-                API.Case(API.$(instanceOf(VerificationTokenAssigned.class)), this::handle),
-                API.Case(API.$(instanceOf(UserAccountConfirmed.class)), this::handle)
-        );
+        return Match(event).of(
+                Case($(instanceOf(VerificationTokenAssigned.class)), this::handle),
+                Case($(instanceOf(UserAccountConfirmed.class)), this::handle));
     }
 
     private UserAccountEntity handle(VerificationTokenAssigned event) {

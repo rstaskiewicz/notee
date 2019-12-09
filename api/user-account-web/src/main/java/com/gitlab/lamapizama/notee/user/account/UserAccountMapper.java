@@ -12,6 +12,7 @@ class UserAccountMapper {
                 .email(new UserEmail(request.getEmail()))
                 .username(new Username(request.getUsername()))
                 .password(new RawPassword(request.getPassword()))
+                .avatar(new Avatar(request.getAvatarUrl()))
                 .contextPath(new RegistrationContextPath(ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()))
                 .build();
     }

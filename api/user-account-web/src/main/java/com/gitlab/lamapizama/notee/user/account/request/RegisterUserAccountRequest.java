@@ -30,4 +30,7 @@ public class RegisterUserAccountRequest {
     String password;
 
     String matchingPassword;
+
+    @NotBlank
+    String avatarUrl;
 }
