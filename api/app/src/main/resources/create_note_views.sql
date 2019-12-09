@@ -1,13 +1,15 @@
-CREATE TABLE IF NOT EXISTS creator_view (
+CREATE TABLE IF NOT EXISTS creator_profile (
     id INTEGER PRIMARY KEY,
     creator_id VARCHAR(32) NOT NULL UNIQUE,
+    username   VARCHAR(32) NOT NULL,
+    avatar_url VARCHAR(1000) NOT NULL,
     creator_type VARCHAR(100) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS notebook_view (
-id INTEGER PRIMARY KEY,
-notebook_id UUID NOT NULL UNIQUE,
-notebook_name VARCHAR(32) NOT NULL,
-owner_id VARCHAR(32) NOT NULL);
+    id INTEGER PRIMARY KEY,
+    notebook_id UUID NOT NULL UNIQUE,
+    notebook_name VARCHAR(32) NOT NULL,
+    owner_id VARCHAR(32) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS note_view (
     id INTEGER PRIMARY KEY,
@@ -50,7 +52,7 @@ CREATE TABLE IF NOT EXISTS note_version_view (
     version_by VARCHAR(32) NOT NULL,
     created_at TIMESTAMP NOT NULL);
 
-CREATE SEQUENCE creator_view_seq;
+CREATE SEQUENCE creator_profile_seq;
 CREATE SEQUENCE notebook_view_seq;
 CREATE SEQUENCE note_view_seq;
 CREATE SEQUENCE comment_view_seq;

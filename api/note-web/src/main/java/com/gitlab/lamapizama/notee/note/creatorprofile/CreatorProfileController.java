@@ -45,7 +45,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/creators/{creatorId}")
+@RequestMapping("/profiles/{creatorId}")
 @RequiredArgsConstructor
 public class CreatorProfileController {
 
@@ -56,7 +56,7 @@ public class CreatorProfileController {
     @GetMapping
     ResponseEntity<CreatorModel> creator(@PathVariable String creatorId) {
         return creatorProfiles.findBy(new CreatorId(creatorId))
-                .map(creator -> ok(new CreatorModel(creatorId, creator.creatorType)))
+                .map(creator -> ok(new CreatorModel(creator)))
                 .getOrElse(() -> notFound().build());
     }
 
@@ -107,11 +107,15 @@ public class CreatorProfileController {
 class CreatorModel extends RepresentationModel<CreatorModel> {
 
     String id;
+    String fullName;
+    String avatarUrl;
     CreatorType type;
 
-    CreatorModel(String id, CreatorType type) {
-        this.id = id;
-        this.type = type;
+    CreatorModel(CreatorView creatorView) {
+        this.id = creatorView.creatorId;
+        this.fullName = creatorView.username;
+        this.avatarUrl = creatorView.avatarUrl;
+        this.type = creatorView.creatorType;
         add(linkTo(methodOn(CreatorProfileController.class).creator(id)).withSelfRel());
         add(linkTo(methodOn(CreatorProfileController.class).findNotebooks(id)).withRel("notebooks"));
     }
