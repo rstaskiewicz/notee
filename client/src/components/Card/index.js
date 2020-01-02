@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
+
 import Card from '../../layout/Card'
+
 import Header from './Header'
 import Content from './Content'
 import Footer from './Footer'

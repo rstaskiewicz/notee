@@ -39,8 +39,7 @@ export default forwardRef(({ onSubmit }, ref) => {
             confirmPassword: '',
             terms: ''
         },
-        validationSchema: schema,
-        onSubmit: console.log
+        validationSchema: schema
     })
 
     return (
@@ -118,7 +117,7 @@ export default forwardRef(({ onSubmit }, ref) => {
                         </P>
                     )}
                 </Checkbox>
-
+                <button type="submit">Submit</button>
             </SignUp.Supplementary>
         </SignUp.Form>
     )

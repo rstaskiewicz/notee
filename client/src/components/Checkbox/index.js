@@ -10,8 +10,6 @@ export default ({
     ...props
 }) => {
 
-    console.log(error)
-
     const [ isMouseOver, setIsMouseOver ] = useState(false)
     const [ isActive, setIsActive ] = useState(false)
 
