@@ -4,7 +4,6 @@ const Content = styled.div`
     height: auto;
     width: calc(100% - 50px);
     display: inline-flex;
-    position: relative;
     font-family: 'Lato';
     font-size: 15px;
     color: #7D7C84;

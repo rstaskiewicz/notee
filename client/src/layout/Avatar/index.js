@@ -11,6 +11,12 @@ const AVATAR_MODFIERS = {
         max-height: 48px;
     `,
 
+    'dashboard-statistics': () => css`
+        margin-left: 24px;
+        min-width: 48px;
+        min-height: 48px;
+    `,
+
 }
 
 const Avatar = styled.div`

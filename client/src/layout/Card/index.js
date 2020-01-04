@@ -4,15 +4,13 @@ import Content from './Content'
 import Footer from './Footer'
 
 const Card = styled.div`
-    height: auto;
-    width: 50vw;
+    width: 808px;
     background-color: white;
     display: flex;
-    position: relative;
     flex-direction: column;
     align-items: center;
-    margin: 50px;
     border-radius: 2%;
+    margin-bottom: 16px;
 `
 
 Card.Header = Header
