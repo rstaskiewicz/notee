@@ -2,8 +2,10 @@ package com.gitlab.lamapizama.notee.user.account;
 
 import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
 import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountRegistered;
+import com.gitlab.lamapizama.notee.user.account.persistance.ReceivedInvitationEntity;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserAccountDao;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserAccountEntity;
+import com.gitlab.lamapizama.notee.user.account.persistance.SentInvitationEntity;
 import com.gitlab.lamapizama.notee.user.account.persistance.UserVerificationTokenEntity;
 import com.gitlab.lamapizama.notee.user.verification.Token;
 import io.vavr.API;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.*;
 import static io.vavr.API.$;
 import static io.vavr.API.Match;
 import static io.vavr.Predicates.instanceOf;
@@ -40,11 +41,7 @@ public class UserAccountDatabaseRepository implements UserAccounts {
                 API.Case(API.$(instanceOf(UserAccountRegistered.class)), this::createNewUserAccount),
                 API.Case($(), this::handleNextEvent));
         events.publish(event);
-
-        if (event instanceof UserAccountConfirmed) {
-            // TODO Refactor
-            outboundEvents.publish(event);
-        }
+        outboundEvents.publish(event);
         return result;
     }
 
@@ -78,12 +75,26 @@ class DomainModelMapper {
                 new Username(entity.getUsername()),
                 new EncodedPassword(entity.getPassword()),
                 entity.isConfirmed(),
-                mapUserVerificationTokens(entity.getVerificationTokens()));
+                mapUserVerificationTokens(entity.getVerificationTokens()),
+                mapSentInvitations(entity.getSentInvitations()),
+                mapReceivedInvitations(entity.getReceivedInvitations()));
     }
 
     private Set<UserVerificationToken> mapUserVerificationTokens(Set<UserVerificationTokenEntity> verificationTokens) {
         return verificationTokens.stream()
                 .map(entity -> new UserVerificationToken(new Token(entity.getToken())))
+                .collect(toSet());
+    }
+
+    private Set<Invitation> mapSentInvitations(Set<SentInvitationEntity> sentInvitations) {
+        return sentInvitations.stream()
+                .map(entity -> new Invitation(new UserEmail(entity.getFriendEmail()), entity.isAccepted()))
+                .collect(toSet());
+    }
+
+    private Set<Invitation> mapReceivedInvitations(Set<ReceivedInvitationEntity> receivedInvitations) {
+        return receivedInvitations.stream()
+                .map(entity -> new Invitation(new UserEmail(entity.getInvitingEmail()), entity.isAccepted()))
                 .collect(toSet());
     }
 }

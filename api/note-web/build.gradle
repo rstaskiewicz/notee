@@ -7,6 +7,7 @@ dependencies {
     implementation project(':commons')
     implementation project(':note-model')
     implementation project(':note-application')
+    implementation project(':user-account-web')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'

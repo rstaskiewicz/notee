@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.user.account;
 
+import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
 import com.gitlab.lamapizama.notee.commons.events.DomainEvents;
 import com.gitlab.lamapizama.notee.commons.events.EventSource;
 import com.gitlab.lamapizama.notee.commons.events.KafkaDomainEventPublisher;
@@ -32,6 +33,16 @@ class UserAccountConfiguration {
     ConfirmingUserRegistration confirmingUserRegistration(UserAccounts userAccounts,
                                                           VerificationTokens verificationTokens) {
         return new ConfirmingUserRegistration(userAccounts, verificationTokens);
+    }
+
+    @Bean
+    InvitingFriend addingFriend(UserAccounts userAccounts, AuthenticationFacade authenticationFacade) {
+        return new InvitingFriend(userAccounts, authenticationFacade);
+    }
+
+    @Bean
+    UserAccountEventHandler userAccountEventHandler(UserAccounts userAccounts) {
+        return new UserAccountEventHandler(userAccounts);
     }
 
     @Bean

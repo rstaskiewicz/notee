@@ -91,4 +91,82 @@ public interface UserAccountEvent extends DomainEvent<String> {
             return new VerificationTokenAssignationFailed(Instant.now(), rejection.getReason(), userEmail.getEmail());
         }
     }
+
+    @Value
+    class FriendInvited implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String friendEmail;
+
+        static FriendInvited now(UserEmail userEmail, UserEmail friendEmail) {
+            return new FriendInvited(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    friendEmail.getEmail());
+        }
+    }
+
+    @Value
+    class FriendInvitingFailed implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String reason;
+        @NonNull String userEmail;
+
+        static FriendInvitingFailed now(Rejection rejection, UserEmail userEmail) {
+            return new FriendInvitingFailed(Instant.now(), rejection.getReason(), userEmail.getEmail());
+        }
+    }
+
+    @Value
+    class FriendAccepted implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String invitingEmail;
+
+        static FriendAccepted now(UserEmail userEmail, UserEmail invitingEmail) {
+            return new FriendAccepted(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    invitingEmail.getEmail());
+        }
+    }
+
+    @Value
+    class FriendAcceptingFailed implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String reason;
+        @NonNull String userEmail;
+
+        static FriendAcceptingFailed now(Rejection rejection, UserEmail userEmail) {
+            return new FriendAcceptingFailed(Instant.now(), rejection.getReason(), userEmail.getEmail());
+        }
+    }
+
+    @Value
+    class InvitationReceived implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String invitingEmail;
+
+        static InvitationReceived now(UserEmail userEmail, UserEmail invitingEmail) {
+            return new InvitationReceived(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    invitingEmail.getEmail());
+        }
+    }
+
+    @Value
+    class InvitationAccepted implements UserAccountEvent {
+        @NonNull Instant when;
+        @NonNull String userEmail;
+        @NonNull String friendEmail;
+
+        static InvitationAccepted now(UserEmail userEmail, UserEmail friendEmail) {
+            return new InvitationAccepted(
+                    Instant.now(),
+                    userEmail.getEmail(),
+                    friendEmail.getEmail());
+        }
+    }
 }

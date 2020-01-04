@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.errorhandling;
 
+import com.gitlab.lamapizama.notee.commons.exceptions.ActionForbiddenException;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -75,6 +76,19 @@ public class NoteeExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getClass().getSimpleName());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetail);
+    }
+
+    @ExceptionHandler(ActionForbiddenException.class)
+    ResponseEntity<?> handleResourceNotFoundException(ActionForbiddenException ex) {
+
+        ErrorDetail errorDetail = new ErrorDetail(
+                "Action is forbidden",
+                HttpStatus.FORBIDDEN.value(),
+                ex.getMessage(),
+                Instant.now(),
+                ex.getClass().getSimpleName());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDetail);
     }
 
     private Map<String, List<String>> getValidationErrors(BindingResult bindingResult) {

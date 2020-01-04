@@ -10,8 +10,6 @@ import lombok.NonNull;
 class CreatorView {
 
     @NonNull String creatorId;
-    @NonNull String username;
-    @NonNull String avatarUrl;
     @NonNull CreatorType creatorType;
 
     public void setCreatorType(String creatorType) {
