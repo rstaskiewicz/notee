@@ -9,15 +9,52 @@ import NotebookList from '../../components/NotebookList'
 import FriendsOnline from '../../components/FriendsOnline'
 import Statistics from '../../components/Statistics'
 
-const Notebook1 = {
-    title: "Notebook1",
-    notes: ["note 1", "note 2"]
+const notebook1 = {
+    title: "Matematyka dyskretna",
+    notes: [
+        {
+            title: "Prawdopodobieństwo",
+            content: ""
+        },
+        {
+            title: "Prawdopodobieństwo",
+            content: ""
+        },
+        {
+            title: "Funkcję różnowartościowe",
+            content: ""
+        }
+    ]
 }
-const Notebook2 = {
-    title: "Notebook2",
-    notes: ["note 3", "note 4"]
+
+const notebook2 = {
+    title: "Statystyczna analiza danych",
+    notes: [
+        {
+            title: "note 3",
+            content: ""
+        },
+        {
+            title: "note 3",
+            content: ""
+        }
+    ]
 }
-const array = [Notebook1, Notebook2];
+
+const notebook3 = {
+    title: "Podstawy programowania",
+    notes: [
+        {
+            title: "note 1",
+            content: ""
+        },
+        {
+            title: "note 2",
+            content: ""
+        }
+    ]
+}
+const array = [notebook1, notebook2, notebook3];
 
 export default (
 
@@ -29,7 +66,7 @@ export default (
             <Header />
             <Dashboard.Content>
                 <Dashboard.Content.Segregator modifiers="dashboard-left-column">
-                    <NotebookList Notebooks={array} />
+                    <NotebookList notebooks={array} />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-center-column">
                     <Card />
@@ -39,7 +76,7 @@ export default (
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-right-column">
                     <FriendsOnline friends={"asd", "dsa"} />
-                    <Statistics />
+                    <Statistics createdNoteCount={2} savedNoteCount={4} userRegisteredCount={5} />
                 </Dashboard.Content.Segregator>
             </Dashboard.Content>
         </Dashboard>

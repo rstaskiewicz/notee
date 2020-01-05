@@ -1,7 +1,6 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import FriendsOnline from '../../layout/FriendsOnline'
-import Statistics from '../../layout/Statistics'
 import Avatar from '../Avatar'
 
 export default ({
@@ -11,12 +10,16 @@ export default ({
 
     return (
         <FriendsOnline>
-            <Avatar modifiers="dashboard-statistics" />
-            <Avatar modifiers="dashboard-statistics" />
-            <Avatar modifiers="dashboard-statistics" />
-            <Avatar modifiers="dashboard-statistics" />
-            <Avatar modifiers="dashboard-statistics" />
-            <Avatar modifiers="dashboard-statistics" />
+            {/* {friends.map((friend, index) => (
+                <FriendsOnline.Avatar><Avatar key={index} avatar={friend.avatar} /></FriendsOnline.Avatar>
+            ))} */}
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
+            <FriendsOnline.Avatar><Avatar /></FriendsOnline.Avatar>
         </FriendsOnline>
     )
 }

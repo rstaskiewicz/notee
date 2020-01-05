@@ -1,16 +1,24 @@
 import styled from 'styled-components'
-import Note from './Note'
+import Note from '../Note'
+
 
 const Notebook = styled.ul`
     list-style-type: none;
     padding: 0;
+    margin: 12px;
+
+`
+
+Notebook.P = styled.p`
     font-family: 'Lato', 'Open Sans', 'sans-serif';
     font-size: .875rem;
     color: #BBB9C7;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    margin-left 24px;
+    word-wrap: break-word;
 `
-Notebook.Note = Note
+
+Notebook.FontAwesomeIcon = styled.div`
+    display: flex;
+    float: right;
+`
 
 export default Notebook

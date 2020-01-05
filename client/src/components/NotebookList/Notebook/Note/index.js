@@ -1,11 +1,23 @@
 import React from 'react'
 
-import Note from '../../layout/Note'
+import Note from '../../../../layout/NotebookList/Note'
 
-export default () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+        faChevronRight as chevronRight,
+} from '@fortawesome/free-solid-svg-icons'
+
+export default ({
+
+    title,
+    isClickedState,
+
+}) => {
 
     return (
-        <Note>
+        <Note modifiers={ isClickedState ? 'hidden' : ''}>
+            <Note.FontAwesomeIcon><FontAwesomeIcon color="#BBB9C7" icon={chevronRight} /></Note.FontAwesomeIcon>
+            {title}
         </Note>
     )
 }

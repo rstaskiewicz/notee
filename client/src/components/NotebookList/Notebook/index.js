@@ -1,23 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
+import Notebook from '../../../layout/NotebookList/Notebook'
+import Note from './Note'
+import P from '../../../elements/P'
 
-import Notebook from '../../layout/Notebook'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+        faChevronDown as chevronDown,
+        faChevronLeft as chevronLeft,
+} from '@fortawesome/free-solid-svg-icons'
 
 
 export default ({
-
-    Notes,
-
-    NotesToList = Notes.map((Note) =>
-        <Notebook.Note>{Note}</Notebook.Note>
-    )
+    title,
+    notes,
 
 }) => {
 
-    // const [ isClicked, setIsClicked] = useState(false)
+    const [ isClicked, setIsClicked] = useState(true)
 
     return (
-        <Notebook>
-            {NotesToList}
+        
+        <Notebook >
+            <Notebook.P><P onClick={() => setIsClicked(!isClicked)}>{title}<Notebook.FontAwesomeIcon><FontAwesomeIcon color="#BBB9C7" icon={ isClicked ? chevronLeft : chevronDown} /></Notebook.FontAwesomeIcon></P></Notebook.P>
+            {notes.map((note, index) => (
+                <Note key={index} title={note.title} isClickedState={isClicked}/>
+            ))}
         </Notebook>
     )
 }

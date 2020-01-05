@@ -10,20 +10,24 @@ import {
     faUsers as users,
 } from '@fortawesome/free-solid-svg-icons'
 
-export default () => {
+export default ({
+    createdNoteCount = 0,
+    savedNoteCount = 0,
+    userRegisteredCount = 0,
+}) => {
 
     return (
         <Statistics>
             <Segregator modifiers="notes">
                 <FontAwesomeIcon color="#BBB9C7" icon={file} />
                 <Label >
-                    54 created and 123 saved notes
+                    {createdNoteCount} created and {savedNoteCount} saved notes
                 </Label>
             </Segregator>
             <Segregator>
                 <FontAwesomeIcon color="#BBB9C7" icon={users} />
                 <Label>
-                    1 thousand users
+                    {userRegisteredCount} registered users
                 </Label>
             </Segregator>
         </Statistics>
