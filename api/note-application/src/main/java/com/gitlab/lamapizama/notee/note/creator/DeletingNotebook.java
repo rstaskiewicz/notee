@@ -28,6 +28,7 @@ public class DeletingNotebook {
 
     public Try<Result> delete(@NonNull DeleteNotebook command) {
         return Try.of(() -> {
+            authentication.checkIfActionAllowed(command.getCreatorId());
             Creator creator = find(command.getCreatorId());
             Either<NotebookDeletingFailed, NotebookDeleted> result = creator.deleteNotebook(command.getNotebookId());
             return Match(result).of(

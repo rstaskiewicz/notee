@@ -6,6 +6,7 @@ import com.gitlab.lamapizama.notee.note.creator.CreatorType;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,6 +36,15 @@ class CreatorReadModel implements CreatorViews {
         return ofAll(views.query("SELECT notebook_id, notebook_name" +
                 " FROM notebook_view" +
                 " WHERE owner_id = ?", new BeanPropertyRowMapper<>(NotebookView.class), creatorId.getId()));
+    }
+
+    @Override
+    public List<String> findFriendEmailsFor(@NonNull CreatorId creatorId) {
+        return ofAll(views.query("SELECT friend_email FROM friends_view" +
+                        " WHERE friends_view.user_email = ?",
+                new BeanPropertyRowMapper<>(FriendEmail.class),
+                creatorId.getId()))
+                .map(FriendEmail::getFriendEmail);
     }
 
     @EventListener

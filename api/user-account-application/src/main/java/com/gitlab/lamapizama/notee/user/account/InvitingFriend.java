@@ -37,7 +37,7 @@ public class InvitingFriend {
     }
 
     public Result accept(@NonNull AcceptFriendCommand command) {
-        if (!authentication.isActionAllowedFor(command.getUserEmail().getEmail())) {
+        if (!authentication.isActionAllowed(command.getUserEmail().getEmail())) {
             throw new ActionForbiddenException("Only account owner can accept friend invitations");
         }
         UserAccount userAccount = find(command.getUserEmail());

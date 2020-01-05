@@ -1,6 +1,7 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
 import com.gitlab.lamapizama.notee.commons.commands.Result;
+import com.gitlab.lamapizama.notee.commons.exceptions.ActionForbiddenException;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
 import com.gitlab.lamapizama.notee.note.creator.CreateNotebook;
 import com.gitlab.lamapizama.notee.note.creator.CreatingNotebook;
@@ -39,6 +40,7 @@ import static java.util.stream.Collectors.toList;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.notFound;
@@ -79,6 +81,7 @@ public class CreatorProfileController {
                 new NotebookName(request.getName())));
         return result
                 .map(success -> ok().build())
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(status(INTERNAL_SERVER_ERROR).build());
     }
 
@@ -90,6 +93,7 @@ public class CreatorProfileController {
         return result
                 .map(success -> noContent().build())
                 .recover(r -> Match(r).of(Case($(instanceOf(ResourceNotFoundException.class)), notFound().build())))
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(status(INTERNAL_SERVER_ERROR).build());
     }
 

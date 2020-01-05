@@ -25,7 +25,7 @@ public class SpringAuthenticationFacade implements AuthenticationFacade {
     }
 
     @Override
-    public boolean isActionAllowedFor(String commanderEmail) {
+    public boolean isActionAllowed(String commanderEmail) {
         return getUserDetails()
                 .map(UserDetails::getUserId)
                 .filter(userId -> userId.equals(commanderEmail))
@@ -33,8 +33,8 @@ public class SpringAuthenticationFacade implements AuthenticationFacade {
     }
 
     @Override
-    public boolean isActionAllowedFor(String commanderEmail, List<String> userFriendsEmails) {
-        return isActionAllowedFor(commanderEmail) || userFriendsEmails.stream()
+    public boolean isActionAllowed(String commanderEmail, List<String> userFriendsEmails) {
+        return isActionAllowed(commanderEmail) || userFriendsEmails.stream()
                 .anyMatch(friendEmail -> friendEmail.equals(commanderEmail));
     }
 }

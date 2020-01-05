@@ -1,10 +1,10 @@
 package com.gitlab.lamapizama.notee.note.note;
 
 
-import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
-import com.gitlab.lamapizama.notee.commons.authentication.UserDetails;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
+import com.gitlab.lamapizama.notee.note.creatorprofile.CreatorViews;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTagged;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTaggingFailed;
 import io.vavr.control.Either;
@@ -25,14 +25,17 @@ import static io.vavr.Patterns.$Right;
 @RequiredArgsConstructor
 public class TaggingNote {
 
-    private final AuthenticationFacade authentication;
+    private final Authentication authentication;
     private final Notes notes;
+    private final CreatorViews creatorViews;
 
     public Try<Result> tag(@NonNull TagNote command) {
         return Try.of(() -> {
-            CreatorId creatorId = getFromContext();
+            CreatorId creatorId = authentication.getCurrentCreatorId();
             Note note = notes.getBy(command.getNoteId());
-            Either<NoteTaggingFailed, NoteTagged> result = note.tag(command.getTag(), creatorId);
+            if (note.isPrivate()) {
+                authentication.checkIfActionAllowed(note.owner(), creatorViews.findFriendEmailsFor(creatorId).asJava());
+            }            Either<NoteTaggingFailed, NoteTagged> result = note.tag(command.getTag(), creatorId);
             return Match(result).of(
                     Case($Left($()), this::publishEvents),
                     Case($Right($()), this::publishEvents));
@@ -47,13 +50,6 @@ public class TaggingNote {
     private Result publishEvents(NoteTaggingFailed event) {
         notes.publish(event);
         return Rejection;
-    }
-
-    private CreatorId getFromContext() {
-        return authentication.getUserDetails()
-                .map(UserDetails::getUserId)
-                .map(CreatorId::new)
-                .getOrElseThrow(() -> new IllegalStateException("Creator is not present in the authentication context"));
     }
 }
 

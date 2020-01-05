@@ -90,7 +90,7 @@ public class UserAccountController {
     @GetMapping("/profiles/{userEmail}/invitations")
     ResponseEntity<CollectionModel<EntityModel<InvitationView>>> findInvitations(@PathVariable String userEmail,
                                                                                  @RequestParam(required = false) boolean onlyNew) {
-        if (!authentication.isActionAllowedFor(userEmail)) {
+        if (!authentication.isActionAllowed(userEmail)) {
             throw new ActionForbiddenException("Action forbidden");
         }
         List<EntityModel<InvitationView>> invitations = userAccountViews.findInvitationsFor(new UserEmail(userEmail), onlyNew)
@@ -102,7 +102,7 @@ public class UserAccountController {
 
     @GetMapping("/profiles/{userEmail}/invitations/{invitingEmail}")
     ResponseEntity<EntityModel<InvitationView>> findInvitation(@PathVariable String userEmail, @PathVariable String invitingEmail) {
-        if (!authentication.isActionAllowedFor(userEmail)) {
+        if (!authentication.isActionAllowed(userEmail)) {
             throw new ActionForbiddenException("Action forbidden");
         }
         return userAccountViews.findInvitationsFor(new UserEmail(userEmail), false)
@@ -113,7 +113,7 @@ public class UserAccountController {
 
     @PostMapping("/profiles/{userEmail}/invitations/{invitingEmail}")
     ResponseEntity<?> acceptInvitation(@PathVariable String userEmail, @PathVariable String invitingEmail) {
-        if (!authentication.isActionAllowedFor(userEmail)) {
+        if (!authentication.isActionAllowed(userEmail)) {
             throw new ActionForbiddenException("Action forbidden");
         }
         invitingFriend.accept(new AcceptFriendCommand(
@@ -130,7 +130,7 @@ public class UserAccountController {
         io.vavr.collection.List<UserProfileView> friendsFor = userAccountViews.findFriendsFor(new UserEmail(userEmail))
                 .map(userProfile -> userProfile.withIsMyself(authentication.getCurrentUserEmail().equals(userProfile.getUserEmail())))
                 .map(userProfile -> userProfile.withIsFriend(currentUserFriends.contains(userProfile)));
-        if (!authentication.isActionAllowedFor(userEmail, currentUserFriends.map(UserProfileView::getUserEmail).asJava())) {
+        if (!authentication.isActionAllowed(userEmail, currentUserFriends.map(UserProfileView::getUserEmail).asJava())) {
             throw new ActionForbiddenException("Action forbidden");
         }
         List<EntityModel<UserProfile>> friends = friendsFor

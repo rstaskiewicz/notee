@@ -2,14 +2,13 @@ package com.gitlab.lamapizama.notee.note.creator;
 
 import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreated;
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.NotebookCreationFailed;
-import com.gitlab.lamapizama.notee.note.notebook.NotebookName;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Rejection;
@@ -25,9 +24,11 @@ import static io.vavr.Patterns.$Right;
 public class CreatingNotebook {
 
     private final Creators creators;
+    private final Authentication authentication;
 
     public Try<Result> create(@NonNull CreateNotebook command) {
         return Try.of(() -> {
+            authentication.checkIfActionAllowed(command.getCreatorId());
             Creator creator = find(command.getCreatorId());
             Either<NotebookCreationFailed, NotebookCreated> result = creator.createNotebook(command.getNotebookName());
             return Match(result).of(

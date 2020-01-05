@@ -1,9 +1,9 @@
 package com.gitlab.lamapizama.notee.note.note;
 
-import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
-import com.gitlab.lamapizama.notee.commons.authentication.UserDetails;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
+import com.gitlab.lamapizama.notee.note.creatorprofile.CreatorViews;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteEdited;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteEditingFailed;
 import io.vavr.control.Either;
@@ -24,13 +24,17 @@ import static io.vavr.Patterns.$Right;
 @RequiredArgsConstructor
 public class EditingNote {
 
-    private final AuthenticationFacade authentication;
     private final Notes notes;
+    private final CreatorViews creatorViews;
+    private final Authentication authentication;
 
     public Try<Result> edit(@NonNull EditNote command) {
         return Try.of(() -> {
-            CreatorId creatorId = getFromContext();
+            CreatorId creatorId = authentication.getCurrentCreatorId();
             Note note = notes.getBy(command.getNoteId());
+            if (note.isPrivate()) {
+                authentication.checkIfActionAllowed(note.owner(), creatorViews.findFriendEmailsFor(creatorId).asJava());
+            }
             Either<NoteEditingFailed, NoteEdited> result = note.edit(command.getNoteContent(), creatorId);
             return Match(result).of(
                     Case($Left($()), this::publishEvents),
@@ -46,13 +50,6 @@ public class EditingNote {
     private Result publishEvents(NoteEditingFailed event) {
         notes.publish(event);
         return Rejection;
-    }
-
-    private CreatorId getFromContext() {
-        return authentication.getUserDetails()
-                .map(UserDetails::getUserId)
-                .map(CreatorId::new)
-                .getOrElseThrow(() -> new IllegalStateException("Creator is not present in the authentication context"));
     }
 }
 

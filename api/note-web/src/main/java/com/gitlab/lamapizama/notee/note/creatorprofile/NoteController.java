@@ -1,7 +1,10 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
+import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
+import com.gitlab.lamapizama.notee.commons.exceptions.ActionForbiddenException;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
+import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.CommentContent;
 import com.gitlab.lamapizama.notee.note.note.CommentNote;
 import com.gitlab.lamapizama.notee.note.note.CommentingNote;
@@ -16,6 +19,7 @@ import com.gitlab.lamapizama.notee.note.note.RestoringNote;
 import com.gitlab.lamapizama.notee.note.note.Tag;
 import com.gitlab.lamapizama.notee.note.note.TagNote;
 import com.gitlab.lamapizama.notee.note.note.TaggingNote;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +42,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+import static com.gitlab.lamapizama.notee.note.note.NoteType.Private;
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
 import static io.vavr.API.Match;
@@ -46,10 +51,12 @@ import static java.util.stream.Collectors.toList;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/notes/{noteId}")
@@ -61,12 +68,21 @@ class NoteController {
     private final CommentingNote commentingNote;
     private final TaggingNote taggingNote;
     private final RestoringNote revertingNote;
+    private final CreatorViews creatorViews;
+    private final AuthenticationFacade authentication;
 
     @GetMapping
     ResponseEntity<NoteModel> note(@PathVariable UUID noteId) {
-        return noteViews.findBy(new NoteId(noteId))
-                .map(noteView -> ok(new NoteModel(noteView)))
-                .getOrElse(() -> notFound().build());
+        Option<NoteView> noteOpt = noteViews.findBy(new NoteId(noteId));
+        if (noteOpt.isEmpty()) {
+            return notFound().build();
+        }
+        NoteView noteView = noteOpt.get();
+        if (noteView.noteType.equals(Private)
+                && !authentication.isActionAllowed(noteView.createdBy, creatorViews.findFriendEmailsFor(new CreatorId(noteView.createdBy)).asJava())) {
+            return status(FORBIDDEN).build();
+        }
+        return ok(new NoteModel(noteView));
     }
 
     @PutMapping
@@ -77,6 +93,7 @@ class NoteController {
 
         return result
                 .map(success -> noContent().build())
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(ResponseEntity.status(INTERNAL_SERVER_ERROR).build());
     }
 
@@ -96,6 +113,7 @@ class NoteController {
 
         return result
                 .map(success -> ok().build())
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(ResponseEntity.status(INTERNAL_SERVER_ERROR).build());
     }
 
@@ -120,6 +138,7 @@ class NoteController {
 
         return result
                 .map(success -> ok().build())
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(ResponseEntity.status(INTERNAL_SERVER_ERROR).build());
     }
 
@@ -156,6 +175,7 @@ class NoteController {
         return result
                 .map(success -> ok().build())
                 .recover(r -> Match(r).of(Case($(instanceOf(ResourceNotFoundException.class)), notFound().build())))
+                .recover(r -> Match(r).of(Case($(instanceOf(ActionForbiddenException.class)), status(FORBIDDEN).build())))
                 .getOrElse(ResponseEntity.status(INTERNAL_SERVER_ERROR).build());
     }
 

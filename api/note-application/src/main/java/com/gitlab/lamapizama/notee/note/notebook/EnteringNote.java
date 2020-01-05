@@ -1,10 +1,10 @@
 package com.gitlab.lamapizama.notee.note.notebook;
 
-import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
-import com.gitlab.lamapizama.notee.commons.authentication.UserDetails;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
+import com.gitlab.lamapizama.notee.note.creatorprofile.CreatorViews;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteEntered;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteEnteringFailed;
 import io.vavr.control.Either;
@@ -25,13 +25,15 @@ import static io.vavr.Patterns.$Right;
 @RequiredArgsConstructor
 public class EnteringNote {
 
-    private final AuthenticationFacade authenticationFacade;
+    private final Authentication authentication;
     private final Notebooks notebooks;
+    private final CreatorViews creatorViews;
 
     public Try<Result> enter(@NonNull EnterNote command) {
         return Try.of(() -> {
-            CreatorId creatorId = getFromContext();
+            CreatorId creatorId = authentication.getCurrentCreatorId();
             Notebook notebook = findBy(command.getNotebookId());
+            authentication.checkIfActionAllowed(notebook.owner(), creatorViews.findFriendEmailsFor(creatorId).asJava());
             Either<NoteEnteringFailed, NoteEntered> result = notebook.enterNote(
                     command.getNoteName(), command.getNoteType(), creatorId);
             return Match(result).of(
@@ -50,12 +52,6 @@ public class EnteringNote {
         return Rejection;
     }
 
-    private CreatorId getFromContext() {
-        return authenticationFacade.getUserDetails()
-                .map(UserDetails::getUserId)
-                .map(CreatorId::new)
-                .getOrElseThrow(() -> new IllegalStateException("Creator is not present in the authentication context"));
-    }
 
     private Notebook findBy(NotebookId notebookId) {
         return notebooks.findBy(notebookId)

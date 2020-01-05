@@ -47,7 +47,6 @@ public class Note {
     @NonNull
     Tags tags;
 
-
     public Either<NoteEditingFailed, NoteEdited> edit(NoteContent content, CreatorId editorId) {
         return announceSuccess(NoteEdited.now(note.getNoteId(), editorId, content));
     }
@@ -74,6 +73,7 @@ public class Note {
                 noteId,
                 new NoteName(""),
                 NoteType.Initialized,
+                new CreatorId(""),
                 new NotebookId(UUID.randomUUID()));
     }
 
@@ -91,6 +91,7 @@ public class Note {
                 new NoteId(event.getNoteId()),
                 new NoteName(event.getNoteName()),
                 event.getNoteType(),
+                new CreatorId(event.getCreatorId()),
                 new NotebookId(event.getNotebookId())));
     }
 
@@ -116,5 +117,13 @@ public class Note {
 
     private CommentId generateCommentId() {
         return new CommentId(comments.generateNewId());
+    }
+
+    CreatorId owner() {
+        return note.getOwner();
+    }
+
+    boolean isPrivate() {
+        return note.isPrivate();
     }
 }

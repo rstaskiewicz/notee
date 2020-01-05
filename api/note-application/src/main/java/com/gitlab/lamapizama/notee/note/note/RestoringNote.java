@@ -1,10 +1,10 @@
 package com.gitlab.lamapizama.notee.note.note;
 
-import com.gitlab.lamapizama.notee.commons.authentication.AuthenticationFacade;
-import com.gitlab.lamapizama.notee.commons.authentication.UserDetails;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
+import com.gitlab.lamapizama.notee.note.Authentication;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
+import com.gitlab.lamapizama.notee.note.creatorprofile.CreatorViews;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteEdited;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestored;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestoringFailed;
@@ -12,7 +12,6 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Rejection;
@@ -27,14 +26,18 @@ import static io.vavr.Patterns.$Right;
 @RequiredArgsConstructor
 public class RestoringNote {
 
-    private final AuthenticationFacade authentication;
+    private final Authentication authentication;
     private final Notes notes;
+    private final CreatorViews creatorViews;
 
     public Try<Result> restore(@NonNull RestoreNote command) {
         return Try.of(() -> {
-            CreatorId creatorId = getFromContext();
+            CreatorId creatorId = authentication.getCurrentCreatorId();
             Note note = notes.getBy(command.getNoteId());
             NoteEdited noteEvent = getBy(command.getNoteId(), command.getRevertEventId());
+            if (note.isPrivate()) {
+                authentication.checkIfActionAllowed(note.owner(), creatorViews.findFriendEmailsFor(creatorId).asJava());
+            }
             Either<NoteRestoringFailed, NoteRestored> result = note.restore(noteEvent, creatorId);
             return Match(result).of(
                     Case($Left($()), this::publishEvents),
@@ -55,13 +58,6 @@ public class RestoringNote {
     private NoteEdited getBy(NoteId noteId, RestoreEventId revertEventId) {
         return (NoteEdited) notes.findEventFor(noteId, revertEventId)
                 .getOrElseThrow(() -> new ResourceNotFoundException("Event does not exists: " + revertEventId.getId()));
-    }
-
-    private CreatorId getFromContext() {
-        return authentication.getUserDetails()
-                .map(UserDetails::getUserId)
-                .map(CreatorId::new)
-                .getOrElseThrow(() -> new IllegalStateException("Creator is not present in the authentication context"));
     }
 }
 

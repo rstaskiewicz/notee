@@ -10,7 +10,7 @@ public interface AuthenticationFacade {
 
     String getCurrentUserEmail();
 
-    boolean isActionAllowedFor(String commanderEmail);
+    boolean isActionAllowed(String commanderEmail);
 
-    boolean isActionAllowedFor(String commanderEmail, List<String> userFriendsEmails);
+    boolean isActionAllowed(String commanderEmail, List<String> userFriendsEmails);
 }
