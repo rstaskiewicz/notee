@@ -1,7 +1,11 @@
 import styled from 'styled-components'
+
 import Header from './Header'
 import Content from './Content'
 import Footer from './Footer'
+import Title from './Title'
+import Subtitle from './Subtitle'
+import Avatar from './Avatar'
 
 const Card = styled.div`
     width: 808px;
@@ -11,10 +15,15 @@ const Card = styled.div`
     align-items: center;
     border-radius: 2%;
     margin-bottom: 16px;
+    box-shadow: 0, 0, 24px rgba(188, 188, 188, .16);
 `
 
 Card.Header = Header
+Card.Title = Title
+Card.Subtitle = Subtitle
+Card.Avatar = Avatar
 Card.Content = Content
 Card.Footer = Footer
+
 
 export default Card

@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Dashboard from '../../layout/Dashboard'
+import Dashboard from '@notee/layout/Dashboard'
 
-import Header from '../../components/Header'
-import Card from '../../components/Card'
+import Header from '@notee/components/Header'
 
-import NotebookList from '../../components/NotebookList'
-import FriendsOnline from '../../components/FriendsOnline'
-import Statistics from '../../components/Statistics'
+import NotebookList from '@notee/components/NotebookList'
+import FriendsOnline from '@notee/components/FriendsOnline'
+import Statistics from '@notee/components/Statistics'
+import Card from '@notee/components/Card'
 
 const notebook1 = {
     title: "Matematyka dyskretna",
@@ -62,7 +62,6 @@ export default (
 
     return (
         <Dashboard>
-
             <Header />
             <Dashboard.Content>
                 <Dashboard.Content.Segregator modifiers="dashboard-left-column">

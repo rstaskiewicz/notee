@@ -1,14 +1,14 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import SignIn from '../../layout/SignIn'
-import { Button, Image, A, P } from '../../elements'
+import SignIn from '@notee/layout/SignIn'
+import { Button, Image, A, P } from '@notee/elements'
 
-import background from '../../assets/login-background.svg'
-import logo from '../../assets/logo.svg'
+import background from '@notee/assets/login-background.svg'
+import logo from '@notee/assets/logo.svg'
 
-import Input from '../../components/Input'
-import Checkbox from '../../components/Checkbox'
+import Input from '@notee/components/Input'
+import Checkbox from '@notee/components/Checkbox'
 
 export default () => {
 

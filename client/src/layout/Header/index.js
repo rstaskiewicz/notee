@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import Logo from './Logo'
 import Profile from './Profile'
 import Navigation from './Navigation'
+import Search from './Search'
+import Section from './Section'
+import Add from './Add'
 
 const Header = styled.div`
     width: 100%;
@@ -17,5 +20,8 @@ const Header = styled.div`
 Header.Logo = Logo
 Header.Profile = Profile
 Header.Navigation = Navigation
+Header.Search = Search
+Header.Section = Section
+Header.Add = Add
 
 export default Header

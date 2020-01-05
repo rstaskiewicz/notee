@@ -13,18 +13,12 @@ const BUTTON_MODFIERS = {
         }
     `,
 
-    'full-width': () => css`
-        width: 100%;
+    'light': () => css`
+        color: #c6cbdb;
     `,
 
-    'card-borderless': () => css`
-        min-width: 128px;
-        border: none;
-        color: #BBB9C7;
-        text-transform: none;
-        font-weight: 350;
-        justify-content: space-between;
-        padding: .5rem 2.5rem;
+    'full-width': () => css`
+        width: 100%;
     `
 
 }
@@ -60,8 +54,18 @@ const Button = styled.button`
     ${applyStyleModifiers(BUTTON_MODFIERS)}
 `
 
-Button.Icon = styled.button``
+Button.Icon = styled(Button)`
+    font-weight: 500;
+    font-size: 1rem;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: .25rem .125rem;
 
-Button.Rouded = styled.button``
+    &:hover {
+        background: transparent;
+    }
+    ${applyStyleModifiers(BUTTON_MODFIERS)}
+`
 
 export default Button

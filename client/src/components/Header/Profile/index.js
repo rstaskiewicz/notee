@@ -6,35 +6,47 @@ import {
     faBell as bell
 } from '@fortawesome/free-solid-svg-icons'
 
-import Profile from '../../../layout/Profile'
+import Profile from '@notee/layout/Profile'
 
-import Avatar from '../../Avatar'
-import { Button } from '../../../elements'
+import Avatar from '@notee/components/Avatar'
+import { Button } from '@notee/elements'
 
 export default () => {
 
     return (
         <Profile>
 
+            <Profile.Bar />
+
             <Profile.Actions>
 
-                <Button.Icon>
-                    <FontAwesomeIcon icon={friends} />
-                </Button.Icon>
+                <Profile.Action>
+                    <Button.Icon modifiers="light">
+                        <FontAwesomeIcon icon={friends} fixedWidth />
+                    </Button.Icon>
+                </Profile.Action>
 
-                <Button.Icon>
-                    <FontAwesomeIcon icon={bell} />
-                </Button.Icon>
+                <Profile.Action>
+                    <Button.Icon modifiers="light">
+                        <FontAwesomeIcon icon={bell} fixedWidth />
+                    </Button.Icon>
+                </Profile.Action>
 
             </Profile.Actions>
 
-            <Profile.Avatar>
-                <Avatar />
-            </Profile.Avatar>
+            <Profile.User>
+                <Profile.Avatar>
+                    <Avatar />
+                </Profile.Avatar>
 
-            <Profile.Name>
-                Joanna Kowalska
-            </Profile.Name>
+                <Profile.Name>
+                    Joanna Kowalska
+                </Profile.Name>
+
+                <Button.Icon>
+                    <FontAwesomeIcon icon={chevron} fixedWidth />
+                </Button.Icon>
+            </Profile.User>
 
         </Profile>
     )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import FileInput from '../../layout/FileInput'
+import FileInput from '@notee/layout/FileInput'
 
 export default ({
     accept = null,

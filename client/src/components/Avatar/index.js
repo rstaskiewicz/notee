@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Avatar from '../../layout/Avatar'
-import { Image } from '../../elements'
+import Avatar from '@notee/layout/Avatar'
+import { Image } from '@notee/elements'
 
-import avatar from '../../assets/avatar.jpg'
+import avatar from '@notee/assets/avatar.jpg'
 
 export default () => {
 

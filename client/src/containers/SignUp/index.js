@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import SignUp from '../../layout/SignUp'
-import { Image, Button } from '../../elements'
+import SignUp from '@notee/layout/SignUp'
+import { Image, Button } from '@notee/elements'
 
-import background from '../../assets/login-background.svg'
+import background from '@notee/assets/login-background.svg'
 
 import Form from './Form'
 

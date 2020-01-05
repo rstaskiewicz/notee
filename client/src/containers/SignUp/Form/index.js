@@ -2,12 +2,12 @@ import React, { forwardRef } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-import SignUp from '../../../layout/SignUp'
-import { P, A } from '../../../elements'
+import SignUp from '@notee/layout/SignUp'
+import { P, A } from '@notee/elements'
 
-import Input from '../../../components/Input'
-import Checkbox from '../../../components/Checkbox'
-import Headshot from '../../../components/Headshot'
+import Input from '@notee/components/Input'
+import Checkbox from '@notee/components/Checkbox'
+import Headshot from '@notee/components/Headshot'
 
 export default forwardRef(({ onSubmit }, ref) => {
 
@@ -117,7 +117,6 @@ export default forwardRef(({ onSubmit }, ref) => {
                         </P>
                     )}
                 </Checkbox>
-                <button type="submit">Submit</button>
             </SignUp.Supplementary>
         </SignUp.Form>
     )

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@notee/assets": [
+                "assets/*"
+            ],
+            "@notee/elements": [
+                "elements/*"
+            ],
+            "@notee/components": [
+                "components/*"
+            ],
+            "@notee/layout": [
+                "layout/*"
+            ]
+        }
+    },
+    "include": [
+        "src"
+    ]
+}

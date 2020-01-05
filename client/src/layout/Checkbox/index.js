@@ -5,7 +5,7 @@ import Input from './Input'
 import Label from './Label'
 import Tooltip from './Tooltip'
 
-import checkmark from '../../assets/checkmark.svg'
+import checkmark from '@notee/assets/checkmark.svg'
 
 const Checkbox = styled.label`
     display: flex;

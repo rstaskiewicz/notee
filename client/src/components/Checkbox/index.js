@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import Checkbox from '../../layout/Checkbox'
+
+import Checkbox from '@notee/layout/Checkbox'
 
 export default ({
     name,

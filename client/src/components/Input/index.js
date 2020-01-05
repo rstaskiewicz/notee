@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-import TextField from '../../layout/TextField'
+import TextField from '@notee/layout/TextField'
 
 export default forwardRef(({
     label,
