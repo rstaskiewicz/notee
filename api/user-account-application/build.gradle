@@ -1,12 +1,11 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
+apply plugin: 'org.springframework.boot'
+
+bootJar.enabled = false
+jar.enabled = true
 
 dependencies {
     implementation project(':commons')
     implementation project(':user-account-model')
-}
 
-dependencyManagement {
-    imports {
-        mavenBom SpringBootPlugin.BOM_COORDINATES
-    }
+    implementation 'org.springframework.boot:spring-boot-starter'
 }

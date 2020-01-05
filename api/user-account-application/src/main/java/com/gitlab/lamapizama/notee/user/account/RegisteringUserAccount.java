@@ -1,14 +1,13 @@
 package com.gitlab.lamapizama.notee.user.account;
 
 import com.gitlab.lamapizama.notee.commons.commands.Result;
-import io.vavr.control.Try;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import static com.gitlab.lamapizama.notee.commons.commands.Result.Success;
-import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.*;
+import static com.gitlab.lamapizama.notee.user.account.UserAccountEvent.UserAccountRegistered;
 
 @RequiredArgsConstructor
 public class RegisteringUserAccount {
@@ -16,16 +15,14 @@ public class RegisteringUserAccount {
     private final EncodeUserPassword encodeUserPassword;
     private final UserAccounts userAccounts;
 
-    public Try<Result> register(@NonNull RegisterUserAccountCommand command) {
-        return Try.of(() -> {
-            EncodedPassword encodedPassword = encode(command.getPassword());
-            return publishEvent(UserAccountRegistered.now(
-                    command.getEmail(),
-                    command.getUsername(),
-                    encodedPassword,
-                    command.getAvatar(),
-                    command.getContextPath()));
-        });
+    public Result register(@NonNull RegisterUserAccountCommand command) {
+        EncodedPassword encodedPassword = encode(command.getPassword());
+        return publishEvent(UserAccountRegistered.now(
+                command.getEmail(),
+                command.getUsername(),
+                encodedPassword,
+                command.getAvatar(),
+                command.getContextPath()));
     }
 
     private Result publishEvent(UserAccountRegistered userAccountRegistered) {

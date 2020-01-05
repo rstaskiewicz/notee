@@ -10,6 +10,7 @@ import com.gitlab.lamapizama.notee.note.creator.DeleteNotebook;
 import com.gitlab.lamapizama.notee.note.creator.DeletingNotebook;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookName;
+import com.gitlab.lamapizama.notee.user.account.UserAccountController;
 import io.vavr.control.Try;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/profiles/{creatorId}")
+@RequestMapping("/creators/{creatorId}")
 @RequiredArgsConstructor
 public class CreatorProfileController {
 
@@ -107,16 +108,13 @@ public class CreatorProfileController {
 class CreatorModel extends RepresentationModel<CreatorModel> {
 
     String id;
-    String fullName;
-    String avatarUrl;
     CreatorType type;
 
     CreatorModel(CreatorView creatorView) {
         this.id = creatorView.creatorId;
-        this.fullName = creatorView.username;
-        this.avatarUrl = creatorView.avatarUrl;
         this.type = creatorView.creatorType;
         add(linkTo(methodOn(CreatorProfileController.class).creator(id)).withSelfRel());
+        add(linkTo(methodOn(UserAccountController.class).findUserProfile(id)).withRel("profile"));
         add(linkTo(methodOn(CreatorProfileController.class).findNotebooks(id)).withRel("notebooks"));
     }
 }

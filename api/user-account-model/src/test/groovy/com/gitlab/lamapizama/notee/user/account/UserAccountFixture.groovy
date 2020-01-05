@@ -16,6 +16,8 @@ class UserAccountFixture {
         return new UserAccount(
                 userInformation(anyUserEmail()),
                 userVerificationTokens(token),
+                sentInvitations(),
+                receivedInvitations(),
                 VerificationPolicy.allCurrentPolicies(),
                 TokenAssigningPolicy.allCurrentPolicies())
     }
@@ -24,6 +26,8 @@ class UserAccountFixture {
         return new UserAccount(
                 userInformation(userEmail),
                 userVerificationTokens(token),
+                sentInvitations(),
+                receivedInvitations(),
                 VerificationPolicy.allCurrentPolicies(),
                 TokenAssigningPolicy.allCurrentPolicies())
     }
@@ -32,6 +36,8 @@ class UserAccountFixture {
         return new UserAccount(
                 verifiedUserInformation(anyUserEmail()),
                 userVerificationTokens(token),
+                sentInvitations(),
+                receivedInvitations(),
                 VerificationPolicy.allCurrentPolicies(),
                 TokenAssigningPolicy.allCurrentPolicies())
     }
@@ -47,6 +53,16 @@ class UserAccountFixture {
     static UserVerificationTokens userVerificationTokens(Token token) {
         Set tokens = [new UserVerificationToken(token)]
         return new UserVerificationTokens(tokens)
+    }
+
+    static SentInvitations sentInvitations() {
+        Set invitations = [new Invitation(anyUserEmail(), false)]
+        return new SentInvitations(invitations)
+    }
+
+    static ReceivedInvitations receivedInvitations() {
+        Set invitations = [new Invitation(anyUserEmail(), false)]
+        return new ReceivedInvitations(invitations)
     }
 }
 

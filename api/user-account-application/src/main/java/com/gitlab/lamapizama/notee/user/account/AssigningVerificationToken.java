@@ -2,6 +2,8 @@ package com.gitlab.lamapizama.notee.user.account;
 
 import com.gitlab.lamapizama.notee.commons.exceptions.ResourceNotFoundException;
 import com.gitlab.lamapizama.notee.commons.commands.Result;
+import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.VerificationTokenAssignationFailed;
+import com.gitlab.lamapizama.notee.user.account.UserAccountEvent.VerificationTokenAssigned;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.NonNull;
@@ -24,7 +26,7 @@ public class AssigningVerificationToken {
     public Try<Result> assign(@NonNull AssignVerificationTokenCommand command) {
         return Try.of(() -> {
             UserAccount userAccount = find(command.getUserEmail());
-            Either<UserAccountEvent.VerificationTokenAssignationFailed, UserAccountEvent.VerificationTokenAssigned> result = userAccount.assignVerificationToken(
+            Either<VerificationTokenAssignationFailed, VerificationTokenAssigned> result = userAccount.assignVerificationToken(
                     command.getContextPath());
             return Match(result).of(
                     Case($Left($()), this::publishEvent),
@@ -32,12 +34,12 @@ public class AssigningVerificationToken {
         });
     }
 
-    private Result publishEvent(UserAccountEvent.VerificationTokenAssigned verificationTokenAssigned) {
+    private Result publishEvent(VerificationTokenAssigned verificationTokenAssigned) {
         userAccounts.publish(verificationTokenAssigned);
         return Success;
     }
 
-    private Result publishEvent(UserAccountEvent.VerificationTokenAssignationFailed verificationTokenAssignationFailed) {
+    private Result publishEvent(VerificationTokenAssignationFailed verificationTokenAssignationFailed) {
         userAccounts.publish(verificationTokenAssignationFailed);
         return Rejection;
     }
