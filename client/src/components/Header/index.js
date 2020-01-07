@@ -30,10 +30,10 @@ export default () => {
 
             <Header.Section modifiers="algin-end">
 
-                <Header.Add modifiers={[ 'rounded', 'primary' ]} >
+                <a href="/note"><Header.Add href="/note" modifiers={['rounded', 'primary']} >
                     <FontAwesomeIcon icon={add} fixedWidth />
                 </Header.Add>
-
+                </a>
                 <Header.Search>
                     <Search placeholder="Search…" />
                 </Header.Search>
