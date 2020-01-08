@@ -11,20 +11,27 @@ import { Button } from '@notee/elements'
 
 export default () => {
 
-    return(
+    return (
         <Footer>
             <Button modifiers="card-borderless">
-                <FontAwesomeIcon icon={heart}/>
+                <Button.FontAwesomeIcon>
+                    <FontAwesomeIcon icon={heart} />
+                </Button.FontAwesomeIcon>
                 Like
             </Button>
             <Button modifiers="card-borderless">
-                <FontAwesomeIcon icon={pen}/>
+                <Button.FontAwesomeIcon>
+                    <FontAwesomeIcon icon={pen} />
+                </Button.FontAwesomeIcon>
                 Edit
             </Button>
             <Button modifiers="card-borderless">
-                <FontAwesomeIcon icon={bookmark}/>
+                <Button.FontAwesomeIcon>
+                    <FontAwesomeIcon icon={bookmark} />
+                </Button.FontAwesomeIcon>
                 Save
             </Button>
+
         </Footer>
     )
 

@@ -14,8 +14,10 @@ export default ({
             <Card.Avatar>
                 <Avatar />
             </Card.Avatar>
-            <Card.Title>{fullname} created new note titled Prawdopodobieństwo</Card.Title>
-            <Card.Subtitle>{date}</Card.Subtitle>
+            <div display="block" style={{lineHeight : '1.5'}}>
+                <Card.Title>{fullname} created new note titled Prawdopodobieństwo</Card.Title>
+                <Card.Subtitle>{date}</Card.Subtitle>
+            </div>
             {/* <HeaderLeft>
                 <Avatar modifiers="card-avatar" />
             </HeaderLeft>

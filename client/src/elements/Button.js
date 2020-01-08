@@ -19,7 +19,12 @@ const BUTTON_MODFIERS = {
 
     'full-width': () => css`
         width: 100%;
-    `
+    `,
+
+    'card-borderless': () => css`
+        border:none;
+        margin: 0px 70px;
+    `,
 
 }
 
@@ -66,6 +71,10 @@ Button.Icon = styled(Button)`
         background: transparent;
     }
     ${applyStyleModifiers(BUTTON_MODFIERS)}
+`
+
+Button.FontAwesomeIcon = styled.image`
+    margin-right: 4px;
 `
 
 export default Button
