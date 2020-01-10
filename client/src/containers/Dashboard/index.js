@@ -7,7 +7,7 @@ import Header from '@notee/components/Header'
 import NotebookList from '@notee/components/NotebookList'
 import FriendsOnline from '@notee/components/FriendsOnline'
 import Statistics from '@notee/components/Statistics'
-import Card from '@notee/components/Card'
+import { DashboardCard } from '@notee/components/Card'
 
 const notebook1 = {
     title: "Matematyka dyskretna",
@@ -68,16 +68,17 @@ export default (
                     <NotebookList notebooks={array} />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-center-column">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    <DashboardCard />
+                    <DashboardCard />
+                    <DashboardCard />
+                    <DashboardCard />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-right-column">
                     <FriendsOnline friends={"asd", "dsa"} />
                     <Statistics createdNoteCount={2} savedNoteCount={4} userRegisteredCount={5} />
                 </Dashboard.Content.Segregator>
             </Dashboard.Content>
+            
         </Dashboard>
     )
 

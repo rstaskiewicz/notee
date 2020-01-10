@@ -15,6 +15,8 @@ const Header = styled.div`
     background: white;
     box-shadow: 0 0 24px rgba(188, 188, 188, 0.1);
     box-sizing: border-box;
+    position: fixed;
+    z-index: 999;
 `
 
 Header.Logo = Logo

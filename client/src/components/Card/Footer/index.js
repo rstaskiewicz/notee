@@ -4,12 +4,13 @@ import Footer from '@notee/layout/Card/Footer'
 import {
     faHeart as heart,
     faPen as pen,
-    faBookmark as bookmark
+    faBookmark as bookmark,
+    faTrashAlt as trash
 } from '@fortawesome/free-solid-svg-icons'
 
 import { Button } from '@notee/elements'
 
-export default () => {
+const DashboardCardFooter = () => {
 
     return (
         <Footer>
@@ -36,3 +37,25 @@ export default () => {
     )
 
 }
+
+const NotebooksCardFooter = () => {
+
+    return (
+        <Footer modifiers="notebooks-card-footer">
+            <Button modifiers="notebooks-card-borderless">
+                <Button.FontAwesomeIcon>
+                    <FontAwesomeIcon icon={pen} />
+                </Button.FontAwesomeIcon>
+            </Button>
+            <Button modifiers="notebooks-card-borderless">
+                <Button.FontAwesomeIcon>
+                    <FontAwesomeIcon icon={trash} />
+                </Button.FontAwesomeIcon>
+            </Button>
+
+        </Footer>
+    )
+
+}
+
+export {DashboardCardFooter, NotebooksCardFooter}

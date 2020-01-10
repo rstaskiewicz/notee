@@ -26,6 +26,13 @@ const BUTTON_MODFIERS = {
         margin: 0px 70px;
     `,
 
+    'notebooks-card-borderless': () => css`
+        border:none;
+        margin-right: 24px;
+        min-width: 64px;
+        padding: 5px 0px;
+    `,
+
 }
 
 const Button = styled.button`
@@ -73,8 +80,17 @@ Button.Icon = styled(Button)`
     ${applyStyleModifiers(BUTTON_MODFIERS)}
 `
 
+const ICON_MODFIERS = {
+
+    'highlight': () => css`
+        color: #3454F5;
+    `,
+
+}
+
 Button.FontAwesomeIcon = styled.image`
     margin-right: 4px;
+    ${applyStyleModifiers(ICON_MODFIERS)}
 `
 
 export default Button

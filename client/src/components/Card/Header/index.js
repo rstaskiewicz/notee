@@ -1,32 +1,53 @@
-import React from 'react'
-
+import React, {useState} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Header from '@notee/layout/Card/Header'
 import Avatar from '@notee/components/Avatar'
 import Card from '@notee/layout/Card'
+import {
+    faBookmark as bookmark,
+} from '@fortawesome/free-solid-svg-icons'
 
-export default ({
+import { Button } from '@notee/elements'
+
+const DashboardCardHeader = ({
     user: { fullname },
     date
 }) => {
-
     return (
         <Header>
             <Card.Avatar>
                 <Avatar />
             </Card.Avatar>
-            <div display="block" style={{lineHeight : '1.5'}}>
+            <div display="block" style={{ lineHeight: '1.5' }}>
                 <Card.Title>{fullname} created new note titled Prawdopodobieństwo</Card.Title>
                 <Card.Subtitle>{date}</Card.Subtitle>
             </div>
-            {/* <HeaderLeft>
-                <Avatar modifiers="card-avatar" />
-            </HeaderLeft>
-            <HeaderRight>
-                <A modifiers="card-header">USER_NAME</A>
-                <Label modifiers="card-header">created new note titled</Label>
-                <A modifiers="card-header">NOTE_TITLE</A>
-            </HeaderRight> */}
         </Header>
     )
-
 }
+
+const NotebooksCardHeader = ({
+    user: { fullname },
+    date
+}) => {
+
+    const [isBookmarked, setBookmark] = useState(false);
+    return (
+        <Header>
+            <Card.Avatar>
+                <Avatar />
+            </Card.Avatar>
+            <div display="block" style={{ lineHeight: '1.5', width: '300px'}}>
+                <Card.Title>{fullname}</Card.Title>
+                <Card.Subtitle>{date}</Card.Subtitle>
+            </div>
+                <Button onClick={() => setBookmark(!isBookmarked)} modifiers="notebooks-card-borderless" style={{ float: 'right'}}>
+                    <Button.FontAwesomeIcon modifiers={isBookmarked ? 'highlight' : ''}>
+                        <FontAwesomeIcon icon={bookmark} />
+                    </Button.FontAwesomeIcon>
+                </Button>
+        </Header>
+    )
+}
+
+export { DashboardCardHeader, NotebooksCardHeader }

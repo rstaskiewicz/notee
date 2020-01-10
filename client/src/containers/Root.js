@@ -6,6 +6,8 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Dashboard from './Dashboard'
 import Note from './Note'
+import Notebooks from './Notebooks'
+import List from './List'
 
 export default ({ store }) => {
 
@@ -17,6 +19,8 @@ export default ({ store }) => {
                     <Route path='/sign-up' component={SignUp} />
                     <Route path='/dashboard' component={Dashboard} />
                     <Route path='/note' component={Note} />
+                    <Route path='/notebooks' component={Notebooks} />
+                    <Route path='/list' component={List} />
                     <Redirect path="*" to="/sign-in" />
                 </Switch>
             </Router>
