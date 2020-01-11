@@ -11,6 +11,13 @@ const A_MODIFIERS = {
         color: black;
         font-size: .875rem;
 
+    `,
+
+    'list-note': () => css`
+        font-family: 'Lato' ,'Open Sans', 'sans-serif';
+        color: black;
+        font-size: .875rem;
+        text-decoration: none;
     `
 }
 
