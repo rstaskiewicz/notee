@@ -15,7 +15,7 @@ export default styled.span`
     font-size: .75em;
     font-weight: 500;
     color: #bbb9c7;
-    margin: .5em 0;
+    top: 24px;
     position: absolute;
     ${applyStyleModifiers(TOOLTIP_MODIFIERS)}
 `

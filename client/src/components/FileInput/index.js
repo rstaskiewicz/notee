@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import FileInput from '@notee/layout/FileInput'
 
 export default ({
+    name,
     accept = null,
     onFile = () => null,
     validate = () => true,
@@ -26,7 +27,7 @@ export default ({
         reader.onload = () => {
             setFile(reader.result)
             setIsLoaded(true)
-            onFile(({ target: { value: reader.result } }))
+            onFile(({ target: { name, value: reader.result } }))
         }
 
         reader.readAsDataURL(file)

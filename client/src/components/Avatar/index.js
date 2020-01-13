@@ -5,14 +5,17 @@ import { Image } from '@notee/elements'
 
 import avatar from '@notee/assets/avatar.jpg'
 
-export default () => {
+export default ({
+    image,
+    status
+}) => {
 
     return (
         <Avatar>
             <Avatar.Image>
-                <Image modifiers='cover' src={avatar} />
+                <Image modifiers='cover' src={image || avatar} />
             </Avatar.Image>
-            <Avatar.Status modifiers='active' />
+            {status && <Avatar.Status modifiers={status} />}
         </Avatar>
     )
 

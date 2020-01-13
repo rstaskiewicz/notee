@@ -9,6 +9,6 @@ export default styled.label`
     position: absolute;
     display: inline-block;
     color: #9e9ca7;
-    bottom: 9px;
+    bottom: 12px;
     left: 24px;
 `

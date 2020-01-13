@@ -1,22 +1,16 @@
 import styled from 'styled-components'
-import Content from './Content'
+
+import Editor from './Editor'
+import Meta from './Meta'
 
 const Note = styled.div`
-    background: #FAFAFC;
-    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
 `
 
-Note.Input = styled.div`
-    width: 300px;
-    border-radius: 8%;
-    background: #ffffff;
-    padding: 9px 18px;
-    border-style:none;
-    font-family: 'Lato', 'Open Sans', 'sans-serif';
-    color: #BBB9C7;
-    word-wrap: break-word;
-`
-
-Note.Content = Content;
+Note.Editor = Editor
+Note.Meta = Meta
 
 export default Note

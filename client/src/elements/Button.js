@@ -9,7 +9,7 @@ const BUTTON_MODFIERS = {
         border: none;
 
         &:hover {
-            background: #3454f5;
+            background: #2b46d1;
         }
     `,
 
@@ -31,7 +31,7 @@ const BUTTON_MODFIERS = {
         margin-right: 24px;
         min-width: 64px;
         padding: 5px 0px;
-    `,
+    `
 
 }
 
@@ -84,7 +84,7 @@ const ICON_MODFIERS = {
 
     'highlight': () => css`
         color: #3454F5;
-    `,
+    `
 
 }
 

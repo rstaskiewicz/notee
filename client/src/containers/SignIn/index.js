@@ -1,18 +1,27 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import SignIn from '@notee/layout/SignIn'
-import { Button, Image, A, P } from '@notee/elements'
+import { Image, A } from '@notee/elements'
 
 import background from '@notee/assets/login-background.svg'
 import logo from '@notee/assets/logo.svg'
 
-import Input from '@notee/components/Input'
-import Checkbox from '@notee/components/Checkbox'
+import Form from './Form'
+
+import { signInUser } from '@notee/actions/user'
 
 export default () => {
 
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    const handleSignIn = values => {
+        dispatch(signInUser(values))
+            .then(() => history.push('/dashboard'))
+            .catch(error => alert(error.message))
+    }
 
     return (
         <SignIn>
@@ -34,55 +43,10 @@ export default () => {
                         <Image src={logo} />
                     </SignIn.Logo>
 
-                    <SignIn.Form>
-
-                        <SignIn.Input>
-                            <Input
-                                name="mail"
-                                type="mail"
-                                placeholder="E-mail"
-                            />
-                        </SignIn.Input>
-
-                        <SignIn.Input>
-                            <Input
-                                name="password"
-                                type="password"
-                                placeholder="Password"
-                            />
-                        </SignIn.Input>
-
-                        <SignIn.Supplementary>
-
-                            <Checkbox name="remember-me">
-                                {({ isActive, isMouseOver }) => (
-                                    <P modifiers={[ (isActive || isMouseOver) && 'primary' ]}>
-                                        Remember me
-                                    </P>
-                                )}
-                            </Checkbox>
-
-                            <A href="#">Forgot password</A>
-
-                        </SignIn.Supplementary>
-
-                    </SignIn.Form>
-
-                    <SignIn.ButtonGroup>
-
-                        <Button
-                            onClick={() => history.push('/dashboard')}
-                            modifiers="primary"
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            onClick={() => history.push('/sign-up')}
-                        >
-                            Sign Up
-                        </Button>
-
-                    </SignIn.ButtonGroup>
+                    <Form
+                        onLogin={handleSignIn}
+                        onSignUp={() => history.push('/sign-up')}
+                    />
 
                 </SignIn.Credentials>
 

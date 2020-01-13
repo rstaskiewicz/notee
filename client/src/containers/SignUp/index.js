@@ -1,17 +1,26 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import SignUp from '@notee/layout/SignUp'
-import { Image, Button } from '@notee/elements'
+import { Image } from '@notee/elements'
 
 import background from '@notee/assets/login-background.svg'
 
 import Form from './Form'
 
+import { signUpUser } from '@notee/actions/user'
+
 export default () => {
 
     const history = useHistory()
-    const form = useRef(null)
+    const dispatch = useDispatch()
+
+    const handleRegister = user => {
+        dispatch(signUpUser(user))
+            .then(() => history.push('/dashboard'))
+            .catch(error => alert(error.message))
+    }
 
     return (
         <SignUp>
@@ -29,18 +38,9 @@ export default () => {
 
                 <SignUp.Credentials>
 
-                    <Form ref={form} />
-
-                    <SignUp.ButtonGroup>
-
-                        <Button
-                            // onClick={}
-                            modifiers={[ 'full-width', 'primary' ]}
-                        >
-                            Register
-                        </Button>
-
-                    </SignUp.ButtonGroup>
+                    <Form
+                        onRegister={handleRegister}
+                    />
 
                 </SignUp.Credentials>
 

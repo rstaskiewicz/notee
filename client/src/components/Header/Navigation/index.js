@@ -6,9 +6,21 @@ export default () => {
 
     return(
         <Navigation>
-            <Navigation.Link href="/dashboard">Dashboard</Navigation.Link>
-            <Navigation.Link href="/list">List</Navigation.Link>
-            <Navigation.Link href="/notebooks">Notebooks</Navigation.Link>
+            <Navigation.List>
+
+                <Navigation.Item>
+                    <Navigation.Link modifiers="active" href="/dashboard">Dashboard</Navigation.Link>
+                </Navigation.Item>
+
+                <Navigation.Item>
+                    <Navigation.Link href="/list">List</Navigation.Link>
+                </Navigation.Item>
+
+                <Navigation.Item>
+                    <Navigation.Link href="/notebooks">Notebooks</Navigation.Link>
+                </Navigation.Item>
+
+            </Navigation.List>
         </Navigation>
     )
 

@@ -13,6 +13,15 @@
             ],
             "@notee/layout": [
                 "layout/*"
+            ],
+            "@notee/reducers": [
+                "reducers/*"
+            ],
+            "@notee/actions": [
+                "actions/*"
+            ],
+            "@notee/api": [
+                "api/*"
             ]
         }
     },

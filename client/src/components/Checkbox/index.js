@@ -8,6 +8,7 @@ export default ({
     tooltip,
     error,
     children = () => null,
+    onCheck = () => null,
     ...props
 }) => {
 
@@ -24,7 +25,10 @@ export default ({
                 id={name}
                 name={name}
                 type="checkbox"
-                onChange={e => setIsActive(e.target.checked)}
+                onChange={e => {
+                    onCheck(e)
+                    setIsActive(e.target.checked)
+                }}
                 {...props}
             />
             <Checkbox.Checkmark />

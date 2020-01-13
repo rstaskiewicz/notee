@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlus as add
@@ -15,6 +16,8 @@ import Search from './Search'
 
 export default () => {
 
+    const history = useHistory()
+
     return (
         <Header>
 
@@ -30,10 +33,13 @@ export default () => {
 
             <Header.Section modifiers="algin-end">
 
-                <a href="/note"><Header.Add href="/note" modifiers={['rounded', 'primary']} >
+                <Header.Add
+                    onClick={() => history.push('/note/new')}
+                    modifiers={[ 'rounded', 'primary' ]}
+                >
                     <FontAwesomeIcon icon={add} fixedWidth />
                 </Header.Add>
-                </a>
+
                 <Header.Search>
                     <Search placeholder="Search…" />
                 </Header.Search>

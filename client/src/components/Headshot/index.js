@@ -6,10 +6,10 @@ import Headshot from '@notee/layout/Headshot'
 
 import FileInput from '@notee/components/FileInput'
 
-export default () => {
+export default (props) => {
 
     return (
-        <FileInput>
+        <FileInput {...props}>
             {({ isActive, isLoaded, file }) => (
                 <Headshot>
                     <Headshot.Input

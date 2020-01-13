@@ -10,7 +10,8 @@ export default styled.input`
     border: none;
     outline: none;
     background: #fafafc;
-    padding: .5em 3em .5em 2em;
+    padding: .65em 3em .65em 2em;
+    align-items: center;
     font-family: 'Open Sans', 'sans-serif';
     font-size: .875em;
     font-weight: 500;

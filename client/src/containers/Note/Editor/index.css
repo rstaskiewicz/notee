@@ -1,0 +1,43 @@
+
+.codex-editor {
+    font-family: 'Lato', 'sans-serif';
+}
+
+.ce-paragraph {
+    font-family: 'Lato', 'sans-serif';
+    font-size: 0.875em;
+    line-height: 2;
+    color: #7D7C84;
+}
+
+h1.ce-header {
+    font-size: 1.875em;
+    font-weight: 700;
+}
+
+h2.ce-header {
+    font-size: 1.75em;
+    font-weight: 700;
+}
+
+h3.ce-header {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+h4.ce-header {
+    font-size: 1.25em;
+    font-weight: 400;
+}
+
+h5.ce-header {
+    font-size: 1.25em;
+}
+
+h6.ce-header {
+    font-size: 1.15em;
+}
+
+.ct {
+    font-family: 'Lato', 'sans-serif';
+}

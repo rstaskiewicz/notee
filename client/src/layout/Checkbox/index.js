@@ -36,7 +36,6 @@ const Checkbox = styled.label`
         background-position: center center;
         background-repeat: no-repeat;
     }
-
 `
 
 Checkbox.Checkmark = Checkmark

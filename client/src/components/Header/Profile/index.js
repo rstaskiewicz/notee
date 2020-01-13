@@ -1,23 +1,26 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faChevronDown as chevron,
-    faUserFriends as friends,
-    faBell as bell
+    faChevronDown as chevron
+    // faUserFriends as friends,
+    // faBell as bell
 } from '@fortawesome/free-solid-svg-icons'
 
 import Profile from '@notee/layout/Profile'
 
 import Avatar from '@notee/components/Avatar'
 import { Button } from '@notee/elements'
+import { useSelector } from 'react-redux'
 
 export default () => {
+
+    const user = useSelector(state => state.user)
 
     return (
         <Profile>
 
             <Profile.Bar />
-
+{/*
             <Profile.Actions>
 
                 <Profile.Action>
@@ -32,15 +35,18 @@ export default () => {
                     </Button.Icon>
                 </Profile.Action>
 
-            </Profile.Actions>
+            </Profile.Actions> */}
 
             <Profile.User>
-                <Profile.Avatar>
-                    <Avatar />
+                <Profile.Avatar >
+                    <Avatar
+                        status="active"
+                        image={user.avatar}
+                    />
                 </Profile.Avatar>
 
                 <Profile.Name>
-                    Joanna Kowalska
+                    {user.name}
                 </Profile.Name>
 
                 <Button.Icon>

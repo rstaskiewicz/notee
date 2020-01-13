@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
+import PrivateRoute from '@notee/components/PrivateRoute'
+
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Dashboard from './Dashboard'
@@ -17,10 +19,11 @@ export default ({ store }) => {
                 <Switch>
                     <Route path='/sign-in' component={SignIn} />
                     <Route path='/sign-up' component={SignUp} />
-                    <Route path='/dashboard' component={Dashboard} />
-                    <Route path='/note' component={Note} />
-                    <Route path='/notebooks' component={Notebooks} />
-                    <Route path='/list' component={List} />
+                    <PrivateRoute path='/dashboard' component={Dashboard} />
+                    <PrivateRoute path='/note/new' component={Note} />
+                    <PrivateRoute path='/note/:id' component={Note} />
+                    <PrivateRoute path='/notebooks' component={Notebooks} />
+                    <PrivateRoute path='/list' component={List} />
                     <Redirect path="*" to="/sign-in" />
                 </Switch>
             </Router>

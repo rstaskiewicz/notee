@@ -1,17 +1,20 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import SignUp from '@notee/layout/SignUp'
-import { P, A } from '@notee/elements'
+import { P, A, Button } from '@notee/elements'
 
 import Input from '@notee/components/Input'
 import Checkbox from '@notee/components/Checkbox'
 import Headshot from '@notee/components/Headshot'
 
-export default forwardRef(({ onSubmit }, ref) => {
+export default ({
+    onRegister
+}) => {
 
     const schema = Yup.object().shape({
+        avatar: Yup.string(),
         name: Yup.string()
             .matches(/\w{3,}\s\w{3,}/, 'Full name is required')
             .trim()
@@ -24,7 +27,7 @@ export default forwardRef(({ onSubmit }, ref) => {
             .min(8, 'Password must have length of at least 8 characters')
             .required('Password is required'),
         confirmPassword: Yup.string()
-            .oneOf([ Yup.ref('password'), null ], 'Passwords must match' )
+            .oneOf([ Yup.ref('password'), null ], 'Passwords must match')
             .required('Password confirm is required'),
         terms: Yup.bool()
             .required('You must accept terms of service')
@@ -37,19 +40,23 @@ export default forwardRef(({ onSubmit }, ref) => {
             mail: '',
             password: '',
             confirmPassword: '',
-            terms: ''
+            terms: false
         },
-        validationSchema: schema
+        validationSchema: schema,
+        onSubmit: onRegister
     })
 
     return (
         <SignUp.Form
-            ref={ref}
             onSubmit={formik.handleSubmit}
         >
 
             <SignUp.Headshot>
-                <Headshot />
+                <Headshot
+                    name="avatar"
+                    value={formik.values.avatar}
+                    onFile={formik.handleChange}
+                />
             </SignUp.Headshot>
 
             <SignUp.Input>
@@ -101,12 +108,11 @@ export default forwardRef(({ onSubmit }, ref) => {
             </SignUp.Input>
 
             <SignUp.Supplementary>
-
                 <Checkbox
                     name="terms"
-                    onChange={formik.onChange}
+                    onCheck={formik.handleChange}
                     value={formik.values.terms}
-                    // checked={formik.values.terms}
+                    checked={formik.values.terms}
                     error={formik.errors.terms}
                 >
                     {() => (
@@ -118,7 +124,18 @@ export default forwardRef(({ onSubmit }, ref) => {
                     )}
                 </Checkbox>
             </SignUp.Supplementary>
+
+            <SignUp.ButtonGroup>
+
+                <Button
+                    type="submit"
+                    modifiers={[ 'full-width', 'primary' ]}
+                >
+                    Register
+                </Button>
+
+            </SignUp.ButtonGroup>
         </SignUp.Form>
     )
 
-})
+}
