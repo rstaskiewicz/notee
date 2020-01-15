@@ -23,7 +23,7 @@ export default ({ store }) => {
                     <PrivateRoute path='/note/new' component={Note} />
                     <PrivateRoute path='/note/:id' component={Note} />
                     <PrivateRoute path='/notebooks' component={Notebooks} />
-                    <PrivateRoute path='/list' component={List} />
+                    <Route path='/list' component={List} />
                     <Redirect path="*" to="/sign-in" />
                 </Switch>
             </Router>

@@ -1,10 +1,4 @@
-import styled, { css } from 'styled-components'
-import { applyStyleModifiers } from 'styled-components-modifiers'
-
-const LABEL_MODFIERS = {
-
-
-}
+import styled from 'styled-components'
 
 export default styled.label`
     font-family: 'Lato', 'Open Sans', 'sans-serif';
@@ -13,5 +7,4 @@ export default styled.label`
     margin-left: 12px;
     margin-top: 2px;
     font-weight: bold;
-    ${applyStyleModifiers(LABEL_MODFIERS)}
 `

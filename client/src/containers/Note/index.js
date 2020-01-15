@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Page from '@notee/layout/Page'
-import Note from '@notee/layout/Note'
+import Note from '@notee/layout/containers/Note'
 
 import Editor from './Editor'
 import Meta from './Meta'

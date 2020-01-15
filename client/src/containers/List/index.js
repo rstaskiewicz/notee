@@ -1,36 +1,32 @@
 import React from 'react'
 
-import List from '@notee/layout/List'
+import Page from '@notee/layout/Page'
+import List from '@notee/layout/containers/List'
+
+import Head from './Head'
+import Body from './Body'
 
 import Header from '@notee/components/Header'
-import NotesTable from '@notee/components/NotesTable'
 
+export default () => {
 
-const note1 = {
-    user: {
-        name: "Joanna Kowalska",
-    },
-    notebook: {
-        title: "notebook1",
-        code: "ASD"
-    },
-    noteTitle: "note1",
-    date: "11-01-2020"
-}
-
-const array = [note1, note1]
-
-export default (
-
-) => {
 
     return (
-        <List>
-            <Header />
-            <List.Content>
-                <NotesTable notes={array} />
-            </List.Content>
-        </List>
+        <Page>
+            <Page.Header>
+                <Header />
+            </Page.Header>
+            <Page.Content>
+                <List>
+                    <List.Head>
+                        <Head />
+                    </List.Head>
+                    <List.Body>
+                        <Body />
+                    </List.Body>
+                </List>
+            </Page.Content>
+        </Page>
     )
 
 }

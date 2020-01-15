@@ -31,7 +31,6 @@ export default (state = initialState, { type, payload }) => {
         case SIGN_UP_USER_FAILD:
             return { ...state, error: payload, loading: false, authenticated: false }
 
-
         case SIGN_IN_USER:
             return { ...state, loading: true, error: null }
 

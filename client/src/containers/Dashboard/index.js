@@ -78,7 +78,7 @@ export default (
                     <Statistics createdNoteCount={2} savedNoteCount={4} userRegisteredCount={5} />
                 </Dashboard.Content.Segregator>
             </Dashboard.Content>
-            
+
         </Dashboard>
     )
 

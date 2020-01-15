@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import Note from '../Note'
-
 
 const Notebook = styled.ul`
     list-style-type: none;

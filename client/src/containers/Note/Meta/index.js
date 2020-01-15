@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Meta from '@notee/layout/Meta'
+import Meta from '@notee/layout/containers/Note/Meta'
 
 import Label from '@notee/components/Label'
 
