@@ -1,13 +1,7 @@
-import styled from 'styled-components'
+import List from './List'
+import Body from './Body/Body'
 
-import Head from './Head'
-import Body from './Body'
-
-const List = styled.div`
-
-`
-
-List.Head = Head
-List.Body = Body
-
-export default List
+export {
+    List,
+    Body
+}

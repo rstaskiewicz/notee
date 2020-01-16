@@ -25,7 +25,7 @@ const notes = [
 ]
 
 const findNotes = api => filters => {
-    return Promise.resolve(notes)
+    return Promise.resolve([ ...notes, ...notes, ...notes ])
 }
 
 export default api => ({

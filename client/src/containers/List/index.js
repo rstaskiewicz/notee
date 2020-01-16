@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Page from '@notee/layout/Page'
-import List from '@notee/layout/containers/List'
+import { List } from '@notee/layout/containers/List'
 
 import Head from './Head'
 import Body from './Body'

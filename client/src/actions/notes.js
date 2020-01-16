@@ -21,9 +21,9 @@ const findingNotesError = payload => ({
 export const findNotes = filters => dispatch => {
     dispatch(findingNotes())
     return api.notes.findNotes(filters)
-        .then(note => {
-            dispatch(notesFound(note))
-            return note
+        .then(notes => {
+            dispatch(notesFound(notes))
+            return notes
         })
         .catch(error => {
             dispatch(findingNotesError(error))
