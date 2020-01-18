@@ -29,7 +29,7 @@ class NoteEventDescriptor {
     @SequenceGenerator(name = "note_descriptor_seq", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false, length = 600)
+    @Column(nullable = false, length = 10000)
     String body;
 
     @Column(nullable = false)

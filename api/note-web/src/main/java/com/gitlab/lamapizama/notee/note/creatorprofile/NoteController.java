@@ -212,7 +212,7 @@ class NoteModel extends RepresentationModel<NoteModel> {
         this.id = noteView.noteId;
         this.name = noteView.noteName;
         this.type = noteView.noteType;
-        this.content = noteView.noteName;
+        this.content = noteView.noteContent;
         this.createdBy = noteView.createdBy;
         this.modifiedBy = noteView.modifiedBy;
         this.createdAt = noteView.createdAt;
