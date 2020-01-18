@@ -94,19 +94,20 @@ grant_type: password
 # Note API
 1. Entry point: /api/profiles/{userEmail}
 
-Example: http://localhost:8080/api/profiles/s15007@pjwstk.edu.pl
+Example: http://localhost:8080/api/creators/s15007@pjwstk.edu.pl
 ```
 {
     "_links": {
         "self": {
+            "href": "http://localhost:8080/api/creators/s15007@pjwstk.edu.pl"
+        },
+        "profile": {
             "href": "http://localhost:8080/api/profiles/s15007@pjwstk.edu.pl"
         },
         "notebooks": {
-            "href": "http://localhost:8080/api/profiles/s15007@pjwstk.edu.pl/notebooks"
+            "href": "http://localhost:8080/api/creators/s15007@pjwstk.edu.pl"
         }
     },
-    "avatarUrl": "siema",
-    "fullName": "Hoxaverrr",
     "id": "s15007@pjwstk.edu.pl",
     "type": "Regular"
 }

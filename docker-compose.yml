@@ -28,6 +28,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
       - NOTEE_AUTH_TOKEN_CHECKTOKENENDPOINTURL=http://auth:8081/oauth/check_token
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka1:19092
     networks:
       - noteenet
 
