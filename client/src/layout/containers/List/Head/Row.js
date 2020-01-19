@@ -6,7 +6,7 @@ export default styled.div`
     grid-template-columns: .15fr 1fr 2fr 1fr 1fr .25fr;
     justify-items: center;
     align-items: center;
-    height: 64px;
+    height: 40px;
     border-bottom: 1px solid #efefef;
 
     &:last-of-type {

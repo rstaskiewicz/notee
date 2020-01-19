@@ -5,6 +5,10 @@ const P_MODIFIERS = {
 
     'primary': () => css`
         color: #3454f5;
+    `,
+
+    'darker': () => css`
+        color: #2d3032;
     `
 
 }

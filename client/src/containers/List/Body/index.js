@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faHeart as heart
+} from '@fortawesome/free-regular-svg-icons'
 
 import Avatar from '@notee/components/Avatar'
 import { Body } from '@notee/layout/containers/List'
+import { P, Button } from '@notee/elements'
 import { findNotes } from '@notee/actions/notes'
 
 export default () => {
@@ -19,20 +24,33 @@ export default () => {
         <Body>
             {notes.data.map((note, index) => (
                 <Body.Row key={index}>
-                    <Body.Item >
-                        <Avatar image={user.avatar} />
-                        {/* <P>{user.name}</P> */}
+
+                    <Body.Item>
+                        <Body.Avatar>
+                            <Avatar image={user.avatar} />
+                        </Body.Avatar>
+                    </Body.Item>
+
+                    <Body.Item>
                         Joanna Kowalska
                     </Body.Item>
-                    <Body.Item modifiers="justify-start">
-                        {note.title}
-                    </Body.Item>
-                    <Body.Item>{note.notebook.title}</Body.Item>
+
                     <Body.Item>
-                        {note.labels.map(label => (
-                            <p key={label.id}>{label.name}</p>
-                        ))}
+                        <P modifiers="darker">{note.title}</P>
                     </Body.Item>
+
+                    <Body.Item>{note.notebook.title}</Body.Item>
+
+                    <Body.Item>
+                        5 December 2020
+                    </Body.Item>
+
+                    <Body.Item modifiers="justify-center">
+                        <Button.Icon>
+                            <FontAwesomeIcon icon={heart} fixedWidth />
+                        </Button.Icon>
+                    </Body.Item>
+
                 </Body.Row>
             ))}
         </Body>

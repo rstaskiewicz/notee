@@ -11,9 +11,9 @@ const ITEM_MODIFIERS = {
 
 export default styled.div`
     font-family: 'Lato', 'sans-serif';
-    font-size: 14px;
+    font-size: .875em;
     color: #bbb9c7;
-    padding: 0 .5em;
     justify-self: start;
+    padding: 0 .5em;
     ${applyStyleModifiers(ITEM_MODIFIERS)}
 `

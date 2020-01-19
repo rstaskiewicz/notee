@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import Item from './Item'
 import Row from './Row'
+import Avatar from './Avatar'
 
 const Body = styled.div`
     width: 100%;
@@ -16,5 +17,6 @@ const Body = styled.div`
 
 Body.Row = Row
 Body.Item = Item
+Body.Avatar = Avatar
 
 export default Body
