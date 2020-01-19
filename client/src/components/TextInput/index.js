@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-import TextField from '@notee/layout/TextField'
+import { TextInput } from '@notee/layout/components/TextInput'
 
 export default forwardRef(({
     label,
@@ -11,8 +11,8 @@ export default forwardRef(({
     ...props
 }, ref) => {
     return (
-        <TextField>
-            <TextField.Input
+        <TextInput>
+            <TextInput.Input
                 id={name}
                 name={name}
                 ref={ref}
@@ -20,19 +20,19 @@ export default forwardRef(({
                 modifiers={[ error && 'invalid' ]}
                 {...props}
             />
-            <TextField.Label
+            <TextInput.Label
                 htmlFor={name}
                 modifiers={[ error && 'invalid' ]}
             >
                 {placeholder}
-            </TextField.Label>
+            </TextInput.Label>
             {(tooltip || error) && (
-                <TextField.Tooltip
+                <TextInput.Tooltip
                     modifiers={[ error && 'invalid' ]}
                 >
                     {tooltip || error}
-                </TextField.Tooltip>
+                </TextInput.Tooltip>
             )}
-        </TextField>
+        </TextInput>
     )
 })

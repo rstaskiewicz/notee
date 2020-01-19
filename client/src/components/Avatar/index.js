@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Avatar from '@notee/layout/Avatar'
+import { Avatar } from '@notee/layout/components/Avatar'
 import { Image } from '@notee/elements'
 
 import avatar from '@notee/assets/avatar.jpg'

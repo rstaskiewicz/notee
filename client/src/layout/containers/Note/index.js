@@ -1,16 +1,9 @@
-import styled from 'styled-components'
+import Note from './Note'
+import Editor from './Editor/Editor'
+import Meta from './Meta/Meta'
 
-import Editor from './Editor'
-import Meta from './Meta'
-
-const Note = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-`
-
-Note.Editor = Editor
-Note.Meta = Meta
-
-export default Note
+export {
+    Note,
+    Editor,
+    Meta
+}

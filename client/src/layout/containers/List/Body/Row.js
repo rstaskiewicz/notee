@@ -7,7 +7,7 @@ export default styled.div`
     justify-items: center;
     align-items: center;
     height: 64px;
-    border-bottom: 1px solid rgba(0, 0, 0, .16);
+    border-bottom: 1px solid #efefef;
 
     &:last-of-type {
         border-bottom: none;

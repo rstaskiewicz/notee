@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-import Search from '@notee/layout/Search'
+import { Search } from '@notee/layout/components/Header'
 
 export default forwardRef(({
     placeholder

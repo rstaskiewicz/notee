@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Label from '@notee/layout/Label'
+import { Label } from '@notee/layout/components/Label'
 
 export default ({
     content,

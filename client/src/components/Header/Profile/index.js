@@ -6,7 +6,7 @@ import {
     // faBell as bell
 } from '@fortawesome/free-solid-svg-icons'
 
-import Profile from '@notee/layout/Profile'
+import { Profile } from '@notee/layout/components/Header'
 
 import Avatar from '@notee/components/Avatar'
 import { Button } from '@notee/elements'

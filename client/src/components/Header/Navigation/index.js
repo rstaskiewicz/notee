@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Navigation from '@notee/layout/Navigation'
+import { Navigation } from '@notee/layout/components/Header'
 
 export default () => {
 

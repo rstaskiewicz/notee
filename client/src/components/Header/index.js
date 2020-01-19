@@ -5,7 +5,7 @@ import {
     faPlus as add
 } from '@fortawesome/free-solid-svg-icons'
 
-import Header from '@notee/layout/Header'
+import { Header } from '@notee/layout/components/Header'
 import { Image } from '@notee/elements'
 
 import logo from '@notee/assets/logo.svg'

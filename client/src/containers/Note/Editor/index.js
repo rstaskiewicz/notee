@@ -4,7 +4,7 @@ import './index.css'
 
 import TOOLS from './tools'
 
-import Editor from '@notee/layout/containers/Note/Editor'
+import { Editor } from '@notee/layout/containers/Note'
 
 import Avatar from '@notee/components/Avatar'
 import { useSelector } from 'react-redux'

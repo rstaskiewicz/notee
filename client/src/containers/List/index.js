@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Page from '@notee/layout/Page'
+import { Page } from '@notee/layout/shared/Page'
 import { List } from '@notee/layout/containers/List'
 
 import Head from './Head'

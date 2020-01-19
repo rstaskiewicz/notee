@@ -20,7 +20,7 @@ export default ({ store }) => {
                     <Route path='/sign-in' component={SignIn} />
                     <Route path='/sign-up' component={SignUp} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
-                    <PrivateRoute path='/note/new' component={Note} />
+                    <Route path='/note/new' component={Note} />
                     <PrivateRoute path='/note/:id' component={Note} />
                     <PrivateRoute path='/notebooks' component={Notebooks} />
                     <Route path='/list' component={List} />

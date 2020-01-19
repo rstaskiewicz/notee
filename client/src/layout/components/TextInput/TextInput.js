@@ -4,7 +4,7 @@ import Input from './Input'
 import Label from './Label'
 import Tooltip from './Tooltip'
 
-const TextField = styled.div`
+const TextInput = styled.div`
     position: relative;
 
     ${Input}:not(:placeholder-shown) ~ ${Label} {
@@ -19,8 +19,8 @@ const TextField = styled.div`
 
 `
 
-TextField.Input = Input
-TextField.Label = Label
-TextField.Tooltip = Tooltip
+TextInput.Input = Input
+TextInput.Label = Label
+TextInput.Tooltip = Tooltip
 
-export default TextField
+export default TextInput

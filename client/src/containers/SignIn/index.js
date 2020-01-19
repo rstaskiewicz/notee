@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import SignIn from '@notee/layout/SignIn'
+import { SignIn } from '@notee/layout/containers/SignIn'
 import { Image, A } from '@notee/elements'
 
 import background from '@notee/assets/login-background.svg'

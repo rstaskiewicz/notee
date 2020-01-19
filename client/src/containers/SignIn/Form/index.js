@@ -2,9 +2,9 @@ import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-import SignIn from '@notee/layout/SignIn'
+import { SignIn } from '@notee/layout/containers/SignIn'
 
-import Input from '@notee/components/Input'
+import TextInput from '@notee/components/TextInput'
 import Checkbox from '@notee/components/Checkbox'
 import { A, P, Button } from '@notee/elements'
 
@@ -40,7 +40,7 @@ export default ({
         >
 
             <SignIn.Input>
-                <Input
+                <TextInput
                     name="mail"
                     type="mail"
                     placeholder="E-mail"
@@ -52,7 +52,7 @@ export default ({
             </SignIn.Input>
 
             <SignIn.Input>
-                <Input
+                <TextInput
                     name="password"
                     type="password"
                     placeholder="Password"
