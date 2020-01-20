@@ -31,6 +31,19 @@ const BUTTON_MODFIERS = {
         margin-right: 24px;
         min-width: 64px;
         padding: 5px 0px;
+    `,
+
+    'note-save': () => css`
+        border:none;
+        margin: 24px;
+        padding: 12px 0px;
+        background: #f0f0f0;
+
+        
+        &:hover {
+            background: #bbb9c7;
+            color: #ffffff;
+        }
     `
 
 }

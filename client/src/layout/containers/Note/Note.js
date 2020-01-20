@@ -10,6 +10,10 @@ const Note = styled.div`
     height: 100%;
 `
 
+Note.Button = styled.button`
+    background: white;
+`
+
 Note.Editor = Editor
 Note.Meta = Meta
 
