@@ -3,10 +3,10 @@ import React from 'react'
 import { Page } from '@notee/layout/shared/Page'
 import { Note } from '@notee/layout/containers/Note'
 
-import Editor from './Editor'
 import Meta from './Meta'
 
 import Header from '@notee/components/Header'
+import Editor from '@notee/components/Editor'
 
 export default () => {
 

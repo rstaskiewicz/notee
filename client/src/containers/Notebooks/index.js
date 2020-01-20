@@ -1,27 +1,42 @@
 import React from 'react'
 
-import Notebooks from '@notee/layout/Notebooks'
+import { Page } from '@notee/layout/shared/Page'
+import { Notebooks } from '@notee/layout/containers/Notebooks'
+
+import Sidebar from './Sidebar'
+import List from './List'
+import Preview from './Preview'
 
 import Header from '@notee/components/Header'
-import { NotebooksCard } from '@notee/components/Card'
 
-export default (
-
-) => {
-
+export default () => {
     return (
-        <Notebooks>
-            <Header />
-            <Notebooks.Content>
-                <Notebooks.Content.Segregator modifiers="dashboard-right-column">
-                    <NotebooksCard />
-                    <NotebooksCard />
-                    <NotebooksCard />
-                    <NotebooksCard />
-                    <NotebooksCard />
-                </Notebooks.Content.Segregator>
-            </Notebooks.Content>
-        </Notebooks>
-    )
+        <Page modifiers="with-sidebar">
 
+            <Page.Header>
+                <Header />
+            </Page.Header>
+
+            <Page.Sidebar>
+                <Notebooks.Sidebar>
+                    <Sidebar />
+                </Notebooks.Sidebar>
+            </Page.Sidebar>
+
+            <Page.Content>
+                <Notebooks>
+
+                    <Notebooks.List>
+                        <List />
+                    </Notebooks.List>
+
+                    <Notebooks.Preview>
+                        <Preview />
+                    </Notebooks.Preview>
+
+                </Notebooks>
+            </Page.Content>
+
+        </Page>
+    )
 }

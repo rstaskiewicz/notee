@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus as plus } from '@fortawesome/free-solid-svg-icons'
 
-import Headshot from '@notee/layout/Headshot'
+import { Headshot } from '@notee/layout/components/Headshot'
 
 import FileInput from '@notee/components/FileInput'
 

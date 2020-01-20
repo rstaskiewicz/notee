@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export default styled.div`
     display: flex;
-    background: #fafafc;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: .25em 1em;
     box-sizing: border-box;
-    padding-top: 48px;
-    grid-area: content;
-    overflow: auto;
 `

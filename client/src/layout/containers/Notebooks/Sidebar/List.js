@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export default styled.div`
+export default styled.ul`
     display: flex;
+    flex-direction: column;
     width: 100%;
-    z-index: 999;
-    grid-area: header;
+    list-style: none;
 `

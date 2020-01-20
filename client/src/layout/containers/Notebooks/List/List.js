@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
-export default styled.div`
+const List = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0 2.5em;
+    overflow: auto;
+    padding: 0 3em;
     box-sizing: border-box;
-    flex-direction: column;
 `
+
+export default List

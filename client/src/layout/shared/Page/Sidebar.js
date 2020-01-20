@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
 export default styled.div`
-    display: flex;
     width: 100%;
+    display: flex;
+    grid-area: sidebar;
+    height: calc(100vh - 56px);
     z-index: 999;
-    grid-area: header;
 `
