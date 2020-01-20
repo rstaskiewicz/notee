@@ -1,6 +1,16 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { applyStyleModifiers } from 'styled-components-modifiers'
+import { NavLink } from 'react-router-dom'
 
-export default styled.a`
+const LINK_MODIFIERS = {
+
+    'active': () => css`
+        color: #3454F5;
+    `
+
+}
+
+export default styled(NavLink)`
     display: flex;
     font-family: 'lato', 'sans-serif';
     font-size: 16px;
@@ -19,4 +29,6 @@ export default styled.a`
         border: none;
         border-radius: 8px;
     }
+
+    ${applyStyleModifiers(LINK_MODIFIERS)}
 `

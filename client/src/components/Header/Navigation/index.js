@@ -1,24 +1,33 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { Navigation } from '@notee/layout/components/Header'
 
 export default () => {
 
+    const { pathname } = useLocation()
+    const navigation = [
+        { name: 'Dashboard', to: '/dashboard' },
+        { name: 'List', to: '/list' },
+        { name: 'Notebooks', to: '/notebooks' }
+    ]
+
     return(
         <Navigation>
             <Navigation.List>
-
-                <Navigation.Item>
-                    <Navigation.Link modifiers="active" href="/dashboard">Dashboard</Navigation.Link>
-                </Navigation.Item>
-
-                <Navigation.Item>
-                    <Navigation.Link href="/list">List</Navigation.Link>
-                </Navigation.Item>
-
-                <Navigation.Item>
-                    <Navigation.Link href="/notebooks">Notebooks</Navigation.Link>
-                </Navigation.Item>
+                {navigation.map((item, index) => (
+                    <Navigation.Item
+                        key={index}
+                        modifiers={[ pathname === item.to && 'active' ]}
+                    >
+                        <Navigation.Link
+                            to={item.to}
+                            modifiers={[ pathname === item.to && 'active' ]}
+                        >
+                            {item.name}
+                        </Navigation.Link>
+                    </Navigation.Item>
+                ))}
 
             </Navigation.List>
         </Navigation>
