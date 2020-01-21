@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect }  from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Dashboard from '@notee/layout/Dashboard'
 
@@ -8,6 +9,8 @@ import NotebookList from '@notee/components/NotebookList'
 import FriendsOnline from '@notee/components/FriendsOnline'
 import Statistics from '@notee/components/Statistics'
 import { DashboardCard } from '@notee/components/Card'
+
+import { loadUserNotebooks } from '@notee/actions/notebooks'
 
 const notebook1 = {
     title: "Matematyka dyskretna",
@@ -60,12 +63,20 @@ export default (
 
 ) => {
 
+    const { userId } = useSelector(state => state.auth.data)
+    const { data: notebooks } = useSelector(state => state.notebooks)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadUserNotebooks(userId))
+    }, [ dispatch ])
+
     return (
         <Dashboard>
             <Header />
             <Dashboard.Content>
                 <Dashboard.Content.Segregator modifiers="dashboard-left-column">
-                    <NotebookList notebooks={array} />
+                    <NotebookList notebooks={notebooks} />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-center-column">
                     <DashboardCard />

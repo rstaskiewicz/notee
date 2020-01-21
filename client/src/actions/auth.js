@@ -1,82 +1,57 @@
-import api from '../api'
+import axios from 'axios'
+import queryString from 'query-string'
 import jwt from 'jsonwebtoken'
 
-export const SING_IN = 'SING_IN'
-export const SING_IN_FULFILLED = 'SING_IN_FULFILLED'
-export const SING_IN_REJECTED = 'SING_IN_REJECTED'
+const AUTH_API = 'http://localhost:8081/oauth/token'
 
-const signingIn = () => ({
-    type: SING_IN
-})
+export const SIGN_IN_REQUEST = '@SIGN_IN_REQUEST'
+export const SIGN_IN_SUCCESS = '@SIGN_IN_SUCCESS'
+export const SIGN_IN_FAILURE = '@SIGN_IN_FAILURE'
 
-const signedIn = payload => ({
-    type: SING_IN_FULFILLED,
-    payload
-})
+export const signIn = ({ mail, password }) => dispatch => {
+    dispatch({ type: SIGN_IN_REQUEST })
 
-const signingInError = payload => ({
-    type: SING_IN_REJECTED,
-    payload
-})
+    const requestBody = {
+        username: mail,
+        password: password,
+        client_id: 'js_client',
+        client_secret: 'secret',
+        grant_type: 'password'
+    }
+    const requestQuery = queryString.stringify(requestBody)
 
-export const signIn = user => dispatch => {
-    dispatch(signingIn)
-    return api.auth.login(user)
-        .then(data => {
-            localStorage.setItem('token', data.token)
-            api.setHeader({ 'Authorization': `Bearer ${data.token}` })
-            return jwt.decode(data.token)
+    return axios.post(AUTH_API, requestQuery, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        },
+        auth: {
+            username: 'js_client',
+            password: 'secret'
+        }
+    })
+        .then(({ data: { access_token }}) => {
+            const userId = jwt.decode(access_token).user_name
+            localStorage.setItem('token', access_token)
+            localStorage.setItem('userId', userId)
+            dispatch({
+                type: SIGN_IN_SUCCESS,
+                payload: { token: access_token, userId: userId }
+            })
         })
-        .then(user => dispatch(signedIn({ id: user.id, authenticated: true })))
-        .catch(error => dispatch(signingInError(error)))
-
+        .catch(() => dispatch({
+            type: SIGN_IN_FAILURE,
+            payload: 'Invalid login credentials!'
+        }))
 }
 
-export const USE_TOKEN = 'USE_TOKEN'
-export const USE_TOKEN_FULFILLED = 'USE_TOKEN_FULFILLED'
-export const USE_TOKEN_REJECTED = 'USE_TOKEN_REJECTED'
+export const SIGN_OUT = '@SIGN_OUT'
 
-const usingToken = () => ({
-    type: USE_TOKEN
-})
-
-const tokenUsed = payload => ({
-    type: USE_TOKEN_FULFILLED,
-    payload
-})
-
-const tokenUsageError = payload => ({
-    type: USE_TOKEN_REJECTED,
-    payload
-})
-
-export const useToken = token => dispatch => {
-    dispatch(usingToken)
-    return Promise.resolve(jwt.decode(token))
-        .then(user => dispatch(tokenUsed({ id: user.id, authenticated: true })))
-        .catch(error => dispatch(tokenUsageError(error)))
-
-}
-
-export const SING_OUT = 'SING_OUT'
-
-const signingOut = payload => ({
-    type: SING_OUT,
-    payload
-})
-
-export const signOut = () => dispatch => {
-
-    dispatch(signingOut({
-        id: '',
-        profile: '',
-        name: '',
-        notebook: {},
-        authenticated: false
-    }))
-
+export const signOut = () => {
     localStorage.removeItem('token')
-    api.removeHeader('Authorization')
-    return Promise.resolve()
+    localStorage.removeItem('userId')
 
+    return {
+        type: SIGN_IN_SUCCESS
+    }
 }

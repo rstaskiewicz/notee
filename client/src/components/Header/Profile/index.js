@@ -41,7 +41,7 @@ export default () => {
                 <Profile.Avatar >
                     <Avatar
                         status="active"
-                        image={user.avatar}
+                        image={user.avatarUrl}
                     />
                 </Profile.Avatar>
 

@@ -19,7 +19,7 @@ export default () => {
                 <Header.Avatar>
                     <Avatar
                         status={false}
-                        image={user.avatar}
+                        image={user.avatarUrl}
                     />
                 </Header.Avatar>
             </Header.Info>

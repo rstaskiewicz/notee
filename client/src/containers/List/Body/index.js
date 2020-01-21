@@ -9,14 +9,17 @@ import Avatar from '@notee/components/Avatar'
 import { Body } from '@notee/layout/containers/List'
 import { P, Button } from '@notee/elements'
 import { findNotes } from '@notee/actions/notes'
+import {loadUser} from '@notee/actions/user'
 
 export default () => {
 
+    const { userId } = useSelector(state => state.auth.data)
     const user = useSelector(state => state.user)
     const notes = useSelector(state => state.notes)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(loadUser(userId))
         dispatch(findNotes())
     }, [ dispatch ])
 
@@ -27,7 +30,7 @@ export default () => {
 
                     <Body.Item>
                         <Body.Avatar>
-                            <Avatar image={user.avatar} />
+                            <Avatar image={user.avatarUrl} />
                         </Body.Avatar>
                     </Body.Item>
 

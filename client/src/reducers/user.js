@@ -1,48 +1,24 @@
 import {
-    SIGN_UP_USER,
-    SIGN_UP_USER_SUCCESS,
-    SIGN_UP_USER_FAILD,
-    SIGN_IN_USER,
-    SIGN_IN_USER_SUCCESS,
-    SIGN_IN_USER_FAILD
+    LOAD_USER_REQUEST,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAILURE
 } from '@notee/actions/user'
 
-
 const initialState = {
-    id: '',
-    avatar: '',
-    name: '',
-    mail: '',
-    authenticated: false,
+    data: {},
     loading: true,
     error: null
 }
 
 export default (state = initialState, { type, payload }) => {
-
     switch (type) {
-
-        case SIGN_UP_USER:
+        case LOAD_USER_REQUEST:
             return { ...state, loading: true, error: null }
-
-        case SIGN_UP_USER_SUCCESS:
-            return { ...state, ...payload, loading: false, authenticated: true }
-
-        case SIGN_UP_USER_FAILD:
+        case LOAD_USER_SUCCESS:
+            return { ...state, data: { ...payload }, loading: false }
+        case LOAD_USER_FAILURE:
             return { ...state, error: payload, loading: false, authenticated: false }
-
-        case SIGN_IN_USER:
-            return { ...state, loading: true, error: null }
-
-        case SIGN_IN_USER_SUCCESS:
-            return { ...state, ...payload, loading: false, authenticated: true }
-
-        case SIGN_IN_USER_FAILD:
-            return { ...state, error: payload, loading: false, authenticated: false }
-
         default:
             return state
-
     }
-
 }

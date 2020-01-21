@@ -10,7 +10,7 @@ import logo from '@notee/assets/logo.svg'
 
 import Form from './Form'
 
-import { signInUser } from '@notee/actions/user'
+import { signIn } from '@notee/actions/auth'
 
 export default () => {
 
@@ -18,7 +18,7 @@ export default () => {
     const dispatch = useDispatch()
 
     const handleSignIn = values => {
-        dispatch(signInUser(values))
+        dispatch(signIn(values))
             .then(() => history.push('/dashboard'))
             .catch(error => alert(error.message))
     }

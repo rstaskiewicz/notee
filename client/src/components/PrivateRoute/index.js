@@ -7,14 +7,12 @@ export default ({
     component: Component,
     ...rest
 }) => {
-
-    const { authenticated } = useSelector(state => state.user)
-
+    const { userId } = useSelector(state => state.auth.data)
     return (
         <Route
             {...rest}
             render={({ location }) =>
-                authenticated ? (
+                userId ? (
                     <Component /> || children
                 ) : (
                         <Redirect

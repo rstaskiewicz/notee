@@ -3,17 +3,12 @@ import React from 'react'
 import NotebookList from '../../layout/NotebookList'
 import Notebook from './Notebook'
 
-export default ({
-
-        notebooks,
-
-}) => {
+export default ({ notebooks }) => {
 
         return (
                 <NotebookList>
-                        {notebooks.map((notebook, index) =>(
-                                <Notebook key={index} title={notebook.title} notes={notebook.notes} />
-                        ))}
+                    {Object.values(notebooks).map(({ notebookId, notebookName }) => (
+                        <Notebook key={notebookId} title={notebookName} notes={[]} />))}
                 </NotebookList>
         )
 }
