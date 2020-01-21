@@ -9,7 +9,7 @@ const AVATAR_MODFIERS = {
     'card-avatar': () => css`
         max-width: 48px;
         max-height: 48px;
-    `,
+    `
 
 }
 

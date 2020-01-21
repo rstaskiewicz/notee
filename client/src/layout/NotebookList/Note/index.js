@@ -5,7 +5,7 @@ const NOTE_MODFIERS = {
 
     'hidden': () => css`
         display: none;
-    `,
+    `
 
 }
 
@@ -18,6 +18,7 @@ const Note = styled.li`
     color: #BBB9C7;
     ${applyStyleModifiers(NOTE_MODFIERS)}
 `
+
 Note.FontAwesomeIcon = styled.div`
     display: inline;
     margin-right: 8px;

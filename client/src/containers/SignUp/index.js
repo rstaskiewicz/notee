@@ -9,7 +9,7 @@ import background from '@notee/assets/login-background.svg'
 
 import Form from './Form'
 
-import { signUpUser } from '@notee/actions/user'
+import { signUpUser } from '@notee/actions/sign-up'
 
 export default () => {
 
