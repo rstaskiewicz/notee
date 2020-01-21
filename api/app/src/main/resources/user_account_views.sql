@@ -21,6 +21,6 @@ CREATE TABLE IF NOT EXISTS friend_invitation_view
     visited         BOOLEAN     NOT NULL
 );
 
-CREATE SEQUENCE user_profile_view_seq;
-CREATE SEQUENCE friends_view_seq;
-CREATE SEQUENCE friend_invitation_view_seq;
+CREATE SEQUENCE IF NOT EXISTS user_profile_view_seq;
+CREATE SEQUENCE IF NOT EXISTS friends_view_seq;
+CREATE SEQUENCE IF NOT EXISTS friend_invitation_view_seq;

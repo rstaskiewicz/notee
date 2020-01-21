@@ -55,11 +55,11 @@ CREATE TABLE IF NOT EXISTS creator_friend_view (
     friend_email VARCHAR(32) NOT NULL,
     creator_id VARCHAR(32) NOT NULL);
 
-CREATE SEQUENCE creator_profile_seq;
-CREATE SEQUENCE notebook_view_seq;
-CREATE SEQUENCE note_view_seq;
-CREATE SEQUENCE comment_view_seq;
-CREATE SEQUENCE tag_view_seq;
-CREATE SEQUENCE note_activity_view_seq;
-CREATE SEQUENCE note_version_view_seq;
-CREATE SEQUENCE creator_friend_view_seq;
+CREATE SEQUENCE IF NOT EXISTS creator_profile_seq;
+CREATE SEQUENCE IF NOT EXISTS notebook_view_seq;
+CREATE SEQUENCE IF NOT EXISTS note_view_seq;
+CREATE SEQUENCE IF NOT EXISTS comment_view_seq;
+CREATE SEQUENCE IF NOT EXISTS tag_view_seq;
+CREATE SEQUENCE IF NOT EXISTS note_activity_view_seq;
+CREATE SEQUENCE IF NOT EXISTS note_version_view_seq;
+CREATE SEQUENCE IF NOT EXISTS creator_friend_view_seq;
