@@ -3,6 +3,7 @@ package com.gitlab.lamapizama.notee.note.creatorprofile;
 import com.gitlab.lamapizama.notee.note.creator.CreatorEvent.CreatorCreated;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.creator.CreatorType;
+import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -22,6 +23,7 @@ import static io.vavr.control.Option.of;
 class CreatorReadModel implements CreatorViews {
 
     private final JdbcTemplate views;
+    private final NotebookViews notebookViews;
 
     @Override
     public Option<CreatorView> findBy(CreatorId creatorId) {
@@ -32,10 +34,13 @@ class CreatorReadModel implements CreatorViews {
     }
 
     @Override
-    public List<NotebookView> fetchNotebooksFor(CreatorId creatorId) {
+    public List<NotebookView> fetchNotebooksFor(CreatorId creatorId, boolean showNotes) {
         return ofAll(views.query("SELECT notebook_id, notebook_name" +
                 " FROM notebook_view" +
-                " WHERE owner_id = ?", new BeanPropertyRowMapper<>(NotebookView.class), creatorId.getId()));
+                " WHERE owner_id = ?", new BeanPropertyRowMapper<>(NotebookView.class), creatorId.getId()))
+                .map(notebook -> showNotes
+                        ? notebook.withNotes(notebookViews.fetchNotesFor(new NotebookId(notebook.notebookId)).asJava())
+                        : notebook);
     }
 
     @Override

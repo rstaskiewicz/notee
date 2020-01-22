@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -55,6 +56,7 @@ public class CreatorProfileController {
     private final CreatorViews creatorProfiles;
     private final CreatingNotebook creatingNotebook;
     private final DeletingNotebook deletingNotebook;
+    private final NoteViews noteViews;
 
     @GetMapping
     ResponseEntity<CreatorModel> creator(@PathVariable String creatorId) {
@@ -64,13 +66,14 @@ public class CreatorProfileController {
     }
 
     @GetMapping("/notebooks")
-    ResponseEntity<CollectionModel<EntityModel<NotebookView>>> findNotebooks(@PathVariable String creatorId) {
-        List<EntityModel<NotebookView>> notebooks = creatorProfiles.fetchNotebooksFor(new CreatorId(creatorId))
+    ResponseEntity<CollectionModel<EntityModel<NotebookView>>> findNotebooks(@PathVariable String creatorId,
+                                                                             @RequestParam(required = false) boolean showNotes) {
+        List<EntityModel<NotebookView>> notebooks = creatorProfiles.fetchNotebooksFor(new CreatorId(creatorId), showNotes)
                 .map(notebook -> notebookWithLinkToSelf(creatorId, notebook))
                 .collect(toList());
         return ok(new CollectionModel<>(
                 notebooks,
-                linkTo(methodOn(CreatorProfileController.class).findNotebooks(creatorId))
+                linkTo(methodOn(CreatorProfileController.class).findNotebooks(creatorId, false))
                         .withSelfRel()));
     }
 
@@ -97,6 +100,24 @@ public class CreatorProfileController {
                 .getOrElse(status(INTERNAL_SERVER_ERROR).build());
     }
 
+    @GetMapping("/notes/all")
+    ResponseEntity<CollectionModel<EntityModel<NoteDashboardView>>> findAllNotes(@PathVariable String creatorId) {
+        List<EntityModel<NoteDashboardView>> notes = noteViews.findAllNotesFor(new CreatorId(creatorId))
+                .map(this::noteWithLinkToSelf)
+                .collect(toList());
+        return ok(new CollectionModel<>(notes,
+                linkTo(methodOn(CreatorProfileController.class).findAllNotes(creatorId)).withSelfRel()));
+    }
+
+    @GetMapping("/notes/last")
+    ResponseEntity<CollectionModel<EntityModel<NoteDashboardView>>> findLastNotes(@PathVariable String creatorId) {
+        List<EntityModel<NoteDashboardView>> notes = noteViews.findLastNotesFor(new CreatorId(creatorId))
+                .map(this::noteWithLinkToSelf)
+                .collect(toList());
+        return ok(new CollectionModel<>(notes,
+                linkTo(methodOn(CreatorProfileController.class).findAllNotes(creatorId)).withSelfRel()));
+    }
+
     private EntityModel<NotebookView> notebookWithLinkToSelf(String creatorId, NotebookView notebook) {
         return new EntityModel<>(
                 notebook,
@@ -104,6 +125,13 @@ public class CreatorProfileController {
                         .withSelfRel()
                         .andAffordance(afford(methodOn(CreatorProfileController.class)
                                 .deleteNotebook(creatorId, notebook.notebookId))));
+    }
+
+    private EntityModel<NoteDashboardView> noteWithLinkToSelf(NoteDashboardView note) {
+        return new EntityModel<>(
+                note,
+                linkTo(methodOn(NoteController.class).note(note.noteId))
+                        .withSelfRel());
     }
 }
 
@@ -119,6 +147,8 @@ class CreatorModel extends RepresentationModel<CreatorModel> {
         this.type = creatorView.creatorType;
         add(linkTo(methodOn(CreatorProfileController.class).creator(id)).withSelfRel());
         add(linkTo(methodOn(UserAccountController.class).findUserProfile(id)).withRel("profile"));
-        add(linkTo(methodOn(CreatorProfileController.class).findNotebooks(id)).withRel("notebooks"));
+        add(linkTo(methodOn(CreatorProfileController.class).findNotebooks(id, false)).withRel("notebooks"));
+        add(linkTo(methodOn(CreatorProfileController.class).findAllNotes(id)).withRel("all-notes"));
+        add(linkTo(methodOn(CreatorProfileController.class).findLastNotes(id)).withRel("last-notes"));
     }
 }

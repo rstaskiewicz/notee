@@ -11,12 +11,12 @@ const user = {
 }
 
 
-const DashboardCard = () => {
+const DashboardCard = ({ noteName, createdBy, modifiedAt, noteContent }) => {
     return (
         <Card>
-            <DashboardCardHeader user={user} date="4 min ago" />
+            <DashboardCardHeader noteName={noteName} user={createdBy} date={modifiedAt} />
             <Content>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut vehicula arcu, nec dictum felis. Etiam a est dapibus, mollis est convallis, laoreet orci. Praesent mollis, augue quis molestie pulvinar, ante tortor facilisis metus, et placerat justo quam a nulla. Suspendisse feugiat tortor a quam imperdiet vestibulum. Maecenas commodo consectetur sapien, vel hendrerit sem gravida et. Sed tincidunt aliquam ex, id mollis dolor ullamcorper at. Vivamus dapibus enim iaculis urna eleifend, eget blandit arcu scelerisque. Nunc id ipsum non odio gravida fermentum…
+                {noteContent}
             </Content>
             <DashboardCardFooter />
         </Card>

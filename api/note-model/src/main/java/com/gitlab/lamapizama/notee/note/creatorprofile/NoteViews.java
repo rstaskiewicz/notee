@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
+import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteId;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
@@ -15,4 +16,8 @@ public interface NoteViews {
     List<ActivityView> findActivitiesFor(NoteId noteId);
 
     List<NoteVersionView> findVersionsFor(NoteId noteId);
+
+    List<NoteDashboardView> findAllNotesFor(CreatorId creatorId);
+
+    List<NoteDashboardView> findLastNotesFor(CreatorId creatorId);
 }

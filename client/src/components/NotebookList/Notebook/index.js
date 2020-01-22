@@ -19,11 +19,11 @@ export default ({
     const [ isClicked, setIsClicked] = useState(true)
 
     return (
-        
+
         <Notebook >
             <Notebook.P><P onClick={() => setIsClicked(!isClicked)}>{title}<Notebook.FontAwesomeIcon><FontAwesomeIcon color="#BBB9C7" icon={ isClicked ? chevronLeft : chevronDown} /></Notebook.FontAwesomeIcon></P></Notebook.P>
             {notes.map((note, index) => (
-                <Note key={index} title={note.title} isClickedState={isClicked}/>
+                <Note key={index} title={note.noteName} isClickedState={isClicked}/>
             ))}
         </Notebook>
     )

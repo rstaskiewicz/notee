@@ -1,5 +1,6 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
+import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCommented;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCreated;
@@ -80,6 +81,23 @@ class NoteReadModel implements NoteViews {
     public Option<NoteView> findBy(NoteId noteId) {
         return Try.ofSupplier(() -> of(views.queryForObject(GET_NOTE, new BeanPropertyRowMapper<>(NoteView.class), noteId.getId())))
                 .getOrElse(none());
+    }
+
+    public List<NoteDashboardView> findAllNotesFor(CreatorId creatorId) {
+        return ofAll(views.query("SELECT * FROM note_view" +
+                        " JOIN notebook_view ON note_view.notebook_id = notebook_view.notebook_id" +
+                        " WHERE note_view.created_by = ?" +
+                        " ORDER BY note_view.created_at DESC",
+                new BeanPropertyRowMapper<>(NoteDashboardView.class), creatorId.getId()));
+    }
+
+    public List<NoteDashboardView> findLastNotesFor(CreatorId creatorId) {
+        return ofAll(views.query("SELECT * FROM note_view" +
+                        " JOIN notebook_view ON note_view.notebook_id = notebook_view.notebook_id" +
+                        " WHERE note_view.created_by = ?" +
+                        " ORDER BY note_view.created_at DESC" +
+                        " FETCH FIRST 5 ROWS ONLY",
+                new BeanPropertyRowMapper<>(NoteDashboardView.class), creatorId.getId()));
     }
 
     @Override

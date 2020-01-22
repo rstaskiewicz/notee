@@ -9,7 +9,7 @@ public interface CreatorViews {
 
     Option<CreatorView> findBy(CreatorId creatorId);
 
-    List<NotebookView> fetchNotebooksFor(CreatorId creatorId);
+    List<NotebookView> fetchNotebooksFor(CreatorId creatorId, boolean showNotes);
 
     List<String> findFriendEmailsFor(@NonNull CreatorId creatorId);
 }

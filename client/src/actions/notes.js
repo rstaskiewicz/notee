@@ -1,32 +1,19 @@
-import api from '@notee/api'
+export const LOAD_ALL_USER_NOTES_REQUEST = '@LOAD_ALL_USER_NOTES_REQUEST'
+export const LOAD_ALL_USER_NOTES_SUCCESS = '@LOAD_ALL_USER_NOTES_SUCCESS'
+export const LOAD_ALL_USER_NOTES_FAILURE = '@LOAD_ALL_USER_NOTES_FAILURE'
 
-export const FIND_NOTES = 'FIND_NOTES'
-export const FIND_NOTES_SUCCESS = 'FIND_NOTES_SUCCESS'
-export const FIND_NOTES_FAILD = 'FIND_NOTES_FAILD'
-
-const findingNotes = () => ({
-    type: FIND_NOTES
+export const loadAllUserNotes = userId => ({
+    types: [ LOAD_ALL_USER_NOTES_REQUEST, LOAD_ALL_USER_NOTES_SUCCESS, LOAD_ALL_USER_NOTES_FAILURE ],
+    endpoint: `/creators/${userId}/notes/all`,
+    payload: { userId }
 })
 
-const notesFound = payload => ({
-    type: FIND_NOTES_SUCCESS,
-    payload
-})
+export const LOAD_LAST_USER_NOTES_REQUEST = '@LOAD_LAST_USER_NOTES_REQUEST'
+export const LOAD_LAST_USER_NOTES_SUCCESS = '@LOAD_LAST_USER_NOTES_SUCCESS'
+export const LOAD_LAST_USER_NOTES_FAILURE = '@LOAD_LAST_USER_NOTES_FAILURE'
 
-const findingNotesError = payload => ({
-    type: FIND_NOTES_FAILD,
-    payload
+export const loadLastUserNotes = userId => ({
+    types: [ LOAD_LAST_USER_NOTES_REQUEST, LOAD_LAST_USER_NOTES_SUCCESS, LOAD_LAST_USER_NOTES_FAILURE ],
+    endpoint: `/creators/${userId}/notes/last`,
+    payload: { userId }
 })
-
-export const findNotes = filters => dispatch => {
-    dispatch(findingNotes())
-    return api.notes.findNotes(filters)
-        .then(notes => {
-            dispatch(notesFound(notes))
-            return notes
-        })
-        .catch(error => {
-            dispatch(findingNotesError(error))
-            return Promise.reject(error)
-        })
-}

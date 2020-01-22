@@ -11,64 +11,20 @@ import Statistics from '@notee/components/Statistics'
 import { DashboardCard } from '@notee/components/Card'
 
 import { loadUserNotebooks } from '@notee/actions/notebooks'
-
-const notebook1 = {
-    title: "Matematyka dyskretna",
-    notes: [
-        {
-            title: "Prawdopodobieństwo",
-            content: ""
-        },
-        {
-            title: "Prawdopodobieństwo",
-            content: ""
-        },
-        {
-            title: "Funkcję różnowartościowe",
-            content: ""
-        }
-    ]
-}
-
-const notebook2 = {
-    title: "Statystyczna analiza danych",
-    notes: [
-        {
-            title: "note 3",
-            content: ""
-        },
-        {
-            title: "note 3",
-            content: ""
-        }
-    ]
-}
-
-const notebook3 = {
-    title: "Podstawy programowania",
-    notes: [
-        {
-            title: "note 1",
-            content: ""
-        },
-        {
-            title: "note 2",
-            content: ""
-        }
-    ]
-}
-const array = [notebook1, notebook2, notebook3];
+import { loadLastUserNotes } from '@notee/actions/notes'
 
 export default (
 
 ) => {
 
     const { userId } = useSelector(state => state.auth.data)
-    const { data: notebooks } = useSelector(state => state.notebooks)
+    const { notebooks } = useSelector(state => state)
+    const { notes } = useSelector(state => state)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(loadUserNotebooks(userId))
+        dispatch(loadLastUserNotes(userId))
     }, [ dispatch ])
 
     return (
@@ -76,13 +32,15 @@ export default (
             <Header />
             <Dashboard.Content>
                 <Dashboard.Content.Segregator modifiers="dashboard-left-column">
-                    <NotebookList notebooks={notebooks} />
+                    <NotebookList notebooks={notebooks.data} />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-center-column">
-                    <DashboardCard />
-                    <DashboardCard />
-                    <DashboardCard />
-                    <DashboardCard />
+                    {!notes.isLoading && notes.data.map(({ noteName, createdBy, modifiedAt, noteContent }) => (
+                        <DashboardCard
+                            noteName={noteName}
+                            createdBy={createdBy}
+                            modifiedAt={modifiedAt}
+                            noteContent={noteContent}/> ))}
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-right-column">
                     <FriendsOnline friends={"asd", "dsa"} />

@@ -1,7 +1,10 @@
 import {
-    FIND_NOTES,
-    FIND_NOTES_SUCCESS,
-    FIND_NOTES_FAILD
+    LOAD_ALL_USER_NOTES_REQUEST,
+    LOAD_ALL_USER_NOTES_SUCCESS,
+    LOAD_ALL_USER_NOTES_FAILURE,
+    LOAD_LAST_USER_NOTES_REQUEST,
+    LOAD_LAST_USER_NOTES_SUCCESS,
+    LOAD_LAST_USER_NOTES_FAILURE
 } from '@notee/actions/notes'
 
 const initialState = {
@@ -12,17 +15,19 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
-
-    case FIND_NOTES:
-        return { ...state, loading: true, error: null }
-
-    case FIND_NOTES_SUCCESS:
-        return { ...state, data: payload, loading: false, error: null }
-
-    case FIND_NOTES_FAILD:
-        return { ...state, error: payload, loading: false }
-
-    default:
-        return state
+        case LOAD_ALL_USER_NOTES_REQUEST:
+            return { ...state, loading: true }
+        case LOAD_ALL_USER_NOTES_SUCCESS:
+            return { ...state, data: payload._embedded.noteDashboardViewList , loading: false }
+        case LOAD_ALL_USER_NOTES_FAILURE:
+            return { ...state, isFetching: false, error: null }
+        case LOAD_LAST_USER_NOTES_REQUEST:
+            return { ...state, loading: true }
+        case LOAD_LAST_USER_NOTES_SUCCESS:
+            return { ...state, data: payload._embedded.noteDashboardViewList , loading: false }
+        case LOAD_LAST_USER_NOTES_FAILURE:
+            return { ...state, isFetching: false, error: null }
+        default:
+            return state
     }
 }

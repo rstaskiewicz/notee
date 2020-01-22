@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
         case LOAD_USER_NOTEBOOKS_REQUEST:
             return { ...state, loading: true }
         case LOAD_USER_NOTEBOOKS_SUCCESS:
-            return { ...state, data: { ...state.items, ...payload._embedded.notebookViewList }, loading: false }
+            return { ...state, data: payload._embedded.notebookViewList , loading: false }
         case LOAD_USER_NOTEBOOKS_FAILURE:
             return { ...state, isFetching: false, error: null }
         default:

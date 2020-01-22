@@ -9,17 +9,14 @@ import {
 
 import { Button } from '@notee/elements'
 
-const DashboardCardHeader = ({
-    user: { fullname },
-    date
-}) => {
+const DashboardCardHeader = ({noteName, user, date}) => {
     return (
         <Header>
             <Card.Avatar>
                 <Avatar />
             </Card.Avatar>
             <div display="block" style={{ lineHeight: '1.5' }}>
-                <Card.Title>{fullname} created new note titled Prawdopodobieństwo</Card.Title>
+                <Card.Title>{user} created new note titled {noteName}</Card.Title>
                 <Card.Subtitle>{date}</Card.Subtitle>
             </div>
         </Header>

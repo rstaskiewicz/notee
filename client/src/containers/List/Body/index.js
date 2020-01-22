@@ -8,7 +8,7 @@ import {
 import Avatar from '@notee/components/Avatar'
 import { Body } from '@notee/layout/containers/List'
 import { P, Button } from '@notee/elements'
-import { findNotes } from '@notee/actions/notes'
+import { loadAllUserNotes } from '@notee/actions/notes'
 import {loadUser} from '@notee/actions/user'
 
 export default () => {
@@ -20,13 +20,13 @@ export default () => {
 
     useEffect(() => {
         dispatch(loadUser(userId))
-        dispatch(findNotes())
+        dispatch(loadAllUserNotes(userId))
     }, [ dispatch ])
 
     return (
         <Body>
-            {notes.data.map((note, index) => (
-                <Body.Row key={index}>
+            {notes.data.map(({ noteId, noteName, createdBy, createdAt, notebookName }) => (
+                <Body.Row key={noteId}>
 
                     <Body.Item>
                         <Body.Avatar>
@@ -35,17 +35,17 @@ export default () => {
                     </Body.Item>
 
                     <Body.Item>
-                        Joanna Kowalska
+                        {createdBy}
                     </Body.Item>
 
                     <Body.Item>
-                        <P modifiers="darker">{note.title}</P>
+                        <P modifiers="darker">{noteName}</P>
                     </Body.Item>
 
-                    <Body.Item>{note.notebook.title}</Body.Item>
+                    <Body.Item>{notebookName}</Body.Item>
 
                     <Body.Item>
-                        5 December 2020
+                        {createdAt}
                     </Body.Item>
 
                     <Body.Item modifiers="justify-center">
