@@ -6,7 +6,7 @@ import Notebook from './Notebook'
 
 export default ({
 
-        notebooks,
+        notebooks
 
 }) => {
 

@@ -23,7 +23,8 @@ export default styled.input`
     background-position: right 12px center;
     background-size: 24px;
     width: 287px;
-    transition: all ease-in-out 100ms;
+    box-sizing: border-box;
+    transition: all ease-in-out 250ms;
 
     ::placeholder {
         background: transparent;

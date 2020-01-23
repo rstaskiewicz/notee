@@ -3,7 +3,7 @@ import FriendsOnline from '../../layout/FriendsOnline'
 import Avatar from '../Avatar'
 
 export default ({
-    friends,
+    friends
 
 }) => {
 

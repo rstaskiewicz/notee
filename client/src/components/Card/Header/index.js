@@ -4,7 +4,7 @@ import Header from '@notee/layout/Card/Header'
 import Avatar from '@notee/components/Avatar'
 import Card from '@notee/layout/Card'
 import {
-    faBookmark as bookmark,
+    faBookmark as bookmark
 } from '@fortawesome/free-solid-svg-icons'
 
 import { Button } from '@notee/elements'
@@ -28,7 +28,7 @@ const NotebooksCardHeader = ({
     date
 }) => {
 
-    const [isBookmarked, setBookmark] = useState(false);
+    const [ isBookmarked, setBookmark ] = useState(false)
     return (
         <Header>
             <Card.Avatar>

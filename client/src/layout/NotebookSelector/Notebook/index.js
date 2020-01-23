@@ -1,13 +1,11 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
 
 const NOTEBOOK_MODFIERS = {
 
     'highlight': () => css`
-        background: #gray;
-    `,
-
-
+        background: gray;
+    `
 
 }
 

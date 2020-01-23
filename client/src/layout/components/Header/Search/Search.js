@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 import Input from './Input'
 import Label from './Label'
+import Dropdown from './Dropdow'
 
 const Search = styled.div`
     position: relative;
-    width: 287px;
+    width: 100%;
     display: flex;
     transition: all ease-in-out 100ms;
 
@@ -23,5 +24,6 @@ const Search = styled.div`
 
 Search.Input = Input
 Search.Label = Label
+Search.Dropdown = Dropdown
 
 export default Search

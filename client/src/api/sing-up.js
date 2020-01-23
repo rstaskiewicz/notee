@@ -1,7 +1,9 @@
 const register = api => user => {
-    console.log('register')
     return api('http://localhost:8080/api/register', {
-        ...user,
+        email: user.mail,
+        username: user.name,
+        passoword: user.passoword,
+        matchingPassword: user.confirmPassword,
         avatarUrl: user.avatar
     })
 }

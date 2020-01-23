@@ -6,7 +6,7 @@ import P from '../../../elements/P'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
         faChevronDown as chevronDown,
-        faChevronLeft as chevronLeft,
+        faChevronLeft as chevronLeft
 } from '@fortawesome/free-solid-svg-icons'
 
 

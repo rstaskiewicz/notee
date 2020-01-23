@@ -5,6 +5,6 @@ import Content from './Content'
     background: #FAFAFC;
     height: 100vh;
 `
-Dashboard.Content = Content;
+Dashboard.Content = Content
 
 export default Dashboard

@@ -30,5 +30,5 @@ export default {
     marker: Marker,
     checklist: CheckList,
     delimiter: Delimiter,
-    inlineCode: InlineCode,
+    inlineCode: InlineCode
 }

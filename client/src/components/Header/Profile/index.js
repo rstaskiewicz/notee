@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faChevronDown as chevron
@@ -9,12 +10,14 @@ import {
 import { Profile } from '@notee/layout/components/Header'
 
 import Avatar from '@notee/components/Avatar'
+import Menu from '@notee/components/Menu'
 import { Button } from '@notee/elements'
-import { useSelector } from 'react-redux'
+
 
 export default () => {
 
     const user = useSelector(state => state.user)
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false)
 
     return (
         <Profile>
@@ -49,9 +52,15 @@ export default () => {
                     {user.name}
                 </Profile.Name>
 
-                <Button.Icon>
+                <Button.Icon
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
                     <FontAwesomeIcon icon={chevron} fixedWidth />
                 </Button.Icon>
+
+                <Profile.Menu>
+                    {isMenuOpen && <Menu />}
+                </Profile.Menu>
             </Profile.User>
 
         </Profile>

@@ -7,6 +7,6 @@ import Segregator from './Segregator'
     flex-direction: row;
     padding-top: 54px;
 `
-Content.Segregator = Segregator;
+Content.Segregator = Segregator
 
 export default Content

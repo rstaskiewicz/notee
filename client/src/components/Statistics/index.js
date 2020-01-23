@@ -7,13 +7,13 @@ import Segregator from '../../layout/Statistics/Segregator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faFileAlt as file,
-    faUsers as users,
+    faUsers as users
 } from '@fortawesome/free-solid-svg-icons'
 
 export default ({
     createdNoteCount = 0,
     savedNoteCount = 0,
-    userRegisteredCount = 0,
+    userRegisteredCount = 0
 }) => {
 
     return (

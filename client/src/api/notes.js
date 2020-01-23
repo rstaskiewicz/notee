@@ -21,7 +21,7 @@ const notes = [
     note,
     note,
     note,
-    note,
+    note
 ]
 
 const findNotes = api => filters => {

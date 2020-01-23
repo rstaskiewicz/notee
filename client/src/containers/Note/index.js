@@ -48,7 +48,7 @@ export default () => {
                                     <FontAwesomeIcon icon={save} />
                                 </Button.FontAwesomeIcon>
                                 SAVE NOTE </Button>
-                            <span style={{ fontFamily: "Lato", fontSize: ".825rem", color: "#bbb9c7", fontWeight: "550" }}>{isClicked ? "Note saved!" : "Rember to save your note!"}</span>
+                            <span style={{ fontFamily: 'Lato', fontSize: '.825rem', color: '#bbb9c7', fontWeight: '550' }}>{isClicked ? 'Note saved!' : 'Rember to save your note!'}</span>
                         </div>
                     </Note.Editor>
                 </Note>

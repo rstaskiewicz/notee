@@ -5,11 +5,11 @@ import P from '../../../elements/P'
 
 
 export default ({
-    title,
+    title
 
 }) => {
 
-    const [isClicked, setIsClicked] = useState(true)
+    const [ isClicked, setIsClicked ] = useState(true)
     
 
     return (

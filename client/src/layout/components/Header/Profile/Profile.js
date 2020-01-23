@@ -6,6 +6,7 @@ import Actions from './Actions'
 import Action from './Action'
 import User from './User'
 import Bar from './Bar'
+import Menu from './Menu'
 
 const Profile = styled.div`
     display: flex;
@@ -18,5 +19,6 @@ Profile.Actions = Actions
 Profile.Action = Action
 Profile.User = User
 Profile.Bar = Bar
+Profile.Menu = Menu
 
 export default Profile

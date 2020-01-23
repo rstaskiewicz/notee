@@ -9,7 +9,7 @@ const SECTION_MODIFIERS = {
 
     'algin-end': () => css`
         order: 1;
-    `,
+    `
 
 }
 

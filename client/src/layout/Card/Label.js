@@ -7,7 +7,7 @@ const LABEL_MODFIERS = {
         font-family: 'Lato', 'Open Sans', 'sans-serif';
         font-size: .875rem;
         color: #BBB9C7;
-    `,
+    `
 }
 
 export default styled.label`

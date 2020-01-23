@@ -15,7 +15,7 @@ const SEGREGATOR_MODFIERS = {
 
     'dashboard-center-column': () => css`
         margin: 36px 24px;
-    `,
+    `
 
 
 }
