@@ -6,19 +6,24 @@ import { Editor } from '@notee/layout/components/Editor'
 import Header from './Header'
 import Content from './Content'
 
-export default () => {
+export default ({ note }) => {
+    if (note) {
+        const { name, createdBy, createdAt, content } = note
+        return (
+            <Editor>
+                <Editor.Header>
+                    <Header createdBy={createdBy} createdAt={createdAt}/>
+                </Editor.Header>
 
+                <Editor.Content>
+                    <Content name={name} content={content} />
+                </Editor.Content>
+            </Editor>
+        )
+    }
     return (
-        <Editor>
-
-            <Editor.Header>
-                <Header />
-            </Editor.Header>
-
-            <Editor.Content>
-                <Content />
-            </Editor.Content>
-
-        </Editor>
+        <div>
+            Loading...
+        </div>
     )
 }

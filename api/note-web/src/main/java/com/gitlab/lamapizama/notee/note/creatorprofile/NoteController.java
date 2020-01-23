@@ -10,7 +10,6 @@ import com.gitlab.lamapizama.notee.note.note.CommentNote;
 import com.gitlab.lamapizama.notee.note.note.CommentingNote;
 import com.gitlab.lamapizama.notee.note.note.EditNote;
 import com.gitlab.lamapizama.notee.note.note.EditingNote;
-import com.gitlab.lamapizama.notee.note.note.NoteContent;
 import com.gitlab.lamapizama.notee.note.note.NoteId;
 import com.gitlab.lamapizama.notee.note.note.NoteType;
 import com.gitlab.lamapizama.notee.note.note.RestoreEventId;
@@ -19,6 +18,7 @@ import com.gitlab.lamapizama.notee.note.note.RestoringNote;
 import com.gitlab.lamapizama.notee.note.note.Tag;
 import com.gitlab.lamapizama.notee.note.note.TagNote;
 import com.gitlab.lamapizama.notee.note.note.TaggingNote;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.EqualsAndHashCode;
@@ -70,6 +70,7 @@ class NoteController {
     private final RestoringNote revertingNote;
     private final CreatorViews creatorViews;
     private final AuthenticationFacade authentication;
+    private final ContentSerializer contentSerializer;
 
     @GetMapping
     ResponseEntity<NoteModel> note(@PathVariable UUID noteId) {
@@ -78,6 +79,7 @@ class NoteController {
             return notFound().build();
         }
         NoteView noteView = noteOpt.get();
+        noteView.setContent(contentSerializer.deserialize(noteView.noteContent));
         if (noteView.noteType.equals(Private)
                 && !authentication.isActionAllowed(noteView.createdBy, creatorViews.findFriendEmailsFor(new CreatorId(noteView.createdBy)).asJava())) {
             return status(FORBIDDEN).build();
@@ -89,7 +91,7 @@ class NoteController {
     ResponseEntity<?> editNote(@PathVariable UUID noteId, @RequestBody @Valid EditNoteRequest request) {
         Try<Result> result = editingNote.edit(new EditNote(
                 new NoteId(noteId),
-                new NoteContent(request.getNoteContent())));
+                request.getContent()));
 
         return result
                 .map(success -> noContent().build())
@@ -202,7 +204,7 @@ class NoteModel extends RepresentationModel<NoteModel> {
     UUID id;
     String name;
     NoteType type;
-    String content;
+    FancyNoteContent content;
     String createdBy;
     Instant createdAt;
     String modifiedBy;
@@ -212,7 +214,7 @@ class NoteModel extends RepresentationModel<NoteModel> {
         this.id = noteView.noteId;
         this.name = noteView.noteName;
         this.type = noteView.noteType;
-        this.content = noteView.noteContent;
+        this.content = noteView.content;
         this.createdBy = noteView.createdBy;
         this.modifiedBy = noteView.modifiedBy;
         this.createdAt = noteView.createdAt;

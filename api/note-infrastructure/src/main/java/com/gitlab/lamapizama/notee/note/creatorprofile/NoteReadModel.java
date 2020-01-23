@@ -1,5 +1,11 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteCommented;
@@ -11,14 +17,14 @@ import com.gitlab.lamapizama.notee.note.note.NoteId;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static io.vavr.collection.List.ofAll;
 import static io.vavr.control.Option.none;
 import static io.vavr.control.Option.of;
@@ -27,8 +33,20 @@ import static java.sql.Timestamp.from;
 
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 class NoteReadModel implements NoteViews {
+
+    private final ObjectMapper objectMapper;
+    private final JdbcTemplate views;
+
+    @Autowired
+    NoteReadModel(JdbcTemplate jdbcTemplate) {
+        this.views = jdbcTemplate;
+        this.objectMapper = new ObjectMapper()
+                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES))
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+    }
 
     static String GET_NOTE = "SELECT note_id, note_name, note_type, note_content, notebook_id, created_by," +
             " created_at, modified_by, modified_at" +
@@ -74,8 +92,6 @@ class NoteReadModel implements NoteViews {
     static String FIND_VERSIONS = "SELECT note_id, note_content, version_id, version_by, created_at" +
             " FROM note_version_view" +
             " WHERE note_id = ?";
-
-    JdbcTemplate views;
 
     @Override
     public Option<NoteView> findBy(NoteId noteId) {
@@ -136,15 +152,16 @@ class NoteReadModel implements NoteViews {
     }
 
     @EventListener
-    public void handle(NoteEdited event) {
-        views.update(EDIT_NOTE, event.getNoteContent(),
+    public void handle(NoteEdited event) throws JsonProcessingException {
+        views.update(EDIT_NOTE,
+                objectMapper.writeValueAsString(event.getNoteContent()),
                 event.getCreatorId(),
                 from(event.getWhen()),
                 event.getNoteId());
         views.update(SAVE_VERSION,
                 event.getNoteId(),
                 event.getEventId(),
-                event.getNoteContent(),
+                objectMapper.writeValueAsString(event.getNoteContent()),
                 event.getCreatorId(),
                 from(event.getWhen()));
         registerActivity(event);
@@ -168,8 +185,9 @@ class NoteReadModel implements NoteViews {
     }
 
     @EventListener
-    public void handle(NoteRestored event) {
-        views.update(EDIT_NOTE, event.getRestoredContent(),
+    public void handle(NoteRestored event) throws JsonProcessingException {
+        views.update(EDIT_NOTE,
+                objectMapper.writeValueAsString(event.getRestoredContent()),
                 event.getCreatorId(),
                 from(event.getWhen()),
                 event.getNoteId());

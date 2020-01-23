@@ -57,6 +57,7 @@ public class CreatorProfileController {
     private final CreatingNotebook creatingNotebook;
     private final DeletingNotebook deletingNotebook;
     private final NoteViews noteViews;
+    private final ContentSerializer contentSerializer;
 
     @GetMapping
     ResponseEntity<CreatorModel> creator(@PathVariable String creatorId) {
@@ -103,6 +104,7 @@ public class CreatorProfileController {
     @GetMapping("/notes/all")
     ResponseEntity<CollectionModel<EntityModel<NoteDashboardView>>> findAllNotes(@PathVariable String creatorId) {
         List<EntityModel<NoteDashboardView>> notes = noteViews.findAllNotesFor(new CreatorId(creatorId))
+                .map(note -> note.withContent(contentSerializer.deserialize(note.noteContent).getBlocks().get(1).getData().getText()))
                 .map(this::noteWithLinkToSelf)
                 .collect(toList());
         return ok(new CollectionModel<>(notes,
@@ -112,6 +114,7 @@ public class CreatorProfileController {
     @GetMapping("/notes/last")
     ResponseEntity<CollectionModel<EntityModel<NoteDashboardView>>> findLastNotes(@PathVariable String creatorId) {
         List<EntityModel<NoteDashboardView>> notes = noteViews.findLastNotesFor(new CreatorId(creatorId))
+                .map(note -> note.withContent(contentSerializer.deserialize(note.noteContent).getBlocks().get(1).getData().getText()))
                 .map(this::noteWithLinkToSelf)
                 .collect(toList());
         return ok(new CollectionModel<>(notes,

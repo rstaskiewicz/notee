@@ -10,6 +10,7 @@ import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestored;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteRestoringFailed;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTagged;
 import com.gitlab.lamapizama.notee.note.note.NoteEvent.NoteTaggingFailed;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import io.vavr.API;
 import io.vavr.collection.List;
@@ -47,7 +48,9 @@ public class Note {
     @NonNull
     Tags tags;
 
-    public Either<NoteEditingFailed, NoteEdited> edit(NoteContent content, CreatorId editorId) {
+    @NonNull FancyNoteContent content;
+
+    public Either<NoteEditingFailed, NoteEdited> edit(FancyNoteContent content, CreatorId editorId) {
         return announceSuccess(NoteEdited.now(note.getNoteId(), editorId, content));
     }
 
@@ -60,7 +63,7 @@ public class Note {
     }
 
     public Either<NoteRestoringFailed, NoteRestored> restore(NoteEdited noteEditedEvent, CreatorId reverserId) {
-        return announceSuccess(NoteRestored.now(note.getNoteId(), new NoteContent(noteEditedEvent.getNoteContent()), reverserId));
+        return announceSuccess(NoteRestored.now(note.getNoteId(), noteEditedEvent.getNoteContent(), reverserId));
     }
 
     static Note rebuild(NoteId noteId, List<NoteEvent> events) {
@@ -96,7 +99,7 @@ public class Note {
     }
 
     private Note handle(NoteEdited event) {
-        return this.withNoteContent(new NoteContent(event.getNoteContent()));
+        return this.withContent(event.getNoteContent());
     }
 
     private Note handle(NoteCommented event) {
@@ -112,7 +115,7 @@ public class Note {
     }
 
     private Note handle(NoteRestored event) {
-        return this.withNoteContent(new NoteContent(event.getRestoredContent()));
+        return this.withContent((event.getRestoredContent()));
     }
 
     private CommentId generateCommentId() {

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { Header } from '@notee/layout/components/Editor'
 import Avatar from '@notee/components/Avatar'
 
-export default () => {
+export default ({ createdBy, createdAt }) => {
 
     const user = useSelector(state => state.user)
 
@@ -13,8 +13,8 @@ export default () => {
 
             <Header.Info>
                 <Header.Meta>
-                    <Header.Author>Author: Joanna Kowalska</Header.Author>
-                    <Header.Created>Created: 5 June 2019</Header.Created>
+                    <Header.Author>Author: {createdBy}</Header.Author>
+                    <Header.Created>Created: {createdAt}</Header.Created>
                 </Header.Meta>
                 <Header.Avatar>
                     <Avatar

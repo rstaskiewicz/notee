@@ -5,6 +5,7 @@ import Notebook from './Notebook'
 
 export default ({ notebooks }) => (
     <NotebookList>
-        {notebooks.map(({ notebookId, notebookName, notes }) => (<Notebook key={notebookId} title={notebookName} notes={notes} />))}
+        {notebooks.map(({ notebookId, notebookName, notes }) => (
+            <Notebook key={notebookId} notebookName={notebookName} notes={notes} />))}
     </NotebookList>
 )

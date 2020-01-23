@@ -1,6 +1,7 @@
 package com.gitlab.lamapizama.notee.note.creatorprofile;
 
 import com.gitlab.lamapizama.notee.note.note.NoteType;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,6 +21,7 @@ class NoteView {
     @NonNull String modifiedBy;
     @NonNull Instant createdAt;
     @NonNull Instant modifiedAt;
+    FancyNoteContent content;
 
     public void setNoteType(String noteType) {
         this.noteType = NoteType.valueOf(noteType);

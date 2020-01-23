@@ -13,9 +13,9 @@ import {loadUser} from '@notee/actions/user'
 
 export default () => {
 
-    const { userId } = useSelector(state => state.auth.data)
+    const { userId } = useSelector(({ auth }) => auth.data)
     const user = useSelector(state => state.user)
-    const notes = useSelector(state => state.notes)
+    const notes = useSelector(({ notes }) => Object.values(notes.data))
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default () => {
 
     return (
         <Body>
-            {notes.data.map(({ noteId, noteName, createdBy, createdAt, notebookName }) => (
+            {notes.map(({ noteId, noteName, createdBy, createdAt, notebookName }) => (
                 <Body.Row key={noteId}>
 
                     <Body.Item>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gitlab.lamapizama.notee.commons.events.DomainEvent;
 import com.gitlab.lamapizama.notee.note.creator.CreatorId;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookId;
 import lombok.NonNull;
 import lombok.Value;
@@ -82,15 +83,15 @@ public interface NoteEvent extends DomainEvent<UUID> {
         @NonNull UUID noteId;
         @NonNull Instant when;
         @NonNull String creatorId;
-        @NonNull String noteContent;
+        @NonNull FancyNoteContent noteContent;
         @NonNull UUID eventId;
 
-        static NoteEdited now(NoteId noteId, CreatorId editorId, NoteContent noteContent) {
+        static NoteEdited now(NoteId noteId, CreatorId editorId, FancyNoteContent noteContent) {
             return new NoteEdited(
                     noteId.getId(),
                     Instant.now(),
                     editorId.getId(),
-                    noteContent.getContent(),
+                    noteContent,
                     UUID.randomUUID());
         }
 
@@ -228,15 +229,15 @@ public interface NoteEvent extends DomainEvent<UUID> {
         @NonNull UUID noteId;
         @NonNull Instant when;
         @NonNull String creatorId;
-        @NonNull String restoredContent;
+        @NonNull FancyNoteContent restoredContent;
         @NonNull UUID eventId;
 
-        static NoteRestored now(NoteId noteId, NoteContent restoredContent, CreatorId restorerId) {
+        static NoteRestored now(NoteId noteId, FancyNoteContent restoredContent, CreatorId restorerId) {
             return new NoteRestored(
                     noteId.getId(),
                     Instant.now(),
                     restorerId.getId(),
-                    restoredContent.getContent(),
+                    restoredContent,
                     UUID.randomUUID());
         }
 

@@ -10,20 +10,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
-export default ({
-    title,
-    notes,
+export default ({ notebookName, notes }) => {
 
-}) => {
-
-    const [ isClicked, setIsClicked] = useState(true)
+    const [ isClicked, setIsClicked ] = useState(true)
 
     return (
-
         <Notebook >
-            <Notebook.P><P onClick={() => setIsClicked(!isClicked)}>{title}<Notebook.FontAwesomeIcon><FontAwesomeIcon color="#BBB9C7" icon={ isClicked ? chevronLeft : chevronDown} /></Notebook.FontAwesomeIcon></P></Notebook.P>
-            {notes.map((note, index) => (
-                <Note key={index} title={note.noteName} isClickedState={isClicked}/>
+            <Notebook.P><P onClick={() => setIsClicked(!isClicked)}>{notebookName}<Notebook.FontAwesomeIcon><FontAwesomeIcon color="#BBB9C7" icon={ isClicked ? chevronLeft : chevronDown} /></Notebook.FontAwesomeIcon></P></Notebook.P>
+            {notes.map(({ noteId, noteName }) => (
+                <Note key={noteId} noteId={noteId} noteName={noteName} isClickedState={isClicked}/>
             ))}
         </Notebook>
     )

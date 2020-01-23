@@ -17,9 +17,9 @@ export default (
 
 ) => {
 
-    const { userId } = useSelector(state => state.auth.data)
+    const { userId } = useSelector(({ auth }) => auth.data)
     const { notebooks } = useSelector(state => state)
-    const { notes } = useSelector(state => state)
+    const notes = useSelector(({ notes }) => Object.values(notes.data))
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -35,15 +35,17 @@ export default (
                     <NotebookList notebooks={notebooks.data} />
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-center-column">
-                    {!notes.isLoading && notes.data.map(({ noteName, createdBy, modifiedAt, noteContent }) => (
+                    {notes.map(({ noteId, noteName, createdBy, modifiedAt, content }) => (
                         <DashboardCard
+                            key={noteId}
+                            noteId={noteId}
                             noteName={noteName}
                             createdBy={createdBy}
                             modifiedAt={modifiedAt}
-                            noteContent={noteContent}/> ))}
+                            content={content}/> ))}
                 </Dashboard.Content.Segregator>
                 <Dashboard.Content.Segregator modifiers="dashboard-right-column">
-                    <FriendsOnline friends={"asd", "dsa"} />
+                    <FriendsOnline friends={[ 'asd', 'dsa' ]} />
                     <Statistics createdNoteCount={2} savedNoteCount={4} userRegisteredCount={5} />
                 </Dashboard.Content.Segregator>
             </Dashboard.Content>

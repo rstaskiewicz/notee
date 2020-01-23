@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Footer from '@notee/layout/Card/Footer'
 import {
@@ -10,7 +12,7 @@ import {
 
 import { Button } from '@notee/elements'
 
-const DashboardCardFooter = () => {
+const DashboardCardFooter = ({ noteId }) => {
 
     return (
         <Footer>
@@ -24,7 +26,7 @@ const DashboardCardFooter = () => {
                 <Button.FontAwesomeIcon>
                     <FontAwesomeIcon icon={pen} />
                 </Button.FontAwesomeIcon>
-                Edit
+                 <Link to={`/note/${noteId}`}>Edit</Link>
             </Button>
             <Button modifiers="card-borderless">
                 <Button.FontAwesomeIcon>
