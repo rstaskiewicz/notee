@@ -1,8 +1,8 @@
 import api from '@notee/api'
 
-export const SEARCH = 'SEARCH'
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
-export const SEARCH_FAILD = 'SEARCH_FAILD'
+export const SEARCH = '@SEARCH'
+export const SEARCH_SUCCESS = '@SEARCH_SUCCESS'
+export const SEARCH_FAILD = '@SEARCH_FAILD'
 
 const searching = () => ({
     type: SEARCH

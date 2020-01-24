@@ -55,3 +55,46 @@ export const signOut = () => {
         type: SIGN_IN_SUCCESS
     }
 }
+
+const REGISTER_API = 'http://localhost:8080/api/register'
+
+export const SIGN_UP_REQUEST = '@SIGN_UP_REQUEST'
+export const SIGN_UP_SUCCESS = '@SIGN_UP_SUCCESS'
+export const SIGN_UP_FAILURE = '@SIGN_UP_FAILURE'
+
+export const signUp = user => dispatch => {
+
+    dispatch({ type: SIGN_UP_REQUEST })
+
+    const {
+        name,
+        mail,
+        password,
+        confirmPassword,
+        avatar
+    } = user
+
+    console.log(JSON.stringify({
+        username: name,
+        email: mail,
+        password,
+        matchingPassword: confirmPassword,
+        avatarUrl: avatar
+    }))
+
+    return axios.post(REGISTER_API, {
+        username: name,
+        email: mail,
+        password,
+        matchingPassword: confirmPassword,
+        avatarUrl: avatar
+    })
+        .then(() => dispatch({
+            type: SIGN_UP_SUCCESS
+        }))
+        .catch(error => dispatch({
+            type: SIGN_UP_FAILURE,
+            payload: error
+        }))
+
+}

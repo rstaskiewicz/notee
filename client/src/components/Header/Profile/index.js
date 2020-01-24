@@ -16,7 +16,7 @@ import { Button } from '@notee/elements'
 
 export default () => {
 
-    const user = useSelector(state => state.user)
+    const { data: { avatarUrl, fullName } } = useSelector(state => state.user)
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
 
     return (
@@ -44,12 +44,12 @@ export default () => {
                 <Profile.Avatar >
                     <Avatar
                         status="active"
-                        image={user.avatarUrl}
+                        image={avatarUrl}
                     />
                 </Profile.Avatar>
 
                 <Profile.Name>
-                    {user.name}
+                    {fullName}
                 </Profile.Name>
 
                 <Button.Icon

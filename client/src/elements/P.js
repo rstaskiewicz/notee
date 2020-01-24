@@ -9,6 +9,10 @@ const P_MODIFIERS = {
 
     'darker': () => css`
         color: #2d3032;
+    `,
+
+    'align-center': () => css`
+        text-align: center;
     `
 
 }
@@ -18,6 +22,5 @@ export default styled.p`
     font-size: .875rem;
     font-weight: 400;
     color: #bbb9c7;
-    transition: all ease-in-out 100ms;
     ${applyStyleModifiers(P_MODIFIERS)}
 `

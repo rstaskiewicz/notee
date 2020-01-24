@@ -9,7 +9,7 @@ import background from '@notee/assets/login-background.svg'
 
 import Form from './Form'
 
-import { signUpUser } from '@notee/actions/sign-up'
+import { signUp } from '@notee/actions/auth'
 
 export default () => {
 
@@ -17,9 +17,8 @@ export default () => {
     const dispatch = useDispatch()
 
     const handleRegister = user => {
-        dispatch(signUpUser(user))
-            .then(() => history.push('/dashboard'))
-            .catch(error => alert(error.message))
+        dispatch(signUp(user))
+        history.push('/confirm')
     }
 
     return (

@@ -10,6 +10,7 @@ import Dashboard from './Dashboard'
 import Note from './Note'
 import Notebooks from './Notebooks'
 import List from './List'
+import ConfirmMail from './ConfirmMail'
 
 export default ({ store }) => {
 
@@ -19,11 +20,14 @@ export default ({ store }) => {
                 <Switch>
                     <Route path='/sign-in' component={SignIn} />
                     <Route path='/sign-up' component={SignUp} />
+                    <Route path='/confirm' component={ConfirmMail} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
-                    <Route path='/note/new' component={Note} />
+                    <PrivateRoute path='/note/new' component={Note} />
                     <PrivateRoute path='/note/:id' component={Note} />
-                    <Route path='/notebooks' component={Notebooks} />
-                    <Route path='/list' component={List} />
+                    <PrivateRoute path='/notebooks' component={Notebooks} />
+                    <PrivateRoute path='/notebooks/:id' component={Notebooks} />
+                    <PrivateRoute path='/notebooks/:id/note/:id' component={Notebooks} />
+                    <PrivateRoute path='/list' component={List} />
                     <Redirect path="*" to="/sign-in" />
                 </Switch>
             </Router>
