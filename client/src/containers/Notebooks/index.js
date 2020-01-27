@@ -8,10 +8,6 @@ import List from './List'
 import Preview from './Preview'
 
 import Header from '@notee/components/Header'
-import Portal from '@notee/components/Portal'
-
-import { Modal } from '@notee/layout/components/Modal'
-import { Overlay } from '@notee/elements'
 
 export default () => {
     return (
@@ -40,11 +36,6 @@ export default () => {
 
                 </Notebooks>
             </Page.Content>
-
-            <Portal id="add-notebook">
-                <Modal></Modal>
-                <Overlay />
-            </Portal>
 
         </Page>
     )

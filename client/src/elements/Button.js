@@ -13,6 +13,23 @@ const BUTTON_MODFIERS = {
         }
     `,
 
+    'text': () => css`
+        border: none;
+        margin: .25em;
+        text-transform: uppercase;
+        font-size: .75em;
+        min-width: 96px;
+    `,
+
+    'text-primary': () => css`
+        border: none;
+        margin: .25em;
+        text-transform: uppercase;
+        color: #3454f5;
+        font-size: .75em;
+        min-width: 96px;
+    `,
+
     'full-width': () => css`
         width: 100%;
     `,

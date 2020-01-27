@@ -19,6 +19,7 @@ export default styled.button`
     font-weight: 400;
     color: #9e9ca7;
     transition: all ease-in-out 200ms;
+    cursor: pointer;
 
     &:hover {
         background: rgba(187, 185, 199, .1)
