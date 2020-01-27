@@ -80,6 +80,8 @@ class NoteController {
         }
         NoteView noteView = noteOpt.get();
         noteView.setContent(contentSerializer.deserialize(noteView.noteContent));
+        noteView.setTags(noteViews.findTagsFor(new NoteId(noteId)).asJava());
+        noteView.setComments(noteViews.findCommentsFor(new NoteId(noteId)).asJava());
         if (noteView.noteType.equals(Private)
                 && !authentication.isActionAllowed(noteView.createdBy, creatorViews.findFriendEmailsFor(new CreatorId(noteView.createdBy)).asJava())) {
             return status(FORBIDDEN).build();
@@ -209,6 +211,9 @@ class NoteModel extends RepresentationModel<NoteModel> {
     Instant createdAt;
     String modifiedBy;
     Instant modifiedAt;
+    List<TagView> tags;
+    UUID notebookId;
+    String notebookName;
 
     NoteModel(NoteView noteView) {
         this.id = noteView.noteId;
@@ -219,6 +224,9 @@ class NoteModel extends RepresentationModel<NoteModel> {
         this.modifiedBy = noteView.modifiedBy;
         this.createdAt = noteView.createdAt;
         this.modifiedAt = noteView.modifiedAt;
+        this.tags = noteView.tags;
+        this.notebookName = noteView.notebookName;
+        this.notebookId = noteView.notebookId;
 
         add(linkTo(methodOn(NoteController.class).note(id)).withSelfRel()
                 .andAffordance(afford(methodOn(NoteController.class).editNote(id, null))));

@@ -48,9 +48,8 @@ class NoteReadModel implements NoteViews {
                 .registerModule(new JavaTimeModule());
     }
 
-    static String GET_NOTE = "SELECT note_id, note_name, note_type, note_content, notebook_id, created_by," +
-            " created_at, modified_by, modified_at" +
-            " FROM note_view" +
+    static String GET_NOTE = "SELECT * FROM note_view" +
+            " JOIN notebook_view ON note_view.notebook_id = notebook_view.notebook_id" +
             " WHERE note_id = ?";
 
     static String FIND_COMMENTS_FOR_NOTE = "SELECT comment_id, comment_content, note_id, created_at, modified_at" +

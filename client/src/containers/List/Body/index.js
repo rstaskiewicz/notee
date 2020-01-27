@@ -10,6 +10,7 @@ import { Body } from '@notee/layout/containers/List'
 import { P, Button } from '@notee/elements'
 import { loadAllUserNotes } from '@notee/actions/notes'
 import {loadUser} from '@notee/actions/user'
+import {Link} from 'react-router-dom'
 
 export default () => {
 
@@ -39,7 +40,7 @@ export default () => {
                     </Body.Item>
 
                     <Body.Item>
-                        <P modifiers="darker">{noteName}</P>
+                        <P modifiers="darker"><Link to={`/note/${noteId}`}>{noteName}</Link></P>
                     </Body.Item>
 
                     <Body.Item>{notebookName}</Body.Item>

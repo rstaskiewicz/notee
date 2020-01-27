@@ -18,7 +18,7 @@ const DashboardCard = ({ noteId, noteName, createdBy, modifiedAt, content }) => 
             <Content>
                 {content}
             </Content>
-            <DashboardCardFooter noteId={noteId}/>
+            {/*<DashboardCardFooter noteId={noteId}/>*/}
         </Card>
     )
 }

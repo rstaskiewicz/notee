@@ -8,5 +8,5 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class TagView {
 
-    @NonNull String noteValue;
+    @NonNull String tagValue;
 }

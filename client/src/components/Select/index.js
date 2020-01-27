@@ -10,7 +10,7 @@ export default ({
 
     const [ isOpen, setIsOpen ] = useState(false)
     const [ selected, setSelected ] = useState({
-        name: placeholder,
+        notebookName: placeholder,
         value: null
     })
 
@@ -26,7 +26,7 @@ export default ({
             <Select.Input
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {selected.name}
+                {selected.notebookName}
             </Select.Input>
             {isOpen && (
                 <Select.Dropdown>
@@ -36,7 +36,7 @@ export default ({
                                 key={index}
                                 onClick={handleClick(index)}
                             >
-                                {item.name}
+                                {item.notebookName}
                             </Select.Item>
                         ))}
                     </Select.List>

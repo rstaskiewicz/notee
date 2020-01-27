@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,7 +22,11 @@ class NoteView {
     @NonNull String modifiedBy;
     @NonNull Instant createdAt;
     @NonNull Instant modifiedAt;
+    @NonNull UUID notebookId;
+    @NonNull String notebookName;
     FancyNoteContent content;
+    List<CommentView> comments;
+    List<TagView> tags;
 
     public void setNoteType(String noteType) {
         this.noteType = NoteType.valueOf(noteType);
