@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.css'
 
 import { Editor } from '@notee/layout/components/Editor'
@@ -12,22 +12,9 @@ export default ({
     createdAt,
     content,
     isEditable = true,
-    onChange = () => null
+    titleRef,
+    editorRef
 }) => {
-
-    const handleTitleChange = e => {
-        onChange({
-            title: e.target.value,
-            content
-        })
-    }
-
-    const handleContentChange = e => {
-        console.log(e)
-        onChange({
-            title
-        })
-    }
 
     return (
         <Editor>
@@ -40,11 +27,11 @@ export default ({
 
             <Editor.Content>
                 <Content
+                    titleRef={titleRef}
+                    editorRef={editorRef}
                     title={title}
                     content={content}
                     isEditable={isEditable}
-                    handleTitleChange={handleTitleChange}
-                    handleContentChange={handleContentChange}
                 />
             </Editor.Content>
         </Editor>

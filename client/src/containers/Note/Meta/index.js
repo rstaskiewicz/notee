@@ -6,27 +6,18 @@ import { Button } from '@notee/elements'
 import Label from '@notee/components/Label'
 import Select from '@notee/components/Select'
 
-const defaultLabels = [
-    'math',
-    'homework',
-    'notes',
-    'in class',
-    'to do'
-]
-
-const defaultOptions = [
-    { name: 'Notebook 1', value: '1' },
-    { name: 'Notebook 2', value: '2' },
-    { name: 'Notebook 3', value: '3' }
-]
-
-export default () => {
+export default ({
+    notebooks = [],
+    labels = [],
+    onSave = () => null
+}) => {
 
     const [ inputLabel, setInputLabel ] = useState()
-    const [ labels, setLabels ] = useState(defaultLabels)
+    const [ currentLabels, setCurrentLabels ] = useState(labels)
+    const [ selectedNotebook, setSelectedNotebook ] = useState(null)
 
     const handleLabelRemove = index => () => {
-        setLabels(labels.filter((_, i) => i !== index))
+        setCurrentLabels(labels.filter((_, i) => i !== index))
     }
 
     const handleInputLabel = e => {
@@ -38,10 +29,21 @@ export default () => {
         const { value } = e.target
 
         if (e.key === 'Enter' && value.length > 0) {
-            setLabels([ ...labels, value ])
+            setCurrentLabels([ ...labels, value ])
             setInputLabel('')
         }
 
+    }
+
+    const handleNotebookSelect = notebook => {
+        setSelectedNotebook(notebook)
+    }
+
+    const handleSave = () => {
+        onSave({
+            labels: currentLabels,
+            notebook: selectedNotebook
+        })
     }
 
     return (
@@ -50,7 +52,8 @@ export default () => {
             <Meta.Select>
                 <Select
                     placeholder="Pick notebook..."
-                    options={defaultOptions}
+                    options={notebooks}
+                    onSelect={handleNotebookSelect}
                 />
             </Meta.Select>
 
@@ -64,7 +67,7 @@ export default () => {
 
             <Meta.Labels>
 
-                {labels.map((label, index) => (
+                {currentLabels.map((label, index) => (
                     <Meta.Label key={index}>
                         <Label
                             onRemove={handleLabelRemove(index)}
@@ -78,6 +81,7 @@ export default () => {
             <Meta.Button>
                 <Button
                     modifiers={[ 'primary', 'full-width' ]}
+                    onClick={handleSave}
                 >
                     Save
                 </Button>
