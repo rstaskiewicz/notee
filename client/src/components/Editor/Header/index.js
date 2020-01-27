@@ -10,7 +10,7 @@ export default ({
     createdAt
 }) => {
 
-    const { username, avatarUrl } = author || useSelector(({ user }) => user.data)
+    const { avatarUrl } = author || useSelector(({ user }) => user.data)
     const created = moment(createdAt) || moment()
 
     return (
@@ -18,7 +18,7 @@ export default ({
 
             <Header.Info>
                 <Header.Meta>
-                    <Header.Author>Author: {username}</Header.Author>
+                    <Header.Author>Author: {author}</Header.Author>
                     <Header.Created>Created: {created.format('lll').toString()}</Header.Created>
                 </Header.Meta>
                 <Header.Avatar>

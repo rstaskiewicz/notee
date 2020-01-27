@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS user_profile_view
     id         INTEGER PRIMARY KEY,
     user_email VARCHAR(32)   NOT NULL UNIQUE,
     full_name  VARCHAR(32)   NOT NULL,
-    avatar_url VARCHAR(1000) NOT NULL
+    avatar_url VARCHAR(100000) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS friends_view

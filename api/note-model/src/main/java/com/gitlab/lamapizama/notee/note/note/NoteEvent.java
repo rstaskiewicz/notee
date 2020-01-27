@@ -58,8 +58,10 @@ public interface NoteEvent extends DomainEvent<UUID> {
         @NonNull String creatorId;
         @NonNull UUID notebookId;
         @NonNull UUID eventId;
+        @NonNull FancyNoteContent content;
 
-        static NoteCreated now(NoteId noteId, NoteName noteName, NoteType noteType, CreatorId creatorId, NotebookId notebookId) {
+        static NoteCreated now(NoteId noteId, NoteName noteName, NoteType noteType, CreatorId creatorId, NotebookId notebookId,
+                               FancyNoteContent content) {
             return new NoteCreated(
                     noteId.getId(),
                     Instant.now(),
@@ -67,7 +69,8 @@ public interface NoteEvent extends DomainEvent<UUID> {
                     noteType,
                     creatorId.getId(),
                     notebookId.getId(),
-                    UUID.randomUUID());
+                    UUID.randomUUID(),
+                    content);
         }
 
         public String getType() {

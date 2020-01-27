@@ -136,12 +136,12 @@ class NoteReadModel implements NoteViews {
     }
 
     @EventListener
-    public void handle(NoteCreated event) {
+    public void handle(NoteCreated event) throws JsonProcessingException {
         views.update(CREATE_NOTE,
                 event.getNoteId(),
                 event.getNoteName(),
                 event.getNoteType().toString(),
-                "",
+                objectMapper.writeValueAsString(event.getContent()),
                 event.getNotebookId(),
                 event.getCreatorId(),
                 event.getCreatorId(),

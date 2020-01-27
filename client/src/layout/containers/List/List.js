@@ -5,7 +5,7 @@ import Body from './Body'
 
 const List = styled.div`
     width: 1632px;
-    margin: auto;
+    margin: 0 auto;
 `
 
 List.Head = Head

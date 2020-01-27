@@ -7,33 +7,43 @@ import Header from './Header'
 import Content from './Content'
 
 export default ({
-    title,
-    author,
-    createdAt,
-    content,
-    isEditable = true,
+    id,
+    note,
     titleRef,
     editorRef
 }) => {
 
-    return (
-        <Editor>
-            <Editor.Header>
-                <Header
-                    author={author}
-                    createdAt={createdAt}
-                />
-            </Editor.Header>
+    if (id && note) {
+        const { name, createdBy, createdAt, content } = note
+        return (
+            <Editor>
+                <Editor.Header>
+                    <Header author={createdBy} createdAt={createdAt}/>
+                </Editor.Header>
 
-            <Editor.Content>
-                <Content
-                    titleRef={titleRef}
-                    editorRef={editorRef}
-                    title={title}
-                    content={content}
-                    isEditable={isEditable}
-                />
-            </Editor.Content>
-        </Editor>
-    )
+                <Editor.Content>
+                    <Content title={name}
+                             content={content}
+                             titleRef={titleRef}
+                             editorRef={editorRef} />
+                </Editor.Content>
+            </Editor>
+        )
+
+    } else if (!id) {
+        return (
+            <Editor>
+                <Editor.Header>
+                    <Header/>
+                </Editor.Header>
+
+                <Editor.Content>
+                    <Content
+                             titleRef={titleRef}
+                             editorRef={editorRef} />
+                </Editor.Content>
+            </Editor>
+        )
+    }
+    return (<div>Loading...</div>)
 }

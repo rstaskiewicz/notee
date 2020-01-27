@@ -48,6 +48,7 @@ public class UserAccountEntity {
 
     boolean confirmed;
 
+    @Column(length = 100000)
     String avatarUrl;
 
     @OneToMany(mappedBy = "userAccount", cascade = ALL)

@@ -6,6 +6,7 @@ import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteId;
 import com.gitlab.lamapizama.notee.note.note.NoteName;
 import com.gitlab.lamapizama.notee.note.note.NoteType;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -32,15 +33,18 @@ public interface NotebookEvent extends DomainEvent<UUID> {
         @NonNull String noteName;
         @NonNull String creatorId;
         @NonNull NoteType noteType;
+        @NonNull FancyNoteContent content;
 
-        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, CreatorId creatorId, NotebookId notebookId) {
+        static NoteEntered now(NoteId noteId, NoteName noteName, NoteType noteType, CreatorId creatorId, NotebookId notebookId,
+                               FancyNoteContent content) {
             return new NoteEntered(
                     notebookId.getId(),
                     Instant.now(),
                     noteId.getId(),
                     noteName.getName(),
                     creatorId.getId(),
-                    noteType);
+                    noteType,
+                    content);
         }
     }
 

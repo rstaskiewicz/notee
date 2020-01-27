@@ -5,6 +5,7 @@ import com.gitlab.lamapizama.notee.note.creator.CreatorId;
 import com.gitlab.lamapizama.notee.note.note.NoteId;
 import com.gitlab.lamapizama.notee.note.note.NoteName;
 import com.gitlab.lamapizama.notee.note.note.NoteType;
+import com.gitlab.lamapizama.notee.note.note.content.FancyNoteContent;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteDeleted;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteDeletingFailed;
 import com.gitlab.lamapizama.notee.note.notebook.NotebookEvent.NoteEntered;
@@ -43,10 +44,11 @@ public class Notebook {
     @NonNull
     NotebookEntries entries;
 
-    public Either<NoteEnteringFailed, NoteEntered> enterNote(NoteName noteName, NoteType noteType, CreatorId creatorId) {
+    public Either<NoteEnteringFailed, NoteEntered> enterNote(NoteName noteName, NoteType noteType, CreatorId creatorId,
+                                                             FancyNoteContent content) {
         Option<Rejection> rejection = noteCanBeEntered(creatorId, noteName);
         if (rejection.isEmpty()) {
-            return announceSuccess(NoteEntered.now(generateNoteId(), noteName, noteType, creatorId, notebookId()));
+            return announceSuccess(NoteEntered.now(generateNoteId(), noteName, noteType, creatorId, notebookId(), content));
         }
         return announceFailure(NoteEnteringFailed.now(rejection.get(), notebookId(), creatorId));
     }

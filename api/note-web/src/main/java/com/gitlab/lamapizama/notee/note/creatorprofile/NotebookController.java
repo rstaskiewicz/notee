@@ -75,7 +75,8 @@ public class NotebookController {
         Try<Result> result = enteringNote.enter(new EnterNote(
                 new NotebookId(notebookId),
                 new NoteName(request.getNoteName()),
-                request.getNoteType()));
+                request.getNoteType(),
+                request.getContent()));
         return result
                 .map(success -> ok().build())
                 .getOrElse(status(INTERNAL_SERVER_ERROR).build());

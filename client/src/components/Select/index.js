@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Select } from '@notee/layout/components/Select'
 
@@ -9,8 +9,8 @@ export default ({
 }) => {
 
     const [ isOpen, setIsOpen ] = useState(false)
-    const [ selected, setSelected ] = useState({
-        notebookName: placeholder,
+    const [ selected, setSelected ] = useState( {
+        name: placeholder,
         value: null
     })
 
@@ -21,12 +21,17 @@ export default ({
         onSelect(picked)
     }
 
+    useEffect(() => {
+        if (options.length > 0)
+            setSelected(options[0])
+    }, [ options ])
+
     return (
         <Select>
             <Select.Input
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {selected.notebookName}
+                {selected.name}
             </Select.Input>
             {isOpen && (
                 <Select.Dropdown>
@@ -36,7 +41,7 @@ export default ({
                                 key={index}
                                 onClick={handleClick(index)}
                             >
-                                {item.notebookName}
+                                {item.name}
                             </Select.Item>
                         ))}
                     </Select.List>

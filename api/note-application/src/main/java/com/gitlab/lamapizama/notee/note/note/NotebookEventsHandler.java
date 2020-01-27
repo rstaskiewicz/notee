@@ -24,6 +24,7 @@ class NotebookEventsHandler {
                 new NoteName(event.getNoteName()),
                 event.getNoteType(),
                 new CreatorId(event.getCreatorId()),
-                new NotebookId(event.getNotebookId())));
+                new NotebookId(event.getNotebookId()),
+                event.getContent()));
     }
 }

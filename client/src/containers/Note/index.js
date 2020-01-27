@@ -11,6 +11,8 @@ import Header from '@notee/components/Header'
 import Editor from '@notee/components/Editor'
 
 import { loadNote } from '@notee/actions/notes'
+import { createNote, editNote } from '@notee/actions/notes'
+import { loadUserNotebooks } from '@notee/actions/notebooks'
 
 const defaultLabels = [
     'math',
@@ -29,12 +31,17 @@ const defaultNotebooks = [
 export default () => {
 
     const { id } = useParams()
+    const { userId } = useSelector(({ auth }) => auth.data)
     const note = useSelector(({ notes }) => notes.data[id])
+    const { data: notebooks } = useSelector(state => state.notebooks)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (id)
+        if (id) {
             dispatch(loadNote(id))
+        }
+        dispatch(loadUserNotebooks(userId))
+
     }, [ dispatch, id ])
 
     const titleRef = useRef(null)
@@ -46,8 +53,8 @@ export default () => {
         const editor = editorRef.current.instance
 
         editor.save()
-            .then(data => ({ title, content: data, ...meta }))
-            .then(console.log)
+            .then(data => ({ noteName: title, noteType: 'Public', content: data, tags: meta.labels, notebookId: meta.notebook.value }))
+            .then(data => dispatch(!id ? createNote(data) : editNote(id, data)))
 
     }
 
@@ -60,13 +67,15 @@ export default () => {
                 <Note>
                     <Note.Meta>
                         <Meta
-                            notebooks={defaultNotebooks}
+                            notebooks={notebooks.map(item => ({ name: item.notebookName, value: item.notebookId })) || defaultNotebooks}
                             labels={defaultLabels}
                             onSave={handleOnSave}
                         />
                     </Note.Meta>
                     <Note.Editor>
                         <Editor
+                            id={id}
+                            note={note}
                             titleRef={titleRef}
                             editorRef={editorRef}
                         />

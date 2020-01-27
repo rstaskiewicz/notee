@@ -28,3 +28,27 @@ export const loadNote = noteId => ({
     payload: { noteId }
 })
 
+
+export const CREATE_NOTE_REQUEST = '@CREATE_NOTE_REQUEST'
+export const CREATE_NOTE_SUCCESS = '@CREATE_NOTE_SUCCESS'
+export const CREATE_NOTE_FAILURE = '@CREATE_NOTE_FAILURE'
+
+export const createNote = values => ({
+    types: [ CREATE_NOTE_REQUEST, CREATE_NOTE_SUCCESS, CREATE_NOTE_FAILURE ],
+    endpoint: `/notebooks/${values.notebookId}/notes`,
+    payload: { ...values },
+    requestParams: {},
+    method: 'POST'
+})
+
+export const EDIT_NOTE_REQUEST = '@EDIT_NOTE_REQUEST'
+export const EDIT_NOTE_SUCCESS = '@EDIT_NOTE_SUCCESS'
+export const EDIT_NOTE_FAILURE = '@EDIT_NOTE_FAILURE'
+
+export const editNote = (id, values) => ({
+    types: [ EDIT_NOTE_REQUEST, EDIT_NOTE_SUCCESS, EDIT_NOTE_FAILURE ],
+    endpoint: `/notes/${id}`,
+    payload: { ...values },
+    requestParams: {},
+    method: 'POST'
+})

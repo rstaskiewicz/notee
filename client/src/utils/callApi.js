@@ -10,7 +10,7 @@ const getCall = (url, config) => axios.get(url, config)
 
 const postCall = (url, config, payload) => axios.post(url, payload, { method: 'POST', ...config })
 
-const putCall = (url, config, payload) => {}
+const putCall = (url, config, payload) => axios.put(url, payload, { method: 'PUT', ...config })
 
 const deleteCall = (url, config) => {}
 

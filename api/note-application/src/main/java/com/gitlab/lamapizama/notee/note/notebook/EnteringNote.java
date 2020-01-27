@@ -35,7 +35,7 @@ public class EnteringNote {
             Notebook notebook = findBy(command.getNotebookId());
             authentication.checkIfActionAllowed(notebook.owner(), creatorViews.findFriendEmailsFor(creatorId).asJava());
             Either<NoteEnteringFailed, NoteEntered> result = notebook.enterNote(
-                    command.getNoteName(), command.getNoteType(), creatorId);
+                    command.getNoteName(), command.getNoteType(), creatorId, command.getContent());
             return Match(result).of(
                     Case($Left($()), this::publishEvents),
                     Case($Right($()), this::publishEvents));
