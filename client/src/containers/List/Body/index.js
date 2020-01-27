@@ -21,7 +21,7 @@ export default () => {
     useEffect(() => {
         dispatch(loadUser(userId))
         dispatch(loadAllUserNotes(userId))
-    }, [ dispatch ])
+    }, [ dispatch, userId ])
 
     return (
         <Body>

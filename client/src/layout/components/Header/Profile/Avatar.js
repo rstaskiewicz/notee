@@ -7,5 +7,4 @@ export default styled.div`
     display: flex;
     box-sizing: border-box;
     margin: 0 8px;
-    margin-left: 24px;
 `

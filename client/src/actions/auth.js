@@ -74,14 +74,6 @@ export const signUp = user => dispatch => {
         avatar
     } = user
 
-    console.log(JSON.stringify({
-        username: name,
-        email: mail,
-        password,
-        matchingPassword: confirmPassword,
-        avatarUrl: avatar
-    }))
-
     return axios.post(REGISTER_API, {
         username: name,
         email: mail,

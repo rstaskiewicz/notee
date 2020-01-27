@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EditorJS from 'react-editor-js'
 
 import TOOLS from '../tools'
 
 import { Content } from '@notee/layout/components/Editor'
 
-export default ({ name, content }) => {
+export default ({
+    title = 'Untitled',
+    content = {},
+    onSave = () => null
+}) => {
+
+    const [ currentTitle, setCurrentTitle ] = useState(title)
+
+    const handleTitleChange = e => {
+        setCurrentTitle(e.target.value)
+    }
+
     return (
         <Content>
 
             <Content.Title>
                 <Content.Input
                     type="text"
-                    placeholder={name}
+                    value={currentTitle}
+                    onChange={handleTitleChange}
                 />
             </Content.Title>
 
@@ -20,9 +32,7 @@ export default ({ name, content }) => {
                 <EditorJS
                     tools={TOOLS}
                     data={content}
-                    onChange={console.log}
-                    onReady={() => console.log('starting editor.js ...')}
-                    onData={e => console.log('data saved: ', e)}
+                    placeholder="Let`s write an awesome story!"
                 />
             </Content.Note>
 

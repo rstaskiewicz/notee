@@ -129,7 +129,7 @@ export default ({
 
                 <Button
                     type="submit"
-                    modifiers={[ 'full-width', 'primary' ]}
+                    modifiers={[ 'full-width', 'big', 'primary' ]}
                 >
                     Register
                 </Button>

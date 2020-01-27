@@ -6,24 +6,47 @@ import { Editor } from '@notee/layout/components/Editor'
 import Header from './Header'
 import Content from './Content'
 
-export default ({ note }) => {
-    if (note) {
-        const { name, createdBy, createdAt, content } = note
-        return (
-            <Editor>
-                <Editor.Header>
-                    <Header createdBy={createdBy} createdAt={createdAt}/>
-                </Editor.Header>
+export default ({
+    title,
+    author,
+    createdAt,
+    content,
+    isEditable = true,
+    onChange = () => null
+}) => {
 
-                <Editor.Content>
-                    <Content name={name} content={content} />
-                </Editor.Content>
-            </Editor>
-        )
+    const handleTitleChange = e => {
+        onChange({
+            title: e.target.value,
+            content
+        })
     }
+
+    const handleContentChange = e => {
+        console.log(e)
+        onChange({
+            title
+        })
+    }
+
     return (
-        <div>
-            Loading...
-        </div>
+        <Editor>
+            <Editor.Header>
+                <Header
+                    author={author}
+                    createdAt={createdAt}
+                />
+            </Editor.Header>
+
+            <Editor.Content>
+                <Content
+                    title={title}
+                    content={content}
+                    isEditable={isEditable}
+                    handleTitleChange={handleTitleChange}
+                    handleContentChange={handleContentChange}
+                />
+            </Editor.Content>
+        </Editor>
     )
 }

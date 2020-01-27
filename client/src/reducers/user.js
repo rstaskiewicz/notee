@@ -5,7 +5,10 @@ import {
 } from '@notee/actions/user'
 
 const initialState = {
-    data: {},
+    data: {
+        username: 'Basia Kowalska',
+        avatarUrl: 'https://images.unsplash.com/photo-1510227272981-87123e259b17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=933&q=80'
+    },
     loading: true,
     error: null
 }

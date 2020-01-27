@@ -25,7 +25,7 @@ export default (
     useEffect(() => {
         dispatch(loadUserNotebooks(userId))
         dispatch(loadLastUserNotes(userId))
-    }, [ dispatch ])
+    }, [ dispatch, userId ])
 
     return (
         <Dashboard>

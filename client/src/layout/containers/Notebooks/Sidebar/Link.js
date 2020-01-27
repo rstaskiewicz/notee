@@ -13,7 +13,7 @@ const LINK_MODIFIERS = {
 export default styled.a`
     display: inline-flex;
     width: 100%;
-    padding: 2em 0;
+    padding: 1.25em 0;
     font-family: 'Lato', 'sans-serif';
     font-size: 0.875em;
     color: #bbb9c7;

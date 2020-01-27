@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faChevronDown as chevron
-    // faUserFriends as friends,
-    // faBell as bell
+    faChevronDown as chevron,
+    faUserFriends as friends,
+    faBell as bell
 } from '@fortawesome/free-solid-svg-icons'
 
 import { Profile } from '@notee/layout/components/Header'
@@ -16,14 +16,14 @@ import { Button } from '@notee/elements'
 
 export default () => {
 
-    const { data: { avatarUrl, fullName } } = useSelector(state => state.user)
+    const { avatarUrl, username } = useSelector(({ user }) => user.data)
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
 
     return (
         <Profile>
 
             <Profile.Bar />
-{/*
+
             <Profile.Actions>
 
                 <Profile.Action>
@@ -38,7 +38,7 @@ export default () => {
                     </Button.Icon>
                 </Profile.Action>
 
-            </Profile.Actions> */}
+            </Profile.Actions>
 
             <Profile.User>
                 <Profile.Avatar >
@@ -49,7 +49,7 @@ export default () => {
                 </Profile.Avatar>
 
                 <Profile.Name>
-                    {fullName}
+                    {username}
                 </Profile.Name>
 
                 <Button.Icon

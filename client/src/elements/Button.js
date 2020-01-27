@@ -13,60 +13,44 @@ const BUTTON_MODFIERS = {
         }
     `,
 
-    'light': () => css`
-        color: #c6cbdb;
-    `,
-
     'full-width': () => css`
         width: 100%;
     `,
 
-    'card-borderless': () => css`
-        border:none;
-        margin: 0px 70px;
+    'small': () => css`
+        min-width: 48px;
+        padding: .25em .75em;
+        font-size: .375em;
     `,
 
-    'notebooks-card-borderless': () => css`
-        border:none;
-        margin-right: 24px;
-        min-width: 64px;
-        padding: 5px 0px;
-    `,
-
-    'note-save': () => css`
-        border:none;
-        margin: 24px;
-        padding: 12px 0px;
-        background: #f0f0f0;
-
-        
-        &:hover {
-            background: #bbb9c7;
-            color: #ffffff;
-        }
+    'big': () => css`
+        min-width: 128px;
+        padding: .5rem 2rem;
+        font-size: .75em;
+        font-weight: 700;
+        text-transform: uppercase;
     `
 
 }
 
 const Button = styled.button`
-    font-size: .75em;
+    font-size: .625em;
     font-family: 'Open Sans', 'sans-serif';
-    font-weight: 700;
+    font-weight: 600;
     color: #bbb9c7;
     text-decoration: none;
-    text-transform: uppercase;
     display: inline-flex;
     position: relative;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    min-width: 128px;
     margin: 0;
-    padding: .5rem 2rem;
+    padding: .625em 1em;
+    min-width: 96px;
     user-select: none;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 8px;
     outline: none;
     border: 2px solid #bbb9c7;
     background: transparent;
@@ -91,19 +75,6 @@ Button.Icon = styled(Button)`
         background: transparent;
     }
     ${applyStyleModifiers(BUTTON_MODFIERS)}
-`
-
-const ICON_MODFIERS = {
-
-    'highlight': () => css`
-        color: #3454F5;
-    `
-
-}
-
-Button.FontAwesomeIcon = styled.image`
-    margin-right: 4px;
-    ${applyStyleModifiers(ICON_MODFIERS)}
 `
 
 export default Button

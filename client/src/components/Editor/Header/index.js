@@ -1,25 +1,29 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import * as moment from 'moment'
 
 import { Header } from '@notee/layout/components/Editor'
 import Avatar from '@notee/components/Avatar'
 
-export default ({ createdBy, createdAt }) => {
+export default ({
+    author,
+    createdAt
+}) => {
 
-    const user = useSelector(state => state.user)
+    const { username, avatarUrl } = author || useSelector(({ user }) => user.data)
+    const created = moment(createdAt) || moment()
 
     return (
         <Header>
 
             <Header.Info>
                 <Header.Meta>
-                    <Header.Author>Author: {createdBy}</Header.Author>
-                    <Header.Created>Created: {createdAt}</Header.Created>
+                    <Header.Author>Author: {username}</Header.Author>
+                    <Header.Created>Created: {created.format('lll').toString()}</Header.Created>
                 </Header.Meta>
                 <Header.Avatar>
                     <Avatar
-                        status={false}
-                        image={user.avatarUrl}
+                        image={avatarUrl}
                     />
                 </Header.Avatar>
             </Header.Info>

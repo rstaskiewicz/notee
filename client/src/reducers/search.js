@@ -1,7 +1,7 @@
 import {
-    SEARCH,
+    SEARCH_REQUEST,
     SEARCH_SUCCESS,
-    SEARCH_FAILD
+    SEARCH_FAILURE
 } from '@notee/actions/search'
 
 
@@ -15,13 +15,13 @@ export default (state = initialState, { type, payload }) => {
 
     switch (type) {
 
-        case SEARCH:
+        case SEARCH_REQUEST:
             return { ...state, loading: true, error: null }
 
         case SEARCH_SUCCESS:
-            return { ...state, data: payload, loading: false, error: null }
+            return { ...state, data: { ...payload }, loading: false, error: null }
 
-        case SEARCH_FAILD:
+        case SEARCH_FAILURE:
             return { ...state, error: payload, loading: false }
 
         default:

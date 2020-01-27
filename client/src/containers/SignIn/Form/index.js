@@ -83,11 +83,12 @@ export default ({
 
                 <Button
                     type="submit"
-                    modifiers="primary"
+                    modifiers={[ 'primary', 'big' ]}
                 >
                     Login
                 </Button>
                 <Button
+                    modifiers={[ 'big' ]}
                     onClick={onSignUp}
                 >
                     Sign Up
