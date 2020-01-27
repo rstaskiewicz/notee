@@ -31,18 +31,28 @@ export const signIn = ({ mail, password }) => dispatch => {
         }
     })
         .then(({ data: { access_token }}) => {
+
             const userId = jwt.decode(access_token).user_name
+            const payload = { token: access_token, userId: userId }
             localStorage.setItem('token', access_token)
             localStorage.setItem('userId', userId)
+
             dispatch({
                 type: SIGN_IN_SUCCESS,
-                payload: { token: access_token, userId: userId }
+                payload
             })
+
+            return Promise.resolve(payload)
+
         })
-        .catch(() => dispatch({
-            type: SIGN_IN_FAILURE,
-            payload: 'Invalid login credentials!'
-        }))
+        .catch(() => {
+            const payload = new Error('Invalid login credentials!')
+            dispatch({
+                type: SIGN_IN_FAILURE,
+                payload
+            })
+            return Promise.reject(payload)
+        })
 }
 
 export const SIGN_OUT = '@SIGN_OUT'
@@ -84,9 +94,12 @@ export const signUp = user => dispatch => {
         .then(() => dispatch({
             type: SIGN_UP_SUCCESS
         }))
-        .catch(error => dispatch({
-            type: SIGN_UP_FAILURE,
-            payload: error
-        }))
+        .catch(error => {
+            dispatch({
+                type: SIGN_UP_FAILURE,
+                payload: error
+            })
+            return Promise.reject(error)
+        })
 
 }
